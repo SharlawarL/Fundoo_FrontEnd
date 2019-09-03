@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>The </title>
+</head>
+<body>
+  <div class="container">
+  <div class="jumbotron text-center" style="margin-bottom:0">
+   
+  </div>
+  <div class="row">
+    <div class="col-md-6s">
+      <div class="card">
+        <label>  <h3>Reset Password</h3></label>
+        <hr>
+        <form (submit)="forgot($event)" autocomplete="off">
+          <div class="form-group">
+            {{ check_firstname }}
+                <input type="text" class="form-control" id="firstname" placeholder="Enter Firstname">
+          </div>
+          <div class="form-group">
+              {{ check_email }}
+            <input type="text" class="form-control" id="email" placeholder="Enter E-mail">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Reset password" class="btn btn-primary box">
+          </div>
+          <div class="form-group">
+            <hr>
+              <a routerLink="/" >Home Page</a> &nbsp;&nbsp;| &nbsp;&nbsp; 
+              <a routerLink="/register" >Create User</a>&nbsp;&nbsp; | &nbsp;&nbsp; 
+              <a routerLink="/login" >Login password</a> 
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

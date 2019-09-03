@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>The </title>
+</head>
+<body>
+  <div class="container">
+    <br><br><br>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <h5>Registrition Form</h5>
+          <hr>
+          <form (submit)="registerUser($event)" autocomplete="off">
+          <!-- For getting inputs from user -->
+            <div class="form-group">
+                {{ check_firstname }} 
+              <input type="text" id="firstname" placeholder="Enter FirstName" class="form-control" >
+            </div>
+            <div class="form-group">
+                {{ check_lastname }} 
+              <input type="text" id="lastname" placeholder="Enter LastName" class="form-control">
+            </div>
+            <div class="form-group">
+                {{ check_Email }} 
+              <input type="text" id="email" placeholder="Enter E-mail" class="form-control">
+            </div>
+            <div class="form-group">
+                {{ check_Password }} 
+              <input type="password" id="password" placeholder="Enter Password" class="form-control">
+            </div>
+            <div class="form-group">
+                {{ check_Passwordcc }} 
+              <input type="password" id="passwordcc" placeholder="Enter Password" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Register" class="btn btn-primary box">
+            </div> 
+            <div class="form-group">
+            <hr>
+              <a routerLink="/" >Home Page</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+              <a routerLink="/login" >login</a>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

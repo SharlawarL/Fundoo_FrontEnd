@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
         this.router.navigate(['/notes'])
+        this.Auth.setLog(true)
       }else{
         console.log(myObjStr["message"])
         
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
         }else{
           this.Password = "";
         }
+        this.Auth.setLog(false)
       }
       //console.log(data,"Data from to the server")
     })

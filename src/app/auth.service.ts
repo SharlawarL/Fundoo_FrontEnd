@@ -10,11 +10,20 @@ export class AuthService {
 
   private header = new HttpHeaders({'Content-Type': 'application/json'});
 
+  Log_In = false;
+
   constructor(
     //instance for http client
     private http: HttpClient
   ) { 
     
+  }
+
+  setLog(value: boolean){
+    this.Log_In = value
+  }
+  get get_log(){
+    return this.Log_In
   }
 
   //The method for login user and parameters are email and password
@@ -55,5 +64,11 @@ export class AuthService {
       resetToken
     },
     {responseType: 'text'})
+  }
+
+  createNotes(title,notes){
+    return this.http.post(this.site_url,{
+      title,notes
+    })
   }
 }

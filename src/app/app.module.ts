@@ -12,6 +12,8 @@ import { NotesComponent } from './notes/notes.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
 import { NotesDataComponent } from './notes-data/notes-data.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { NotesDataComponent } from './notes-data/notes-data.component';
       },
       {
         path : 'notes',
-        component:NotesComponent
+        component:NotesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path : 'forgot',
@@ -55,7 +58,7 @@ import { NotesDataComponent } from './notes-data/notes-data.component';
       }
     ])
   ],
-  providers: [],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,12 +17,12 @@
   <div class="row">
     <div class="col-md-3" id="collapseExample">
         <ul class="list-group">
-            <li class="list-group-item"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</li>
-            <li class="list-group-item"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</li>
-            <li class="list-group-item"> <Label>Label</Label></li>
-            <li class="list-group-item"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</li>
-            <li class="list-group-item"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</li>
-            <li class="list-group-item"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</a></li>
+            <li class="list-group-item"><Label>Label</Label></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</a></li>
             <li class="list-group-item"><i class="fa fa-trash-o"></i><a href=""> &nbsp;&nbsp;&nbsp;Logout</a></li>
           </ul>   
     
@@ -34,7 +34,7 @@
           take Note's
           </div>
       </div>
-      <div (click)="popUp()" *ngIf="!pop">
+      <div (click)="popUp()" (submit)="create_note(data)" *ngIf="!pop">
             <div class="take_notes">
               <form >
                   <div class="form-group">
@@ -54,7 +54,7 @@
                       <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
                       <!-- For Archive -->
                       <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
-                    <input type="submit" value="Close" (click)="popClose()" class="btn box">
+                    <input type="submit" value="Close" class="btn box">
                   </div>
               </form>
 

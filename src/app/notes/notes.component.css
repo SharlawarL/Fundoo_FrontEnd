@@ -13,3 +13,11 @@
 input{
     border:solid 2px white;
 }
+a{
+    text-decoration: none;
+    color: silver;
+}
+a:hover{
+    text-decoration: none;
+    color: black;
+}

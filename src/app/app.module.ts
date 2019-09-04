@@ -14,6 +14,7 @@ import { ResetComponent } from './reset/reset.component';
 import { NotesDataComponent } from './notes-data/notes-data.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { NotesService } from './notes.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { AuthService } from './auth.service';
       }
     ])
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,AuthGuard,NotesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

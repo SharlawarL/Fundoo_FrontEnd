@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { NotesService } from '../notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -12,7 +12,7 @@ export class NotesComponent implements OnInit {
 
   private pop = true;
 
-  constructor(private Auth: AuthService,
+  constructor(private Notes: NotesService,
     private rout: Router) { }
 
   ngOnInit() {
@@ -26,14 +26,14 @@ export class NotesComponent implements OnInit {
   }
 
   create_note(data){
+    this.pop = true;
     data.preventDefault()
     const target = data.terget
     const title = target.querySelector('#title').value
     const notes = target.querySelector('#notes').value
 
-    this.Auth.createNotes(title,notes).subscribe(data=>{
-      console.log(data)
-
+    this.Notes.createNotes(title,notes).subscribe(data=>{
+      window.alert(data);
     })
   }
 

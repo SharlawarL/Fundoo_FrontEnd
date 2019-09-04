@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fundoo Note's</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body >
+
+<nav class="navbar navbar-expand-md bg-light navbar-light" (click)="popClose()" >
+    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <img src="https://www.google.com/images/icons/product/keep-512.png" width="50" height="50" class="d-inline-block align-top" alt="">
+  <a class="navbar-brand" href="#">Fundoo Note's</a> 
+</nav>
+<br>
+  <div class="row">
+    <div class="col-md-3" id="collapseExample">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="#"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</a></li>
+            <li class="list-group-item"><Label>Label</Label></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</a></li>
+            <li class="list-group-item"><i class="fa fa-trash-o"></i><a href=""> &nbsp;&nbsp;&nbsp;Logout</a></li>
+          </ul>   
+    
+    </div>
+    <div class="col-md-5 notes">
+
+      <div (click)="popUp()" *ngIf="pop">
+        <div class="take_notes">
+          take Note's
+          </div>
+      </div>
+      <div (click)="popUp()" (submit)="create_note(data)" *ngIf="!pop">
+            <div class="take_notes">
+              <form >
+                  <div class="form-group">
+                    <input type="text" name="title" placeholder="Enter title">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="notes" placeholder="Enter Note's">
+                  </div>
+                  <div class="form-group">
+                    <!-- For reminder -->
+                      <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
+                      <!-- For colaborator -->
+                      <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+                      <!-- For color -->
+                      <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+                      <!-- For image -->
+                      <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+                      <!-- For Archive -->
+                      <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="Close" class="btn box">
+                  </div>
+              </form>
+
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
+
+

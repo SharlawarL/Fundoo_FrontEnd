@@ -6,7 +6,7 @@
 </head>
 <body >
 
-<nav class="navbar navbar-expand-md bg-light navbar-light" (click)="popClose()" >
+<nav class="navbar navbar-expand-md bg-light navbar-light navbar-fixed-top" (click)="popClose()" >
     <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,19 +14,20 @@
   <a class="navbar-brand" href="#">Fundoo Note's</a> 
 </nav>
 <br>
+<div class="sidebar" id="collapseExample">
+    <ul class="list-group">
+        <li class="list-group-item"><a href="#"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</a></li>
+        <li class="list-group-item"><a href="#"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</a></li>
+        <li class="list-group-item"><Label>Label</Label></li>
+        <li class="list-group-item"><a href="#"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</a></li>
+        <li class="list-group-item"><a href="#"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</a></li>
+        <li class="list-group-item"><a href="#"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</a></li>
+        <li class="list-group-item"><i class="fa fa-trash-o"></i><a href=""> &nbsp;&nbsp;&nbsp;Logout</a></li>
+      </ul>   
+
+</div>
+<div class="container">
   <div class="row">
-    <div class="col-md-3" id="collapseExample">
-        <ul class="list-group">
-            <li class="list-group-item"><a href="#"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</a></li>
-            <li class="list-group-item"><Label>Label</Label></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</a></li>
-            <li class="list-group-item"><i class="fa fa-trash-o"></i><a href=""> &nbsp;&nbsp;&nbsp;Logout</a></li>
-          </ul>   
-    
-    </div>
     <div class="col-md-5 notes">
 
       <div (click)="popUp()" *ngIf="pop">
@@ -34,14 +35,14 @@
           take Note's
           </div>
       </div>
-      <div (submit)="create_note(data)" *ngIf="!pop">
+      <div  *ngIf="!pop">
             <div class="take_notes">
-              <form >
+              <form (submit)="AddNotes($event)">
                   <div class="form-group">
-                    <input type="text" name="title" placeholder="Enter title">
+                    <input type="text" id="title" class="form-control" placeholder="Enter title">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="notes" placeholder="Enter Note's">
+                    <input type="text" id="notes" class="form-control" placeholder="Enter Note's">
                   </div>
                   <div class="form-group">
                     <!-- For reminder -->
@@ -54,15 +55,38 @@
                       <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
                       <!-- For Archive -->
                       <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
-                    <input type="submit" value="Close" class="btn box">
+                    <input type="submit" class="form-control" value="Close" class="btn box">
                   </div>
               </form>
 
             </div>
         </div>
-
+      </div>
     </div>
-  </div>
+<!-- Retriving Creating Notes -->
+          <!-- <div class="row"> -->
+            <div class="notes_cards" *ngFor ="let d of data;">
+                <div class="card-body">
+                  <h5>{{d.title}}</h5>
+                  <p>{{d.Notes}}</p>
+                  <div class="options">
+                       <!-- For reminder -->
+                       <i class="fa fa-bell-o "></i> &nbsp;&nbsp;&nbsp;
+                    
+                       <!-- For colaborator -->
+                       <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+                       <!-- For color -->
+                       <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+                       <!-- For image -->
+                       <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+                       <!-- For Archive -->
+                       <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+                  </div>
+                </div>
+            <!-- </div> -->
+           </div>
+        </div>
+   
 
 </body>
 </html>

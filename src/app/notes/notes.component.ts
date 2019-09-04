@@ -11,11 +11,25 @@ import { FormControl } from '@angular/forms';
 export class NotesComponent implements OnInit {
 
   private pop = true;
+  public data: any;
+  loading: boolean;
 
-  constructor(private Notes: NotesService,
-    private rout: Router) { }
+  constructor(
+    private Notes: NotesService,
+    private rout: Router) { 
+    }
 
-  ngOnInit() {
+  ngOnInit():void {
+    this.loading=true
+    this.Notes.Get_Notes().subscribe(Note_data=>{
+      this.data = Note_data
+      console.log(Note_data)
+      this.loading=false
+    })
+    
+  }
+  _initialize(): void {
+    
   }
 
   popUp(){
@@ -25,16 +39,31 @@ export class NotesComponent implements OnInit {
     this.pop = true;
   }
 
-  create_note(data){
-    this.pop = true;
-    data.preventDefault()
-    const target = data.terget
+  // for adding Notes
+  AddNotes(event){
+    // getting data from inputs
+    event.preventDefault()
+    const target = event.target
     const title = target.querySelector('#title').value
     const notes = target.querySelector('#notes').value
 
-    this.Notes.createNotes(title,notes).subscribe(data=>{
-      window.alert(data);
-    })
+    this.pop = true
+
+    // passing data for notes service
+    this.Notes.createNotesPost(title,notes).subscribe(data=>{
+      const myObjStr = JSON.parse(data);
+      if(myObjStr["success"])
+      {
+        // this.router.navigate(['/home'])
+        console.log(myObjStr["message"])
+
+        this.Notes.Get_Notes().subscribe(Note_data=>{
+          this.data = Note_data
+          console.log(Note_data)
+          this.loading=false
+        })
+      }
+     })
   }
 
 }

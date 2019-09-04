@@ -46,7 +46,7 @@ import { NotesService } from './notes.service';
       {
         path : 'notes',
         component:NotesComponent,
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
       },
       {
         path : 'forgot',

@@ -15,9 +15,16 @@ export class NotesService {
     
   }
 
-  createNotes(title, notes)
+  // creating Notes
+  createNotesPost(title, notes)
   {
-    return this.http.post(this.site_url+'CreateNotes/',{title,notes})
+    return this.http.post(this.site_url+'CreateNotes/',{title,notes},{responseType: 'text'})
+  }
+
+  // retriving Notes Data
+  Get_Notes()
+  {
+    return this.http.get(this.site_url+'Get_Notes/')
   }
 
 

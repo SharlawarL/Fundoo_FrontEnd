@@ -9,6 +9,7 @@
     box-shadow: 0px 0px 5px black;
     width: 500px;
     border-radius: 10px;
+    margin: 0px auto;
 }
 input{
     border:solid 2px white;
@@ -20,4 +21,21 @@ a{
 a:hover{
     text-decoration: none;
     color: black;
+}
+.sidebar{
+    float: left;
+}
+
+.notes_cards{
+    width: 600px;
+    margin: 10px auto;
+    box-shadow: 0px 0px 20px black;
+    border-radius: 10px;
+}
+.options{
+    display: none;
+}
+.notes_cards:hover .options {
+    color: red;
+    display: block;
 }

@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class NotesService {
 
-  private site_url = "http://localhost/Fundoo_BackEnd/Notes/";
+  private notes_url = "http://localhost/Fundoo_BackEnd/Notes/";
 
   constructor(
     //instance for http client
@@ -16,15 +16,15 @@ export class NotesService {
   }
 
   // creating Notes
-  createNotesPost(title, notes)
+  createNotesPost(title, Notes)
   {
-    return this.http.post(this.site_url+'CreateNotes/',{title,notes},{responseType: 'text'})
+    return this.http.post(this.notes_url+'CreateNotes/',{title,Notes},{responseType: 'text'})
   }
 
   // retriving Notes Data
   Get_Notes()
   {
-    return this.http.get(this.site_url+'Get_Notes/')
+    return this.http.get(this.notes_url+'Get_Notes/')
   }
 
 

@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
 })
 export class NotesComponent implements OnInit {
 
-  private pop = true;
+  private show = true;
   public data: any;
   loading: boolean;
 
@@ -20,50 +20,44 @@ export class NotesComponent implements OnInit {
     }
 
   ngOnInit():void {
-    this.loading=true
-    this.Notes.Get_Notes().subscribe(Note_data=>{
-      this.data = Note_data
-      console.log(Note_data)
-      this.loading=false
-    })
-    
-  }
-  _initialize(): void {
-    
+    //loading data on load
+    this.get_Notes()
   }
 
-  popUp(){
-    this.pop = false;
-  }
-  popClose(){
-    this.pop = true;
+  //hidding take note
+  showTakeNotes(){
+    this.show = false;
   }
 
-  // for adding Notes
+  // Adding New Notes
   AddNotes(event){
-    // getting data from inputs
+    // data taking from user input
     event.preventDefault()
     const target = event.target
     const title = target.querySelector('#title').value
     const notes = target.querySelector('#notes').value
+    this.show = true
 
-    this.pop = true
-
-    // passing data for notes service
+    // passing data towords to servece for inserting into database
     this.Notes.createNotesPost(title,notes).subscribe(data=>{
       const myObjStr = JSON.parse(data);
       if(myObjStr["success"])
       {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
-
-        this.Notes.Get_Notes().subscribe(Note_data=>{
-          this.data = Note_data
-          console.log(Note_data)
-          this.loading=false
-        })
+        //onload notes will be refresh and get notes
+        this.get_Notes()
       }
      })
   }
 
+  // Get the Notes which are store into database
+  get_Notes(){
+
+    //getting data from service
+    this.Notes.Get_Notes().subscribe(Note_data=>{
+      this.data = Note_data
+      console.log(Note_data)
+    })
+  }
 }

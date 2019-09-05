@@ -15,6 +15,7 @@ import { NotesDataComponent } from './notes-data/notes-data.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { NotesService } from './notes.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NotesService } from './notes.service';
     NotesComponent,
     ForgotComponent,
     ResetComponent,
-    NotesDataComponent
+    NotesDataComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

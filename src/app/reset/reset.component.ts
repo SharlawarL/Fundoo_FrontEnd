@@ -11,6 +11,10 @@ import { AuthService } from '../auth.service';
 export class ResetComponent implements OnInit {
 
   public error = [];
+  public User_check = String
+
+  private check_Password = "";
+  private check_Passwordcc = "";
 
   public form = {
     resetToken : null
@@ -29,6 +33,10 @@ export class ResetComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.Auth.check_User(this.form.resetToken).subscribe(Response=>{
+      const User_check = JSON.parse(Response)
+      console.log(User_check)
+    })
   }
 
   reset_password(event){
@@ -36,9 +44,10 @@ export class ResetComponent implements OnInit {
     const target = event.target
     // getting value from input form
     const new_password = target.querySelector('#password').value
+    const new_passwordcc = target.querySelector('#passwordcc').value
     const resetToken = target.querySelector('#resetToken').value
 
-    this.Auth.reset_password(new_password,resetToken).subscribe(data=>{
+    this.Auth.reset_password(new_password,new_passwordcc,resetToken).subscribe(data=>{
       const myObjStr = JSON.parse(data);
       if(myObjStr["success"])
       {
@@ -47,8 +56,20 @@ export class ResetComponent implements OnInit {
         window.alert(myObjStr["message"])
         this.router.navigate(['/login'])
       }else{
-        console.log(myObjStr,"error"),
-        window.alert(myObjStr["message"])
+        //console.log(myObjStr,"error")
+        //for password
+        if(myObjStr["password"]){
+          this.check_Password = myObjStr["password"];
+        }else{
+          this.check_Password = "";
+        }
+
+        //for conform password
+        if(myObjStr["passwordcc"]){
+          this.check_Passwordcc = myObjStr["passwordcc"];
+        }else{
+          this.check_Passwordcc = "";
+        }
       }
       //console.log(data,"Data from to the server")
     })

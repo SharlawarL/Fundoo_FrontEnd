@@ -46,7 +46,7 @@ export class NotesComponent implements OnInit {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
         //onload notes will be refresh and get notes
-        this.get_Notes()
+        //this.get_Notes()
       }
      })
   }

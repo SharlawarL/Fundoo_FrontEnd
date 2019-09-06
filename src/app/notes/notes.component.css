@@ -49,6 +49,7 @@ a:hover{
 .container{
     position: relative;
     width: 800px; 
+    margin-left: 300px;
 }
 
 .notes_cards{
@@ -59,7 +60,8 @@ a:hover{
     height: 100%;
     margin: 10px;
     text-align: justify;
-    font-size: 10px; 
+    font-size: 10px;
+    
 }
 .options{
     display: none;

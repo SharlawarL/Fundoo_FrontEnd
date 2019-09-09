@@ -16,15 +16,16 @@ export class NotesService {
   }
 
   // creating Notes
-  createNotesPost(title, Notes)
+  createNotesPost(title, Notes ,user_id)
   {
-    return this.http.post(this.notes_url+'CreateNotes/',{title,Notes},{responseType: 'text'})
+    console.log(title)
+    return this.http.post(this.notes_url+'CreateNotes/',{title,Notes,user_id},{responseType: 'text'})
   }
 
   // retriving Notes Data
-  Get_Notes()
+  Get_Notes(user_token)
   {
-    return this.http.get(this.notes_url+'Get_Notes/')
+    return this.http.get(this.notes_url+'Get_Notes?token='+user_token)
   }
 
 

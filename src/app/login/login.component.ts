@@ -45,12 +45,15 @@ export class LoginComponent implements OnInit {
     const password = target.querySelector('#password').value
 
     this.Auth.User_login(email,password).subscribe(data=>{
+      console.log(data)
       const myObjStr = JSON.parse(data);
       if(myObjStr["success"])
       {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
-        this.router.navigate(['/notes'])
+        localStorage.setItem('User',myObjStr["Token"])
+        localStorage.setItem('Notes_view','Grid')
+        this.router.navigate(['/dashboard'])
         this.Auth.setLog(true)
       }else{
         console.log(myObjStr["message"])

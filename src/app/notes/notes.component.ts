@@ -13,6 +13,8 @@ export class NotesComponent implements OnInit {
   private show = true;
   public data: any;
   loading: boolean;
+  public Token = localStorage.getItem('User')
+  
 
   constructor(
     private Notes: NotesService,
@@ -36,28 +38,34 @@ export class NotesComponent implements OnInit {
     const target = event.target
     const title = target.querySelector('#title').value
     const notes = target.querySelector('#notes').value
+    const token = this.Token
     this.show = true
 
     // passing data towords to servece for inserting into database
-    this.Notes.createNotesPost(title,notes).subscribe(data=>{
+    this.Notes.createNotesPost(title,notes,token).subscribe(data=>{
       const myObjStr = JSON.parse(data);
       if(myObjStr["success"])
       {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
         //onload notes will be refresh and get notes
-        //this.get_Notes()
+        this.get_Notes()
       }
      })
   }
 
   // Get the Notes which are store into database
   get_Notes(){
-
+    const user_token = this.Token
     //getting data from service
-    this.Notes.Get_Notes().subscribe(Note_data=>{
+    this.Notes.Get_Notes(user_token).subscribe(Note_data=>{
       this.data = Note_data
       console.log(Note_data)
     })
+  }
+
+  //open model box
+  modelBox(){
+    
   }
 }

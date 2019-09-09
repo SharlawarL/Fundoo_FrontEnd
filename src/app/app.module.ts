@@ -16,6 +16,9 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { NotesService } from './notes.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReminderComponent } from './reminder/reminder.component';
+import { TrashComponent } from './trash/trash.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ForgotComponent,
     ResetComponent,
     NotesDataComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReminderComponent,
+    TrashComponent,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +64,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       {
         path : 'reset',
         component:ResetComponent
+      },
+      {
+        path : 'dashboard',
+        component: DashboardComponent,
+        children:[
+          { path:'notes', component: NotesComponent },
+          { path:'reminder', component: ReminderComponent },
+          { path:'archive', component: ArchiveComponent },
+          { path:'trash', component: TrashComponent }
+        ]
       }
     ])
   ],
@@ -65,3 +81,5 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export const rountingComponent = [DashboardComponent,
+  NotesComponent,ReminderComponent,ArchiveComponent,TrashComponent]

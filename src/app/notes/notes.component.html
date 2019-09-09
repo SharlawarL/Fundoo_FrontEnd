@@ -1,73 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Fundoo Note's</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body >
-
-<!-- ********* Top Navbar ***************************-->
-<nav class="navbar navbar-expand-md bg-light navbar-light navbar-fixed-top" (click)="popClose()" >
-    <button class="btn" type="button" data-toggle="collapse" data-target="#left_sidebar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    <img src="https://www.google.com/images/icons/product/keep-512.png" width="50" height="50" class="d-inline-block align-top" alt="">
-  <a class="navbar-brand" href="#">Fundoo Note's</a> 
-</nav>
-
-<!-- ********* left Sidebar ***************************-->
-<div class="sidebar" id="left_sidebar">
-    <ul class="list-group">
-        <li class="list-group-item list Active"><a href="#"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</a></li>
-        <li class="list-group-item list"><a href="#"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</a></li>
-        <li class="list-group-item"><Label>Label</Label></li>
-        <li class="list-group-item list"><a href="#"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's</a></li>
-        <li class="list-group-item list"><a href="#"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</a></li>
-        <li class="list-group-item list"><a href="#"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</a></li>
-        <li class="list-group-item list"><a href=""><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Logout</a></li>
-      </ul>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-5 notes">
-      <!-- ************* For creating notes ************************** -->
-      <div (click)="showTakeNotes()" *ngIf="show">
-        <div class="take_notes">
-          take Note's
-          </div>
-      </div>
-      <div *ngIf="!show">
-        <div class="take_notes">
-          <form (submit)="AddNotes($event)">
-            <div class="form-group">
-              <input type="text" id="title" class="form-control" placeholder="Enter title">
-            </div>
-            <div class="form-group">
-              <input type="text" id="notes" class="form-control" placeholder="Enter Note's">
-            </div>
-            <div class="form-group">
-                    <!-- For reminder -->
-                      <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
-                      <!-- For colaborator -->
-                      <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
-                      <!-- For color -->
-                      <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
-                      <!-- For image -->
-                      <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
-                      <!-- For Archive -->
-                      <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
-                    <input type="submit" class="form-control" value="Close" class="btn box">
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ******************* Retriving Creating Notes ****************** -->
-          <div class="col"  >
-            <div class="row-md-3 notes_cards" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start">
-                <div class="card-body"  >
+        <div class="row"  colspan="3" >
+            <div class="notes_cards" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start">
+                <div class="card-body"  (click)="modelBox()" data-toggle="modal" data-target="#myModal1">
                   <h5> <b>{{d.title}} </b></h5>
                   <p>{{d.Notes}}</p>
                   <div class="options">
@@ -84,11 +18,43 @@
                        <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
                   </div>
                 </div>
+
+               <!-- The Modal -->
+<div class="modal" id="myModal1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{d.title}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            {{d.Notes}}
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <!-- For reminder -->
+          <i class="fa fa-bell-o "></i> &nbsp;&nbsp;&nbsp;
+                      
+          <!-- For colaborator -->
+          <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+          <!-- For color -->
+          <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+          <!-- For image -->
+          <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+          <!-- For Archive -->
+          <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div> 
             </div>
-          </div>
-</div>   
-   
-</body>
-</html>
+           </div>
 
 

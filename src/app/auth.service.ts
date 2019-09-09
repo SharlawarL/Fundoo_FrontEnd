@@ -69,4 +69,10 @@ export class AuthService {
   check_User(token){
       return this.http.post(this.user_site+'check_reset_token/',{token},{responseType:'text'})
   }
+
+  //get the user details
+  Get_User(user_token)
+  {
+    return this.http.get(this.user_site+'Get_User?token='+user_token)
+  }
 }

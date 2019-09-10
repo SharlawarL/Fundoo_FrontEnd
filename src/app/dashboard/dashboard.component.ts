@@ -15,10 +15,12 @@ export class DashboardComponent implements OnInit {
   public user_data: any;
   public data: any;
   private add_reminder = true
-  private reminder_box = true
+  private reminder : any
   loading: boolean;
   public Token = localStorage.getItem('User')
   public Notes_view = localStorage.getItem('Notes_View')
+  public showSetReminmder = true;
+  public showInputReminmder = true;
 
   constructor(
     private Notes: NotesService,
@@ -39,29 +41,25 @@ export class DashboardComponent implements OnInit {
     this.show = false;
   }
 
-  // Adding New Notes
-  AddNotes(event){
+   // Adding New Notes
+   AddNotes(event){
     // data taking from user input
     event.preventDefault()
     const target = event.target
     const title = target.querySelector('#title').value
-    const notes = target.querySelector('#notes').value
-    const user_token = this.Token
+    const Notes = target.querySelector('#notes').value
+    const reminder = target.querySelector('#reminder').value
+    const token = this.Token
+    let Notes_data = 'title='+title+'&Notes='+Notes+'&user_id='+token+'&reminder='+reminder
     this.show = true
 
-
     // passing data towords to servece for inserting into database
-    this.Notes.createNotesPost(title,notes,user_token).subscribe(data=>{
-      const myObjStr = JSON.parse(data);
-      if(myObjStr["success"])
-      {
-        // this.router.navigate(['/home'])
-        console.log(myObjStr["message"])
-        //onload notes will be refresh and get notes
-        this.get_Notes()
-      }
+    this.Notes.createNotesPost(Notes_data).subscribe(data=>{
+      console.log(data)
+      this.get_Notes
      })
   }
+
 
   // Get the Notes which are store into database
   get_Notes(){
@@ -69,7 +67,6 @@ export class DashboardComponent implements OnInit {
     //getting data from service
     this.Notes.Get_Notes(this.Token).subscribe(Note_data=>{
       this.data = Note_data
-      console.log(Note_data)
     })
   }
 
@@ -78,7 +75,6 @@ export class DashboardComponent implements OnInit {
     //getting data from service
     this.Auth.Get_User(this.Token).subscribe(User_data=>{
       this.user_data = User_data
-      console.log(User_data)
     })
   }
 
@@ -93,10 +89,14 @@ export class DashboardComponent implements OnInit {
   }
 
   //for adding reminder
-  Add_reminder()
+  Add_reminder(event)
   {
-    this.reminder_box = false
-
+    this.showSetReminmder = true;
+    this.showInputReminmder = false;
+    event.preventDefault()
+    const target = event.target
+    const reminder_set = target.querySelector('#rdate').value
+    this.reminder = reminder_set
   }
 
   //for show archive page
@@ -116,9 +116,21 @@ export class DashboardComponent implements OnInit {
     this.rout.navigate(['/dashboard/notes'],{relativeTo: this.route});
   }
   Note_view(){
-    if(this.Notes_view == 'List')
-      localStorage.setItem('Notes_view','Grid')
-    if(this.Notes_view == 'Grid')
-      localStorage.setItem('Notes_view','List')
+    console.log("Welcome") 
+    if(localStorage.getItem('Notes_View') == 'Grid')
+    {
+      localStorage.removeItem('Notes_View')
+      localStorage.setItem('Notes_View','List')  
+    }
+    if(localStorage.getItem('Notes_View') == 'List')
+    {
+      localStorage.removeItem('Notes_View')
+      localStorage.setItem('Notes_View','Grid')  
+    } 
+  }
+
+  setRemider()
+  {
+    this.showSetReminmder = false;
   }
 }

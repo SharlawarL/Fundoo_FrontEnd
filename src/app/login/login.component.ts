@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['/home'])
         console.log(myObjStr["message"])
         localStorage.setItem('User',myObjStr["Token"])
-        localStorage.setItem('Notes_view','Grid')
+        localStorage.setItem('Notes_View','Grid')
         this.router.navigate(['/dashboard'])
         this.Auth.setLog(true)
       }else{

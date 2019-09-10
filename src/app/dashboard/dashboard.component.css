@@ -36,6 +36,7 @@ a:hover{
 .list:hover{
     background-color:rgb(245, 241, 236);
     color: black;
+    cursor: pointer;
 }
 .Active{
     background-color:bisque;
@@ -47,9 +48,7 @@ a:hover{
 }
 
 .container{
-    position: relative;
-    width: 800px; 
-    margin-left: 300px;
+    width: 800px;
 }
 
 .notes_cards{
@@ -90,6 +89,7 @@ a:hover{
     right: 0px;
     margin-left: 20px; 
     cursor: pointer;
+    width: 50px;
 }
 .dropdown-toggle{
     float: right;
@@ -97,6 +97,7 @@ a:hover{
 .menu-item{
     padding: 5px 10px;
     font-size: 15px;
+    cursor: pointer;
 }
 .menu-item-profile{
     padding: 5px 10px;
@@ -117,13 +118,23 @@ a:hover{
     border-radius: 10px;
     padding-left: 20px;
 }
+.setRemider{
+    width: 300px;
+    position: absolute;
+    background-color: white;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding: 10px 10px;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+}
 /* for mobile view */
 @media screen and (max-width: 600px) {
-   .sidebar a{
+   .sidebar{
        display: hidden;
-       position: absolute;
+       position: relative;
        z-index: 10;
-
+       width: 100%;
    }
    .take_notes{
        margin-left: 0px;
@@ -141,4 +152,17 @@ a:hover{
    .notes_cards{
        width: 100%;
    }
+   .search{
+    width: 100%;
+    background-color: #f5f4f4;
+    box-shadow: 0px 0px 1px silver;
+    }
+    .dropdown{
+        float: left;
+        right: 0px;
+        margin-left: 20px;
+        width: 20%;
+        cursor: pointer;
+        padding-top: 20px;
+    }
 }

@@ -12,20 +12,26 @@ export class NotesService {
     //instance for http client
     private http: HttpClient
   ) { 
-    
   }
 
   // creating Notes
-  createNotesPost(title, Notes ,user_id)
+  createNotesPost(Notes_data)
   {
-    console.log(title)
-    return this.http.post(this.notes_url+'CreateNotes/',{title,Notes,user_id},{responseType: 'text'})
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.notes_url+'CreateNotes/',Notes_data,{headers: header})
   }
 
   // retriving Notes Data
   Get_Notes(user_token)
   {
     return this.http.get(this.notes_url+'Get_Notes?token='+user_token)
+  }
+
+  //update notes
+  Update_Notes(Notes_data)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.notes_url+'Update_Notes/', Notes_data,{headers: header})
   }
 
 

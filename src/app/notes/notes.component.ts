@@ -22,6 +22,7 @@ export class NotesComponent implements OnInit{
   public model_reminder : any;
   public showSetReminmder = true;
   success : any
+  public Note_view : boolean;
   
 
   constructor(
@@ -32,6 +33,11 @@ export class NotesComponent implements OnInit{
   ngOnInit():void {
     //loading data on load
     this.get_Notes()
+    console.log(localStorage.getItem('View'))
+    if(localStorage.getItem('View') == 'Grid')
+      this.Note_view = true
+    if(localStorage.getItem('View') == 'List')
+      this.Note_view = false
   }
 
   //hidding take note
@@ -84,7 +90,7 @@ export class NotesComponent implements OnInit{
      const id = target.querySelector('#Notes_id').value
      let body = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
      this.Notes.Update_Notes(body).subscribe(data=>
-      {
+    {
         console.log(data)
         this.get_Notes()
       })

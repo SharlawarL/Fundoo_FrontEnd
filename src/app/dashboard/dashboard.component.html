@@ -27,8 +27,12 @@
       <i class="fa fa-refresh" style="font-size:24px"></i>
   </div>
 
-  <!-- list view or Grid view -->
-  <div href="#" class="dropdown" data-toggle="tooltip" title="List View" (click)="Note_view()">
+  <!-- Grid view -->
+  <div href="#" class="dropdown" *ngIf="Notes_view" data-toggle="tooltip" title="Grid View" (click)="Note_view_grid()">
+    <i class="fa fa-qrcode" style="font-size:24px"></i>
+  </div>
+   <!-- list view -->
+   <div href="#" class="dropdown" *ngIf="!Notes_view" data-toggle="tooltip" title="List View" (click)="Note_view_list()">
     <i class="fa fa-bars" style="font-size:24px"></i>
   </div>
 

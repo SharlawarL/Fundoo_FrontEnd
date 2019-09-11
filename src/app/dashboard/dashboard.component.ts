@@ -18,9 +18,10 @@ export class DashboardComponent implements OnInit {
   private reminder : any
   loading: boolean;
   public Token = localStorage.getItem('User')
-  public Notes_view = localStorage.getItem('Notes_View')
   public showSetReminmder = true;
   public showInputReminmder = true;
+  public Notes_view = true;
+  public view_set = localStorage.setItem('View','Grid');
 
   constructor(
     private Notes: NotesService,
@@ -115,18 +116,15 @@ export class DashboardComponent implements OnInit {
   refresh(){
     this.rout.navigate(['/dashboard/notes'],{relativeTo: this.route});
   }
-  Note_view(){
-    console.log("Welcome") 
-    if(localStorage.getItem('Notes_View') == 'Grid')
-    {
-      localStorage.removeItem('Notes_View')
-      localStorage.setItem('Notes_View','List')  
-    }
-    if(localStorage.getItem('Notes_View') == 'List')
-    {
-      localStorage.removeItem('Notes_View')
-      localStorage.setItem('Notes_View','Grid')  
-    } 
+  Note_view_grid(){
+    this.Notes_view = false; 
+    this.view_set = localStorage.setItem('View','List');
+    console.log("Grid")
+  }
+  Note_view_list(){
+    this.Notes_view = true; 
+    this.view_set = localStorage.setItem('View','Grid');
+    console.log("list")
   }
 
   setRemider()

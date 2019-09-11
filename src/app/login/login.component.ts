@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   private Email ="";
   private Password ="";
   private box_color = "silver";
-  public success = "lalit";
+  public success : boolean;
   public message = "";
 
   public form = {
@@ -33,8 +33,14 @@ export class LoginComponent implements OnInit {
       )
     }
   ngOnInit() {
-    if(this.success){
-            this.message ="Your email is verified... now you can login.."
+    if(this.success == null){
+      this.message = "";
+    }
+    if(this.success == true){
+        this.message ="Your email is verified... now you can login.."
+    }
+    if(!this.success == false){
+        this.message ="Anauthorised user..."
     }
   }
 

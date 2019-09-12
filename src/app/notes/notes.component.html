@@ -1,6 +1,13 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="row"  colspan="3" >
-            <div class="notes_cards"  (click)="modelBox(d)" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start">
+        <div class="row"  colspan="3"
+            cdkDropList
+            #todoList="cdkDropList"
+            cdkDropListOrientation="horizontal"
+            [cdkDropListData]="data"
+            (cdkDropListDropped)="drop($event)" >
+            
+            <div class="notes_cards"  (click)="modelBox(d)" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start" 
+            cdkDrag>
               
                 <div class="card-body" *ngIf="Note_view" data-toggle="modal" data-target="#myModal1">
                   <input type="hidden" id="note_id" >
@@ -22,6 +29,7 @@
                 </div>
               </div>
              </div>
+        
 
                <!-- The Modal -->
 <div class="modal" id="myModal1">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop'; 
 
 
 @Component({
@@ -95,4 +96,15 @@ export class NotesComponent implements OnInit{
         this.get_Notes()
       })
    }
+
+   drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  }
 }

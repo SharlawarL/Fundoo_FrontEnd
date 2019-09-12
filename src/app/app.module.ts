@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import { TrashComponent } from './trash/trash.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { DragDropModule} from '@angular/cdk/drag-drop'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
@@ -46,6 +47,7 @@ import { FormsModule } from '@angular/forms';
     NoopAnimationsModule,
     MatButtonModule,
     MatMenuModule,
+    DragDropModule,
     RouterModule.forRoot([
       {
         path : 'login',

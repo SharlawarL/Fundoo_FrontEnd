@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit  } from '@angular/core';
 import { NotesService } from '../notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop'; 
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class NotesComponent implements OnInit{
   public model_reminder : any;
   public showSetReminmder = true;
   success : any
-  public Note_view : boolean;
-  
+  public Note_view ="";
+  view:String;
 
   constructor(
     private Notes: NotesService,
@@ -35,12 +35,18 @@ export class NotesComponent implements OnInit{
     //loading data on load
     this.get_Notes()
     console.log(localStorage.getItem('View'))
-    if(localStorage.getItem('View') == 'Grid')
-      this.Note_view = true
-    if(localStorage.getItem('View') == 'List')
-      this.Note_view = false
+    this.Notes.currentView.subscribe(view => this.view = view)
   }
 
+  Note_view_grid()
+  {
+    this.Note_view = "Grid"
+  }
+  Note_view_list()
+  {
+    this.Note_view = "List"
+    this.data.changeView("Hello from Sibling")
+  }
   //hidding take note
   showTakeNotes(){
     this.show = false;

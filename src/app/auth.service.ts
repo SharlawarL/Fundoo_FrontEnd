@@ -75,4 +75,9 @@ export class AuthService {
   {
     return this.http.get(this.user_site+'Get_User?token='+user_token)
   }
+
+  ViewChange()
+  {
+    
+  }
 }

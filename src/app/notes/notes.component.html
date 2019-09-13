@@ -6,14 +6,15 @@
             [cdkDropListData]="data"
             (cdkDropListDropped)="drop($event)" >
             
-            <div class="notes_cards"  (click)="modelBox(d)" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start" 
+            <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
+            (click)="modelBox(d)" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start" 
             cdkDrag>
               
-                <div class="card-body" *ngIf="Note_view" data-toggle="modal" data-target="#myModal1">
+                <div class="card-body" data-toggle="modal" data-target="#myModal1">
                   <input type="hidden" id="note_id" >
                   <h5> <b>{{d.title}} </b></h5>
                   <p>{{d.Notes}}</p>
-                  <p>{{d.reminder}}</p>
+                  <p><i class="fa fa-clock-o"></i> {{d.reminder}}</p>
                   <div class="options">
                        <!-- For reminder -->
                        <i class="fa fa-bell-o "></i> &nbsp;&nbsp;&nbsp;

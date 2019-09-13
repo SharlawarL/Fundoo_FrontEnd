@@ -89,12 +89,26 @@
 <!-- ********* left Sidebar ***************************-->
 <div class="sidebar sidebar-left" id="left_sidebar">
     <ul class="list-group">
-        <li class="list-group-item list Active" (click)="showNotes()"><i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes</li>
-        <li class="list-group-item list" (click)="showReminder()"><i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders</li>
+        <li class="list-group-item list" (click)="showNotes()"
+        [ngStyle]="{'background-color':classActive === 'notes' ? 'bisque' : 'white' }">
+            <i class="fa fa-lightbulb-o"></i> &nbsp;&nbsp;&nbsp;Notes
+        </li>
+        <li class="list-group-item list" (click)="showReminder()"
+        [ngStyle]="{'background-color':classActive === 'reminder' ? 'bisque' : 'white' }" >
+            <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders
+        </li>
         <li class="list-group-item"><Label>Label</Label></li>
-        <li class="list-group-item list"><i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's  </li>
-        <li class="list-group-item list" (click)="showArchive()"><i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive</li>
-        <li class="list-group-item list" (click)="showTrash()"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash</li>
+        <li class="list-group-item list">
+            <i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's  
+        </li>
+        <li class="list-group-item list" (click)="showArchive()"
+        [ngStyle]="{'background-color':classActive === 'archive' ? 'bisque' : 'white' }">
+            <i class="fa fa-share-square-o"></i> &nbsp;&nbsp;&nbsp;Archive
+        </li>
+        <li class="list-group-item list" (click)="showTrash()"
+        [ngStyle]="{'background-color':classActive === 'trash' ? 'bisque' : 'white' }">
+            <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;Trash
+        </li>
       </ul>
 </div>
 
@@ -140,8 +154,8 @@
           <h4>Reminder</h4>
           <div class="row">
               <form (submit)="Add_reminder($event)">
-                <input type="date" id="rdate" placeholder="select date">
-                <input type="submit" value="add">
+                <input type="date" id="rdate" placeholder="select date" >
+                <input type="submit" value="save">
               </form>
           </div>
         </div>
@@ -149,11 +163,11 @@
     </div>
   </div>
 </div>
-
 <!-- ******************* Retriving Creating Notes ****************** -->
-        <router-outlet></router-outlet>
+        <router-outlet ></router-outlet>
 
 <!-- ***************************************************************-->
+
 </div> 
 </body>
 </html>

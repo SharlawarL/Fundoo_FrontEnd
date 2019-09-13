@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NotesService {
 
   private notes_url = "http://localhost/Fundoo_BackEnd/Notes/";
+
+  private viewSource = new BehaviorSubject('Grid');
+  currentView = this.viewSource.asObservable();
 
   constructor(
     //instance for http client
@@ -34,5 +38,7 @@ export class NotesService {
     return this.http.post(this.notes_url+'Update_Notes/', Notes_data,{headers: header})
   }
 
-
+  changeView(View: string) {
+    this.viewSource.next(View)
+  }
 }

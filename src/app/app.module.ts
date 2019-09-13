@@ -24,6 +24,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormField } from '@angular/material/form-field'
+import { MatDatepicker } from '@angular/material/datepicker'
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatMenuModule,
     DragDropModule,
+    MatInputModule,
     RouterModule.forRoot([
       {
         path : 'login',

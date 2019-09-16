@@ -22,20 +22,21 @@ export class NotesService {
   createNotesPost(Notes_data)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.notes_url+'CreateNotes/',Notes_data,{headers: header})
+    return this.http.post(this.notes_url+'Create_notes/',Notes_data,{headers: header})
   }
 
   // retriving Notes Data
-  Get_Notes(user_token)
+  Get_Notes(User_token)
   {
-    return this.http.get(this.notes_url+'Get_Notes?token='+user_token)
+    return this.http.get(this.notes_url+'Get_notes/',{ params:{User_token}})
   }
 
   //update notes
   Update_Notes(Notes_data)
   {
+
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.notes_url+'Update_Notes/', Notes_data,{headers: header})
+    return this.http.post(this.notes_url+'Update_notes/', Notes_data,{headers: header})
   }
 
   changeView(View: string) {

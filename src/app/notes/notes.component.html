@@ -1,5 +1,5 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="row"  colspan="3"
+        <div class="d-flex align-content-around flex-wrap"  colspan="3"
             cdkDropList
             #todoList="cdkDropList"
             cdkDropListOrientation="horizontal"
@@ -17,7 +17,7 @@
                   <p><i class="fa fa-clock-o"></i> {{d.reminder}}</p>
                   <div class="options">
                        <!-- For reminder -->
-                       <i class="fa fa-bell-o "></i> &nbsp;&nbsp;&nbsp;
+                       <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
                        <!-- For colaborator -->
                        <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
                        <!-- For color -->
@@ -26,6 +26,7 @@
                        <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
                        <!-- For Archive -->
                        <i class="fa fa-trash-o" (click)="trash()"></i> &nbsp;&nbsp;&nbsp;
+                       <i class="fa fa-ellipsis-v"></i>
                   </div>
                 </div>
               </div>
@@ -47,11 +48,12 @@
               <div class="modal-body">
                 <input type="hidden" id="Notes_id" value="{{model_id }}">
                 <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
-                <input type="text" id="reminder" class="text-body" value="{{ model_reminder }}">
+                <input type="text" id="reminder" class="text-body" value="{{ model_reminder }}" 
+                >
               </div>
               <div class="modal-footer">
                   <!-- For reminder -->
-                  <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For colaborator -->
                   <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For color -->
@@ -60,6 +62,7 @@
                   <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For Archive -->
                   <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-ellipsis-v"></i>
                   <!-- <input type="submit" class="btn" value="Close">  -->
                   <input type="submit" value="close">
                 </div>
@@ -69,7 +72,7 @@
             <div class="row">
               <form (submit)="Add_reminder($event)">
                 &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date">
-                <input type="submit" value="add">
+                <input type="submit" value="add"  data-dismiss="modal">
               </form>
               </div>
             </div>

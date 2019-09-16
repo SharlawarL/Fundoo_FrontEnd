@@ -83,6 +83,7 @@ export class NotesComponent implements OnInit{
      const target = event.target
      const reminder_set = target.querySelector('#rdate').value
      this.model_reminder = reminder_set
+     console.log('lalit')
    }
 
    //update notes
@@ -103,6 +104,7 @@ export class NotesComponent implements OnInit{
       })
    }
 
+   //for drag nd drop of notes
    drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -112,5 +114,11 @@ export class NotesComponent implements OnInit{
                         event.previousIndex,
                         event.currentIndex);
     }
+  }
+
+  //for trash the Notes
+  trash(event)
+  {
+    console.log('Trash Cliked..'+event)
   }
 }

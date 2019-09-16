@@ -71,9 +71,9 @@ export class AuthService {
   }
 
   //get the user details
-  Get_User(user_token)
+  Get_User(token)
   {
-    return this.http.get(this.user_site+'Get_User?token='+user_token)
+    return this.http.get(this.user_site+'Get_user',{params:{token}})
   }
 
   ViewChange()

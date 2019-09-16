@@ -4,6 +4,11 @@
 .notes{
     padding: 50px;
 }
+textarea{
+    border: none;
+    height: 200px;
+    text-align: justify;
+}
 .take_notes{
     padding:10px;
     box-shadow: 0px 0px 5px black;
@@ -63,6 +68,7 @@ a:hover{
     font-size: 10px;
     position: relative;
     margin: 5px auto;
+    box-sizing:border-box;
     
 }
 .options{
@@ -106,6 +112,7 @@ a:hover{
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
 }
+
 /* for mobile view */
 @media screen and (max-width: 600px) {
    .sidebar a{

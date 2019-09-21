@@ -26,6 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { NotesComponent } from './notes/notes.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ResetComponent } from './reset/reset.component';
     NotesComponent,
     ArchiveComponent,
     ForgotComponent,
-    ResetComponent
+    ResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,7 @@ import { ResetComponent } from './reset/reset.component';
     DragDropModule,
     MatInputModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [AuthService,AuthGuard,NotesService],
   bootstrap: [AppComponent]

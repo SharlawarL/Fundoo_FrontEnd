@@ -17,10 +17,10 @@ export class DashboardComponent implements OnInit {
   private add_reminder = true
   private reminder : any
   loading: boolean;
-  public Token = localStorage.getItem('User')
+  public token = localStorage.getItem('User')
   public showSetReminmder = true;
   public showInputReminmder = true;
-  public Notes_view = true;
+  public notes_view = true;
   public classActive = "notes";
 
   public view_set = "Grid"
@@ -55,14 +55,14 @@ export class DashboardComponent implements OnInit {
     event.preventDefault()
     const target = event.target
     const title = target.querySelector('#title').value
-    const Notes = target.querySelector('#notes').value
+    const notes = target.querySelector('#notes').value
     const reminder = target.querySelector('#reminder').value
-    const token = this.Token
-    let Notes_data = 'title='+title+'&Notes='+Notes+'&user_id='+token+'&reminder='+reminder
+    const token = this.token
+    let notes_data = 'title='+title+'&Notes='+notes+'&user_id='+token+'&reminder='+reminder
     this.show = true
 
     // passing data towords to servece for inserting into database
-    this.Notes.createNotesPost(Notes_data).subscribe()
+    this.Notes.createNotesPost(notes_data).subscribe()
      this.classActive = "notes"
      this.rout.navigate(['notes'],{relativeTo: this.route});
   }
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
   get_Notes(){
 
     //getting data from service
-    this.Notes.Get_Notes(this.Token).subscribe(Note_data=>{
+    this.Notes.Get_Notes(this.token).subscribe(Note_data=>{
       this.data = Note_data
     })
   }
@@ -80,8 +80,8 @@ export class DashboardComponent implements OnInit {
   get_user()
   {
     //getting data from service
-    this.Auth.Get_User(this.Token).subscribe(User_data=>{
-      this.user_data = User_data
+    this.Auth.Get_User(this.token).subscribe(user_data=>{
+      this.user_data = user_data
     })
   }
 
@@ -127,12 +127,12 @@ export class DashboardComponent implements OnInit {
     this.rout.navigate(['/dashboard/notes'],{relativeTo: this.route});
   }
   Note_view_grid(){
-    this.Notes_view = false; 
+    this.notes_view = false; 
     this.view_set = "List";
     this.Note.changeView("List")
   }
   Note_view_list(){
-    this.Notes_view = true; 
+    this.notes_view = true; 
     this.view_set = "Grid";
     this.Note.changeView("Grid")
   }

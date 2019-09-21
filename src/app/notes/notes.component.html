@@ -4,7 +4,7 @@
             (cdkDropListDropped)="drop($event)" >
             
             <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
-             *ngFor ="let note_value of data;"  fxLayout="row" fxLayoutAlign="start start" 
+             *ngFor ="let note_value of data"  fxLayout="row" fxLayoutAlign="start start" 
             cdkDrag>
               
                 <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
@@ -17,13 +17,14 @@
                        <!-- For reminder -->
                   <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For colaborator -->
+                  
                   <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For color -->
                   <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For image -->
                   <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For Archive -->
-                  <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-trash-o" (click)="trash(note_value)" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
                   <i class="fa fa-ellipsis-v"></i>
                        <i class="fa fa-ellipsis-v"></i>
                 </div>
@@ -46,7 +47,7 @@
               <div class="modal-body">
                 <input type="hidden" id="Notes_id" value="{{model_id }}">
                 <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
-                <input type="text" id="reminder" class="text-body" value="{{ model_reminder }}" 
+                <input type="text" id="reminder" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
                 >
               </div>
               <div class="modal-footer">
@@ -62,20 +63,22 @@
                   <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
                   <i class="fa fa-ellipsis-v"></i>
                   <!-- <input type="submit" class="btn" value="Close">  -->
-                  <input type="submit" value="close">
+                  <input type="submit" value="close" id='closebutton'>
+                  <!-- <button type="button" id='closebutton'>Close</button> -->
                 </div>
           </form>
-          <div class="setRemider" *ngIf="!showSetReminmder">
-            <h4>Reminder</h4>
-            <div class="row">
-              <form (submit)="Add_reminder($event)">
-                &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
-                <input type="submit" value="add">
-              </form>
-            </div>
+          
+        </div>
+        <div class="setRemider" *ngIf="!showSetReminmder">
+          <h4>Reminder</h4>
+          <div class="row">
+            <form (submit)="Add_reminder($event)">
+              &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+              <input type="submit" value="add">
+            </form>
           </div>
         </div>
       </div>
     </div>
-
+    
     

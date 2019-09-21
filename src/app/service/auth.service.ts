@@ -30,7 +30,7 @@ export class AuthService {
   User_login(email,password){
 
     // http post request to codeigniter for login
-    return this.http.post(this.user_site+'login',{email,password},{responseType: 'text'});
+    return this.http.post(this.user_site+'Login',{email,password},{responseType: 'text'});
   }
 
   //the  method for the register user

@@ -13,10 +13,11 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 })
 export class NotesComponent implements OnInit{
 
+  @ViewChild('closebutton') closebutton;
   private show = true;
   public data: any;
   loading: boolean;
-  public Token = localStorage.getItem('User')
+  public token = localStorage.getItem('User')
   public modelClass = "notes_cards"
   public model_id : any;
   public model_title : any;
@@ -25,7 +26,7 @@ export class NotesComponent implements OnInit{
   public model_reminder : any;
   public showSetReminmder = true;
   success : any
-  public Note_view ="";
+  public note_view ="";
   public drag_note;
   public list:any;
   view:String;
@@ -43,11 +44,11 @@ export class NotesComponent implements OnInit{
 
   Note_view_grid()
   {
-    this.Note_view = "Grid"
+    this.note_view = "Grid"
   }
   Note_view_list()
   {
-    this.Note_view = "List"
+    this.note_view = "List"
     this.data.changeView("")
   }
   //hidding take note
@@ -59,10 +60,10 @@ export class NotesComponent implements OnInit{
 
   // Get the Notes which are store into database
   get_Notes(){
-    const user_token = this.Token
+    const user_token = this.token
     //getting data from service
-    this.Notes.Get_Notes(user_token).subscribe(Note_data=>{
-      this.data = Note_data
+    this.Notes.Get_Notes(user_token).subscribe(note_data=>{
+      this.data = note_data
     })
   }
 
@@ -86,7 +87,7 @@ export class NotesComponent implements OnInit{
     console.log("reminder unclick")
   }
    //for adding reminder
-   Add_reminder(event)
+   Add_reminder(event : any)
    {
      this.showSetReminmder = true;
      event.preventDefault()
@@ -96,8 +97,9 @@ export class NotesComponent implements OnInit{
    }
 
    //update notes
-   UpdateNotes(event)
+   UpdateNotes(event: any)
    {
+    this.closebutton.nativeElement.click();
     this.model_box = true
      event.preventDefault()
      const target = event.target
@@ -113,7 +115,7 @@ export class NotesComponent implements OnInit{
    drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.Token
+      let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
       this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
     } else {  
       transferArrayItem(event.previousContainer.data,
@@ -124,8 +126,12 @@ export class NotesComponent implements OnInit{
   }
 
   //for trash the Notes
-  trash(event)
+  trash(note_data : any)
   {
-    console.log('Trash Cliked..'+event)
+    let data = "note_id="+note_data.note_id+"&&token="+this.token
+    this.Notes.addtrash(data).subscribe(data=>{
+      console.log(data)
+    })
+    this.get_Notes()
   }
 }

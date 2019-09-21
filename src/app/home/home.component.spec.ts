@@ -22,4 +22,10 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  //writting test
+  it('test the test case', () =>
+  {
+    expect("lalit").toBe('lalit')
+  });
 });

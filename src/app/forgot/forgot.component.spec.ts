@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ForgotComponent } from './forgot.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('ForgotComponent', () => {
   let component: ForgotComponent;
@@ -8,7 +11,12 @@ describe('ForgotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotComponent ]
+      declarations: [ ForgotComponent ],
+      imports: [    
+        RouterTestingModule,
+        HttpClientTestingModule,
+        HttpClientModule,
+      ],
     })
     .compileComponents();
   }));

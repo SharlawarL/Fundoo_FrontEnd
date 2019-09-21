@@ -55,6 +55,7 @@ export class ResetComponent implements OnInit {
         console.log(myObjStr,"Success")
         window.alert(myObjStr["message"])
         this.router.navigate(['/login'])
+        
       }else{
         //console.log(myObjStr,"error")
         //for password

@@ -1,9 +1,6 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
 <div class="d-flex align-content-around flex-wrap"  colspan="3"
-cdkDropList
-#todoList="cdkDropList"
 cdkDropListOrientation="horizontal"
-[cdkDropListData]="data"
 (cdkDropListDropped)="drop($event)" >
 
 <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"

@@ -29,7 +29,6 @@ export class ForgotComponent implements OnInit {
         window.alert('Check mail for reset password link...')
         this.router.navigate(['/'])
         console.log(myObjStr,"Success")
-        //this.router.navigate(['/notes'])
       }else{
         console.log(myObjStr,"error")
        // window.alert(myObjStr["message"])

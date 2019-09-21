@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
@@ -51,12 +51,9 @@ export class LoginComponent implements OnInit {
     const password = target.querySelector('#password').value
 
     this.Auth.User_login(email,password).subscribe(data=>{
-      console.log(data)
       const myObjStr = JSON.parse(data);
       if(myObjStr["success"])
       {
-        // this.router.navigate(['/home'])
-        console.log(myObjStr["message"])
         localStorage.setItem('User',myObjStr["Token"])
         localStorage.setItem('Notes_View','Grid')
         this.router.navigate(['/dashboard'])

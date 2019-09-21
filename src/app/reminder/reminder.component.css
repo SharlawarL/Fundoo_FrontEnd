@@ -1,0 +1,140 @@
+.navbar{
+    box-shadow: 0px 0px 10px black;
+}
+.notes{
+    padding: 50px;
+}
+textarea{
+    border: none;
+    height: 200px;
+    text-align: justify;
+}
+.take_notes{
+    padding:10px;
+    box-shadow: 0px 0px 5px black;
+    width: 500px;
+    border-radius: 10px;
+    margin: 0px auto;
+    position: absolute;
+    margin-left: 120px;
+}
+input{
+    border:solid 2px white;
+}
+a{
+    text-decoration: none;
+    color: rgb(126, 125, 125);
+}
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+.sidebar{
+    position: absolute; 
+    width: 250px;
+    height: 100%;
+    margin-top:10px;
+    padding-top: 0px;
+    background-color: rgb(252, 252, 252);
+}
+
+.list:hover{
+    background-color:bisque;
+    color: black;
+}
+.Active{
+    background-color:bisque;
+    color: black;
+    border-radius: 10px;
+}
+.Active a{
+    color: black;
+}
+
+.container{
+    position: relative;
+    width: 800px; 
+    margin-left: 300px;
+}
+
+.notes_cards{
+    background-color: white;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+    width: 30%;
+    height: 100%;
+    margin: 10px;
+    text-align: justify;
+    font-size: 10px;
+    position: relative;
+    margin: 5px auto;
+    box-sizing:border-box;
+    
+}
+.options{
+    display: none;
+}
+.notes_cards:hover .options {
+    color: red;
+    display: block;
+    font-size: 15px;
+}
+.note_box{
+    margin: 0px auto;
+    width: 800px;
+}
+.dropdown-menu{
+    z-index: 110;
+}
+.option-item{
+    padding: 0px 5px;
+}
+.card-body-modal{
+    width: 800px;
+    position: absolute;
+    z-index: 10;
+    background-color: red;
+}
+.text-body{
+    width: 100%;
+}
+
+.modal{
+    margin: auto;
+}
+.setRemider{
+    width: 300px;
+    position: absolute;
+    background-color: white;
+    margin-top: 300px;
+    margin-left: 0px;
+    padding: 10px 10px;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+}
+/* for mobile view */
+@media screen and (max-width: 600px) {
+   .sidebar a{
+       display: hidden;
+       position: relative;
+       z-index: 10;
+   }
+   .take_notes{
+       margin-left: 0px;
+       background-color: white;
+       padding:10px;
+    box-shadow: 0px 0px 5px black;
+    width: 95%;
+    border-radius: 10px;
+    margin: 0px auto;
+    position: relative;
+   }
+   .container{
+    position: relative;
+    width: 99%; 
+    margin-left: 0px;
+}
+   .notes_cards{
+       width: 100%;
+   }
+}

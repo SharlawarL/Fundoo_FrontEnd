@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit  } from '@angular/core';
-import { NotesService } from '../notes.service';
+import { NotesService } from '../service/notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+
 
 
 @Component({
@@ -20,10 +21,13 @@ export class NotesComponent implements OnInit{
   public model_id : any;
   public model_title : any;
   public model_Note : any;
+  public model_box = false;
   public model_reminder : any;
   public showSetReminmder = true;
   success : any
   public Note_view ="";
+  public drag_note;
+  public list:any;
   view:String;
 
   constructor(
@@ -34,7 +38,6 @@ export class NotesComponent implements OnInit{
   ngOnInit():void {
     //loading data on load
     this.get_Notes()
-    console.log(localStorage.getItem('View'))
     this.Notes.currentView.subscribe(view => this.view = view)
   }
 
@@ -45,7 +48,7 @@ export class NotesComponent implements OnInit{
   Note_view_list()
   {
     this.Note_view = "List"
-    this.data.changeView("Hello from Sibling")
+    this.data.changeView("")
   }
   //hidding take note
   showTakeNotes(){
@@ -60,20 +63,27 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(Note_data=>{
       this.data = Note_data
-      console.log(Note_data)
     })
   }
 
   //open model box
-  modelBox(d){
-    this.model_id = d.note_id
-    this.model_title = d.title
-    this.model_Note = d.Notes
-    this.model_reminder = d.reminder
+  modelBox(note){
+    this.model_id = note.note_id
+    this.model_title = note.title
+    this.model_Note = note.Notes
+    this.model_reminder = note.reminder
   }
+  //show reminder set
   setRemider()
   {
     this.showSetReminmder = false;
+    console.log("reminder click")
+  }
+  //hide reminder set
+  hideRemider()
+  {
+    this.showSetReminmder = true;
+    console.log("reminder unclick")
   }
    //for adding reminder
    Add_reminder(event)
@@ -83,32 +93,29 @@ export class NotesComponent implements OnInit{
      const target = event.target
      const reminder_set = target.querySelector('#rdate').value
      this.model_reminder = reminder_set
-     console.log('lalit')
    }
 
    //update notes
    UpdateNotes(event)
    {
-     console.log("click")
+    this.model_box = true
      event.preventDefault()
      const target = event.target
      const title = target.querySelector('#title').value
      const Notes = target.querySelector('#Notes').value
      const reminder = target.querySelector('#reminder').value
      const id = target.querySelector('#Notes_id').value
-     let body = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
-     this.Notes.Update_Notes(body).subscribe(data=>
-    {
-        console.log(data)
-        this.get_Notes()
-      })
+     let Notes_data = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
+     this.Notes.Update_Notes(Notes_data).subscribe(data=>{ this.get_Notes()  })
    }
 
    //for drag nd drop of notes
    drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
+      let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.Token
+      this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
+    } else {  
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,

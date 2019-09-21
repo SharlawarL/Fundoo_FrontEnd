@@ -1,5 +1,5 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="d-flex align-content-around flex-wrap"  colspan="3"
+        <div class="d-flex flex-wrap"  colspan="3"
             cdkDropList
             #todoList="cdkDropList"
             cdkDropListOrientation="horizontal"
@@ -7,34 +7,35 @@
             (cdkDropListDropped)="drop($event)" >
             
             <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
-            (click)="modelBox(d)" *ngFor ="let d of data;"  fxLayout="row" fxLayoutAlign="start start" 
+             *ngFor ="let note_value of data;"  fxLayout="row" fxLayoutAlign="start start" 
             cdkDrag>
               
-                <div class="card-body" data-toggle="modal" data-target="#myModal1">
+                <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
                   <input type="hidden" id="note_id" >
-                  <h5> <b>{{d.title}} </b></h5>
-                  <p>{{d.Notes}}</p>
-                  <p><i class="fa fa-clock-o"></i> {{d.reminder}}</p>
-                  <div class="options">
+                  <h5> <b>{{note_value.title}} </b></h5>
+                  <p>{{note_value.Notes}}</p>
+                  <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
+                </div>
+                <div class="options">
                        <!-- For reminder -->
-                       <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
-                       <!-- For colaborator -->
-                       <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
-                       <!-- For color -->
-                       <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
-                       <!-- For image -->
-                       <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
-                       <!-- For Archive -->
-                       <i class="fa fa-trash-o" (click)="trash()"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
+                  <!-- For colaborator -->
+                  <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
+                  <!-- For color -->
+                  <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
+                  <!-- For image -->
+                  <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
+                  <!-- For Archive -->
+                  <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-ellipsis-v"></i>
                        <i class="fa fa-ellipsis-v"></i>
-                  </div>
                 </div>
               </div>
              </div>
         
 
                <!-- The Modal -->
-<div class="modal" id="myModal1">
+<div class="modal" id="myModal1" *ngIf="!model_box">
     
     <div class="modal-dialog">
       <div class="modal-content">
@@ -53,15 +54,15 @@
               </div>
               <div class="modal-footer">
                   <!-- For reminder -->
-                  <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For colaborator -->
-                  <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For color -->
-                  <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For image -->
-                  <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
                   <!-- For Archive -->
-                  <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
                   <i class="fa fa-ellipsis-v"></i>
                   <!-- <input type="submit" class="btn" value="Close">  -->
                   <input type="submit" value="close">
@@ -71,11 +72,13 @@
             <h4>Reminder</h4>
             <div class="row">
               <form (submit)="Add_reminder($event)">
-                &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date">
-                <input type="submit" value="add"  data-dismiss="modal">
+                &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+                <input type="submit" value="add">
               </form>
-              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    

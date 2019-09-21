@@ -73,6 +73,7 @@ a:hover{
 }
 .options{
     display: none;
+    padding: 5px 5px;
 }
 .notes_cards:hover .options {
     color: red;
@@ -108,7 +109,7 @@ a:hover{
     background-color: white;
     margin-top: 300px;
     margin-left: 0px;
-    padding: 10px 10px;
+    padding: 10px 20px;
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
 }
@@ -132,7 +133,7 @@ a:hover{
    }
    .container{
     position: relative;
-    width: 95%; 
+    width: 99%; 
     margin-left: 0px;
 }
    .notes_cards{

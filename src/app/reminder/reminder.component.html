@@ -1,3 +1,81 @@
-<p>
-  reminder works!
-</p>
+<!-- ******************* Retriving Creating Notes ****************** -->
+<div class="d-flex align-content-around flex-wrap"  colspan="3"
+cdkDropList
+#todoList="cdkDropList"
+cdkDropListOrientation="horizontal"
+[cdkDropListData]="data"
+(cdkDropListDropped)="drop($event)" >
+
+<div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
+(click)="modelBox(d)" *ngFor ="let d of data"   fxLayout="row" fxLayoutAlign="start start" 
+cdkDrag>
+  
+    <div class="card-body" *ngIf="d.reminder != ''"  data-toggle="modal" data-target="#myModal1">
+      <input type="hidden" id="note_id" >
+      <h5> <b>{{d.title}} </b></h5>
+      <p>{{d.Notes}}</p>
+      <p><i class="fa fa-clock-o"></i> {{d.reminder}}</p>
+      <div class="options">
+           <!-- For reminder -->
+           <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
+           <!-- For colaborator -->
+           <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+           <!-- For color -->
+           <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+           <!-- For image -->
+           <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+           <!-- For Archive -->
+           <i class="fa fa-trash-o" (click)="trash()"></i> &nbsp;&nbsp;&nbsp;
+           <i class="fa fa-ellipsis-v"></i>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+   <!-- The Modal -->
+<div class="modal" id="myModal1">
+
+<div class="modal-dialog">
+<div class="modal-content">
+<form (submit)="UpdateNotes($event)">
+  <div class="modal-header">
+      <h4 class="modal-title">
+          <input type="text" id="title" value="{{model_title }}">
+      </h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" id="Notes_id" value="{{model_id }}">
+    <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
+    <input type="text" id="reminder" class="text-body" value="{{ model_reminder }}" 
+    >
+  </div>
+  <div class="modal-footer">
+      <!-- For reminder -->
+      <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
+      <!-- For colaborator -->
+      <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+      <!-- For color -->
+      <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+      <!-- For image -->
+      <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+      <!-- For Archive -->
+      <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-ellipsis-v"></i>
+      <!-- <input type="submit" class="btn" value="Close">  -->
+      <input type="submit" value="close">
+    </div>
+</form>
+<div class="setRemider" *ngIf="!showSetReminmder">
+<h4>Reminder</h4>
+<div class="row">
+  <form (submit)="Add_reminder($event)">
+    &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date">
+    <input type="submit" value="add"  data-dismiss="modal">
+  </form>
+  </div>
+</div>
+</div>
+</div>
+</div>

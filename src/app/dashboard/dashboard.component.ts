@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NotesService } from '../notes.service';
-import { AuthService } from '../auth.service';
+import { NotesService } from '../service/notes.service';
+import { AuthService } from '../service/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Subject }    from 'rxjs';
@@ -62,10 +62,9 @@ export class DashboardComponent implements OnInit {
     this.show = true
 
     // passing data towords to servece for inserting into database
-    this.Notes.createNotesPost(Notes_data).subscribe(data=>{
-      console.log(data)
-      this.get_Notes
-     })
+    this.Notes.createNotesPost(Notes_data).subscribe()
+     this.classActive = "notes"
+     this.rout.navigate(['notes'],{relativeTo: this.route});
   }
 
 

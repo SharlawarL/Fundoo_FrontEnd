@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Fundoo Note's</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-<body >
-
-<!-- ********* Top Navbar ***************************-->
-<nav class="navbar navbar-expand-lg bg-light navbar-light" >
+  <nav class="navbar navbar-expand-lg bg-light navbar-light" >
   <!-- menu button for the sidebar -->
   <button class="btn" type="button" data-toggle="collapse" data-target="#left_sidebar">
     <span class="navbar-toggler-icon"></span>
@@ -28,11 +19,11 @@
   </div>
 
   <!-- Grid view -->
-  <div href="#" class="dropdown" *ngIf="Notes_view" data-toggle="tooltip" title="Grid View" (click)="Note_view_grid()">
+  <div href="#" class="dropdown" *ngIf="notes_view" data-toggle="tooltip" title="Grid View" (click)="Note_view_grid()">
     <i class="fa fa-qrcode" style="font-size:24px"></i>
   </div>
    <!-- list view -->
-   <div href="#" class="dropdown" *ngIf="!Notes_view" data-toggle="tooltip" title="List View" (click)="Note_view_list()">
+   <div href="#" class="dropdown" *ngIf="!notes_view" data-toggle="tooltip" title="List View" (click)="Note_view_list()">
     <i class="fa fa-bars" style="font-size:24px"></i>
   </div>
 
@@ -111,7 +102,6 @@
         </li>
       </ul>
 </div>
-
 <div class="container">
   <div class="row">
     <div class="col-md-5 notes">
@@ -163,13 +153,12 @@
     </div>
   </div>
 </div>
+
 <!-- ******************* Retriving Creating Notes ****************** -->
         <router-outlet ></router-outlet>
 
 <!-- ***************************************************************-->
 
-</div> 
-</body>
-</html>
+</div>
 
 

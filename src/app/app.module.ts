@@ -27,7 +27,10 @@ import { NotesComponent } from './notes/notes.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
 import { environment } from '../environments/environment';
-
+import { NotesPipe } from './pipe/notes.pipe';
+import { ReminderPipe } from './pipe/reminder.pipe';
+import { TrashPipe } from './pipe/trash.pipe';
+import { ArchivePipe } from './pipe/archive.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,10 @@ import { environment } from '../environments/environment';
     ArchiveComponent,
     ForgotComponent,
     ResetComponent,
+    NotesPipe,
+    ReminderPipe,
+    TrashPipe,
+    ArchivePipe,
   ],
   imports: [
     BrowserModule,

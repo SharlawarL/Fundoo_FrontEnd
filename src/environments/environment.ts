@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl :'http://localhost/week-7/'
+  baseUrl :'http://localhost/Fundoo_BackEnd/'
 };
 
 /*

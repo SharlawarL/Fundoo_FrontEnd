@@ -3,9 +3,9 @@
             cdkDropListOrientation="horizontal"
             (cdkDropListDropped)="drop($event)" >
             
-            <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
-             *ngFor ="let note_value of data"  fxLayout="row" fxLayoutAlign="start start" 
-            cdkDrag>
+            <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
+             *ngFor ="let note_value of data | notes"  [style.background-color]="note_value.color"
+             fxLayout="row" fxLayoutAlign="start start" cdkDrag>
               
                 <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
                   <input type="hidden" id="note_id" >
@@ -14,19 +14,50 @@
                   <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
                 </div>
                 <div class="options">
-                       <!-- For reminder -->
-                  <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
+                  <!-- For reminder -->
+                  <div class="option_list dropdown">
+                    <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
+                      id="reminder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu option_containt" aria-labelledby="reminder">
+                        <b>Reminder</b>
+                        <div class="row">
+                          <form (submit)="update_reminder($event)">
+                            <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
+                            <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                            <input type="submit" value="add">
+                          </form>
+                        </div>
+                        </div>
+                    </div>
                   <!-- For colaborator -->
-                  
-                  <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
+                  <div class="option_list">
+                    <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i>
+                  </div>
                   <!-- For color -->
-                  <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
-                  <!-- For image -->
-                  <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
+                  <div class="option_list dropdown">
+                  <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"
+                    id="color_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                      <div class="dropdown-menu color_set" aria-labelledby="color_set">
+                          <div *ngFor ="let c of color_set">
+                            <div class="color_box" [style.background-color]="c.color" 
+                            (click)="change_color(c.color,note_value.note_id)"></div>
+                          </div>
+                      </div>
+                  </div>  
                   <!-- For Archive -->
-                  <i class="fa fa-trash-o" (click)="trash(note_value)" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-ellipsis-v"></i>
-                       <i class="fa fa-ellipsis-v"></i>
+                  <div class="option_list">
+                    <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+                  </div>
+                  <!-- More option in right side -->
+                  <div class="option_list dropdown">
+                  <i class="btn btn-secondary dropdown-toggle" class="fa fa-ellipsis-v"
+                    id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                      <div class="dropdown-menu" aria-labelledby="moreoption">
+                        <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
+                        <a class="dropdown-item" >Add Lebel</a>
+                        <a class="dropdown-item" >Something else here</a>
+                      </div>
+                    </div>
                 </div>
               </div>
              </div>
@@ -63,7 +94,7 @@
                   <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
                   <i class="fa fa-ellipsis-v"></i>
                   <!-- <input type="submit" class="btn" value="Close">  -->
-                  <input type="submit" value="close" id='closebutton'>
+                  <input type="submit" value="close" id='closebutton' >
                   <!-- <button type="button" id='closebutton'>Close</button> -->
                 </div>
           </form>
@@ -80,5 +111,4 @@
         </div>
       </div>
     </div>
-    
     

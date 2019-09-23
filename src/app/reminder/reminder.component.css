@@ -67,12 +67,31 @@ a:hover{
     text-align: justify;
     font-size: 10px;
     position: relative;
-    margin: 5px auto;
     box-sizing:border-box;
-    
 }
 .options{
     display: none;
+    padding: 5px 5px;
+}
+.option_list{
+    text-align: center;
+    padding: 10px 10px;
+    width: 20%;
+    float: left;
+}
+.option_containt{
+    padding: 10px 10px;
+}
+.color_set{
+    padding: 5px 5px;
+}
+.color_box{
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    float: left;
+    margin: 3px;
+    
 }
 .notes_cards:hover .options {
     color: red;
@@ -104,16 +123,19 @@ a:hover{
 }
 .setRemider{
     width: 300px;
-    position: absolute;
+    position: relative;
     background-color: white;
-    margin-top: 300px;
+    /* margin-top: 300px; */
     margin-left: 0px;
-    padding: 10px 10px;
+    padding: 10px 20px;
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
 }
+.view{
+    width: 30%;
+}
 /* for mobile view */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
    .sidebar a{
        display: hidden;
        position: relative;
@@ -133,8 +155,11 @@ a:hover{
     position: relative;
     width: 99%; 
     margin-left: 0px;
-}
+    }
    .notes_cards{
        width: 100%;
    }
+   .view{
+        width: 90%;
+    }
 }

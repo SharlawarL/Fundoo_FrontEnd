@@ -1,37 +1,70 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
-<div class="d-flex align-content-around flex-wrap"  colspan="3"
+<div class="d-flex flex-wrap"  colspan="3"
 cdkDropListOrientation="horizontal"
 (cdkDropListDropped)="drop($event)" >
 
-<div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }"
-(click)="modelBox(d)" *ngFor ="let d of data"   fxLayout="row" fxLayoutAlign="start start" 
-cdkDrag>
+<div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
+ *ngFor ="let note_value of data | reminder"  [style.background-color]="note_value.color"
+ fxLayout="row" fxLayoutAlign="start start" cdkDrag>
   
-    <div class="card-body" *ngIf="d.reminder != ''"  data-toggle="modal" data-target="#myModal1">
+    <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
       <input type="hidden" id="note_id" >
-      <h5> <b>{{d.title}} </b></h5>
-      <p>{{d.Notes}}</p>
-      <p><i class="fa fa-clock-o"></i> {{d.reminder}}</p>
-      <div class="options">
-           <!-- For reminder -->
-           <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
-           <!-- For colaborator -->
-           <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
-           <!-- For color -->
-           <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
-           <!-- For image -->
-           <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
-           <!-- For Archive -->
-           <i class="fa fa-trash-o" (click)="trash()"></i> &nbsp;&nbsp;&nbsp;
-           <i class="fa fa-ellipsis-v"></i>
+      <h5> <b>{{note_value.title}} </b></h5>
+      <p>{{note_value.Notes}}</p>
+      <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
+    </div>
+    <div class="options">
+      <!-- For reminder -->
+      <div class="option_list dropdown">
+        <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
+          id="reminder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu option_containt" aria-labelledby="reminder">
+            <b>Reminder</b>
+            <div class="row">
+              <form (submit)="update_reminder($event)">
+                <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
+                <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                <input type="submit" value="add">
+              </form>
+            </div>
+            </div>
+        </div>
+      <!-- For colaborator -->
+      <div class="option_list">
+        <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i>
       </div>
+      <!-- For color -->
+      <div class="option_list dropdown">
+      <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"
+        id="color_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <div class="dropdown-menu color_set" aria-labelledby="color_set">
+              <div *ngFor ="let c of color_set">
+                <div class="color_box" [style.background-color]="c.color" 
+                (click)="change_color(c.color,note_value.note_id)"></div>
+              </div>
+          </div>
+      </div>  
+      <!-- For Archive -->
+      <div class="option_list">
+        <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+      </div>
+      <!-- More option in right side -->
+      <div class="option_list dropdown">
+      <i class="btn btn-secondary dropdown-toggle" class="fa fa-ellipsis-v"
+        id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <div class="dropdown-menu" aria-labelledby="moreoption">
+            <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
+            <a class="dropdown-item" >Add Lebel</a>
+            <a class="dropdown-item" >Something else here</a>
+          </div>
+        </div>
     </div>
   </div>
  </div>
 
 
    <!-- The Modal -->
-<div class="modal" id="myModal1">
+<div class="modal" id="myModal1" *ngIf="!model_box">
 
 <div class="modal-dialog">
 <div class="modal-content">
@@ -45,33 +78,35 @@ cdkDrag>
   <div class="modal-body">
     <input type="hidden" id="Notes_id" value="{{model_id }}">
     <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
-    <input type="text" id="reminder" class="text-body" value="{{ model_reminder }}" 
+    <input type="text" id="reminder" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
     >
   </div>
   <div class="modal-footer">
       <!-- For reminder -->
-      <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
       <!-- For colaborator -->
-      <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
       <!-- For color -->
-      <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
       <!-- For image -->
-      <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
       <!-- For Archive -->
-      <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
       <i class="fa fa-ellipsis-v"></i>
       <!-- <input type="submit" class="btn" value="Close">  -->
-      <input type="submit" value="close">
+      <input type="submit" value="close" id='closebutton'>
+      <!-- <button type="button" id='closebutton'>Close</button> -->
     </div>
 </form>
+
+</div>
 <div class="setRemider" *ngIf="!showSetReminmder">
 <h4>Reminder</h4>
 <div class="row">
-  <form (submit)="Add_reminder($event)">
-    &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date">
-    <input type="submit" value="add"  data-dismiss="modal">
-  </form>
-  </div>
+<form (submit)="Add_reminder($event)">
+  &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+  <input type="submit" value="add">
+</form>
 </div>
 </div>
 </div>

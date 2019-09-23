@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       {
         localStorage.setItem('User',myObjStr["Token"])
         localStorage.setItem('Notes_View','Grid')
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard/notes'])
         this.Auth.setLog(true)
       }else{
         console.log(myObjStr["message"])

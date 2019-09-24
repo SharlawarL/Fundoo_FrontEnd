@@ -1,17 +1,29 @@
 <!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="d-flex flex-wrap"  colspan="3"
+        <div class="notes_container"  colspan="3"
+        cdkDropList
+            #todoList="cdkDropList"
             cdkDropListOrientation="horizontal"
-            (cdkDropListDropped)="drop($event)" >
+            [cdkDropListData]="data"
+            (cdkDropListDropped)="drop($event)">
+            
             
             <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
              *ngFor ="let note_value of data | notes"  [style.background-color]="note_value.color"
-             fxLayout="row" fxLayoutAlign="start start" cdkDrag>
+             fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
               
-                <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
+                <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
                   <input type="hidden" id="note_id" >
                   <h5> <b>{{note_value.title}} </b></h5>
                   <p>{{note_value.Notes}}</p>
                   <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
+                </div>
+                <div style="display:flex;padding:10px;overflow: hidden">
+                    <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
+                        {{ lebels.lebel }}
+                        <div class="removelabel" (click)="removelabel(lebels.id)">
+                            <b> &times; </b>
+                        </div>
+                    </div>
                 </div>
                 <div class="options">
                   <!-- For reminder -->
@@ -54,7 +66,23 @@
                     id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                       <div class="dropdown-menu" aria-labelledby="moreoption">
                         <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
-                        <a class="dropdown-item" >Add Lebel</a>
+                        <a class="dropdown-item dropdown" id="submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Add Lebel
+                          <ul class="dropdown-menu" aria-labelledby="submenu">
+                            <div *ngFor="let lebel_value of lebel"> 
+                              {{ temp }}
+                              <div *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
+                                <div *ngIf="lebels.lebel == lebel_value.lebel">
+                                  <input type="checkbox" (click)="removelabel(lebels.id)" checked>{{ lebel_value.lebel }}
+                                </div>
+                                <!-- <div *ngIf="lebels.lebel != lebel_value.lebel">
+                                  <input type="checkbox" (click)="clicklabel(lebel_value.lebel,note_value.note_id)">{{ lebel_value.lebel }}
+                                </div> -->
+                              </div>
+                              <input type="checkbox" (click)="clicklabel(lebel_value.lebel,note_value.note_id)">{{ lebel_value.lebel }}
+                            </div>
+                          </ul>
+                        </a>
                         <a class="dropdown-item" >Something else here</a>
                       </div>
                     </div>
@@ -111,4 +139,3 @@
         </div>
       </div>
     </div>
-    

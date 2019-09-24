@@ -69,6 +69,11 @@ a:hover{
     position: relative;
     box-sizing:border-box;
 }
+.notes_container{
+    display: flex;
+    flex-wrap: wrap;
+    box-flex: up;
+}
 .options{
     display: none;
     padding: 5px 5px;
@@ -133,6 +138,26 @@ a:hover{
 }
 .view{
     width: 30%;
+}
+.lebel_tag{
+    padding: 5px 15px; 
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: silver;
+}
+.removelabel{
+    display: none;
+    position: absolute;
+    text-align: left;
+    margin-top: -10px;
+    background-color: silver;
+    width: 30px;
+    font-size: 10px;
+}
+.lebel_tag:hover .removelabel{
+    display: block;
+    position: absolute;
+    margin-top: -10px;
 }
 /* for mobile view */
 @media screen and (max-width: 900px) {

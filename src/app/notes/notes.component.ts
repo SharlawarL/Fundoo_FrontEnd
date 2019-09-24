@@ -17,6 +17,9 @@ export class NotesComponent implements OnInit{
   @ViewChild('closebutton') closebutton;
   private show = true;
   public data: any;
+  public lebel: any;
+  public lebel_data: any;
+  public temp: any;
   loading: boolean;
   public token = localStorage.getItem('User')
   public modelClass = "notes_cards"
@@ -42,8 +45,10 @@ export class NotesComponent implements OnInit{
   ngOnInit():void {
     //loading data on load
     this.get_Notes()
-    this.Notes.currentView.subscribe(view => this.view = view)
+    this.get_labels()
+    this.get_labelsnote()
     this.get_color()
+    this.Notes.currentView.subscribe(view => this.view = view)
   }
 
   Note_view_grid()
@@ -68,16 +73,15 @@ get_color()
     {color:'#00ffff'},
     {color:'#0080ff'},
     {color:'#0099cc'},
-    {color:'#4000ff'},
-    {color:'#ff00ff'},
-    {color:'#ff3333'},
-    {color:'#ff0000'},
+    {color:'#80ced6'},
+    {color:'#f0f0f0'},
+    {color:'#eca1a6'},
+    {color:'#6b5b95'},
     {color:'#ffbf00'},
     {color:'#ff8000'},
     {color:'#8000ff'}
   ]
   this.color_set = color
-  console.log(color)
 }
 change_color(color : any,id : any)
 {
@@ -93,7 +97,6 @@ change_color(color : any,id : any)
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
-      console.log(note_data)
     })
   }
 
@@ -148,8 +151,10 @@ change_color(color : any,id : any)
      const reminder = target.querySelector('#reminder').value
      const id = target.querySelector('#Notes_id').value
      let Notes_data = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
-     this.Notes.Update_Notes(Notes_data).subscribe(data=>{ this.get_Notes()  })
-     this.rout.navigate(['notes'],{relativeTo: this.route});
+     this.Notes.Update_Notes(Notes_data).subscribe(data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/notes'])
+    })
    }
 
 
@@ -171,16 +176,66 @@ change_color(color : any,id : any)
   trash(note_data : any)
   {
     let data = "note_id="+note_data.note_id+"&&token="+this.token
-    this.Notes.addtrash(data).subscribe()
-    this.get_Notes()
-    this.rout.navigate(['/dashboard/notes'])
+    this.Notes.addtrash(data).subscribe(
+      data=>
+      {
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/notes'])
+      }
+    )
   }
   //for archive the Notes
   archive(note_data : any)
   {
     let data = "note_id="+note_data.note_id+"&&token="+this.token
-    this.Notes.addarchive(data).subscribe()
+    this.Notes.addarchive(data).subscribe(data=>
+      {
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/notes'])
+      })
+    
+  }
+  // Get the Notes which are store into database
+  get_labels(){
+    //getting data from service
+    this.Notes.Get_labels(this.token).subscribe(lebel_data=>{
+    this.lebel = lebel_data
+    console.log(this.lebel)
+  })
+  }
+
+  clicklabel(lebel : any,note_id: any)
+  {
+    let data = "lebel="+lebel+"&&note_id="+note_id+"&&token="+this.token
+    this.Notes.addlebelnotes(data).subscribe( data =>
+      {
+        this.get_Notes()
+        this.get_labels()
+        this.get_labelsnote()
+        this.rout.navigate(['/dashboard/notes'])
+      })
+  }
+
+  // Get the lebel notes which are store into database
+  get_labelsnote(){
+    //getting data from service
+    this.Notes.Get_labelsnote(this.token).subscribe(lebel_data=>{
+    this.lebel_data = lebel_data
     this.get_Notes()
     this.rout.navigate(['/dashboard/notes'])
+  })
+  }
+  removelabel(lebel_id: any)
+  {
+    let data = "id="+lebel_id+"&&token="+this.token
+    this.Notes.removelebel(data).subscribe(
+      data =>
+      {
+        this.get_Notes()
+        this.get_labels()
+        this.get_labelsnote()
+        this.rout.navigate(['/dashboard/notes'])
+      }
+    )
   }
 }

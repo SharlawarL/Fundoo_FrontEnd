@@ -31,6 +31,7 @@ import { NotesPipe } from './pipe/notes.pipe';
 import { ReminderPipe } from './pipe/reminder.pipe';
 import { TrashPipe } from './pipe/trash.pipe';
 import { ArchivePipe } from './pipe/archive.pipe';
+import { LebelPipe } from './pipe/lebel.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { ArchivePipe } from './pipe/archive.pipe';
     ReminderPipe,
     TrashPipe,
     ArchivePipe,
+    LebelPipe,
   ],
   imports: [
     BrowserModule,

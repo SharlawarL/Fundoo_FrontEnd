@@ -134,6 +134,9 @@ a:hover{
 .view{
     width: 30%;
 }
+.view_list{
+    width: 90%;
+}
 /* for mobile view */
 @media screen and (max-width: 900px) {
    .sidebar a{

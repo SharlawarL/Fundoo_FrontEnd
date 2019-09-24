@@ -67,11 +67,11 @@ get_color()
     {color:'#00ff00'},
     {color:'#00ffff'},
     {color:'#0080ff'},
-    {color:'#0000ff'},
-    {color:'#4000ff'},
-    {color:'#ff00ff'},
-    {color:'#ff3333'},
-    {color:'#ff0000'},
+    {color:'#0099cc'},
+    {color:'#80ced6'},
+    {color:'#f0f0f0'},
+    {color:'#eca1a6'},
+    {color:'#6b5b95'},
     {color:'#ffbf00'},
     {color:'#ff8000'},
     {color:'#8000ff'}
@@ -82,9 +82,12 @@ get_color()
 change_color(color : any,id : any)
 {
     let Notes_data = 'note_id='+id+'&&color='+color+'&&token='+this.token
-    this.Notes.Update_color(Notes_data).subscribe(data=>{ this.get_Notes()  })
-    this.get_Notes()
-    this.rout.navigate(['/dashboard/notes'])
+    this.Notes.Update_color(Notes_data).subscribe(
+      data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/reminder'])
+    }
+    )
 }
 
   // Get the Notes which are store into database
@@ -133,9 +136,12 @@ change_color(color : any,id : any)
     const rdate = target.querySelector('#rdate').value
     const id = target.querySelector('#note_id').value
     let Notes_data = 'note_id='+id+'&&rdate='+rdate+'&&token='+this.token
-    this.Notes.Update_reminderdate(Notes_data).subscribe(data=>{ this.get_Notes()  })
-    this.get_Notes()
-    this.rout.navigate(['/dashboard/notes'])
+    this.Notes.Update_reminderdate(Notes_data).subscribe(
+      data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/reminder'])
+    }
+    )
    }
 
    //update notes
@@ -148,8 +154,12 @@ change_color(color : any,id : any)
      const reminder = target.querySelector('#reminder').value
      const id = target.querySelector('#Notes_id').value
      let Notes_data = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
-     this.Notes.Update_Notes(Notes_data).subscribe(data=>{ this.get_Notes()  })
-     this.rout.navigate(['notes'],{relativeTo: this.route});
+     this.Notes.Update_Notes(Notes_data).subscribe(
+      data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/reminder'])
+    }
+     )
    }
 
 
@@ -171,16 +181,22 @@ change_color(color : any,id : any)
   trash(note_data : any)
   {
     let data = "note_id="+note_data.note_id+"&&token="+this.token
-    this.Notes.addtrash(data).subscribe()
-    this.get_Notes()
-    this.rout.navigate(['/dashboard/notes'])
+    this.Notes.addtrash(data).subscribe(
+      data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/reminder'])
+    }
+    )
   }
   //for archive the Notes
   archive(note_data : any)
   {
     let data = "note_id="+note_data.note_id+"&&token="+this.token
-    this.Notes.addarchive(data).subscribe()
-    this.get_Notes()
-    this.rout.navigate(['/dashboard/notes'])
+    this.Notes.addarchive(data).subscribe(
+      data=>{
+        this.get_Notes()
+        this.rout.navigate(['/dashboard/reminder'])
+    }
+    )
   }
 }

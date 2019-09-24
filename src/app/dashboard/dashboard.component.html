@@ -89,7 +89,10 @@
             <i class="fa fa-bell-o"></i> &nbsp;&nbsp;&nbsp;Reminders
         </li>
         <li class="list-group-item"><Label>Label</Label></li>
-        <li class="list-group-item list">
+        <div *ngFor="let lebels of lebel">
+            <li class="list-group-item"><i class="fa fa-tags"></i>  {{ lebels.lebel }}</li>
+        </div>
+        <li class="list-group-item list" data-toggle="modal" data-target="#lebel">
             <i class="fa fa-pencil"></i> &nbsp;&nbsp;&nbsp;Edit label's  
         </li>
         <li class="list-group-item list" (click)="showArchive()"
@@ -160,5 +163,48 @@
 <!-- ***************************************************************-->
 
 </div>
+<!---  model for lebel   -->
 
+<div class="modal" id="lebel">
+    
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-1">
+                  <i class="fa fa-plus"></i>
+              </div>
+              <div class="col-10">
+                <form (submit)="addlebel($event)">
+                  <input type="text" placeholder="Enter lebel" id="lebel">
+                  <input type="submit" value="Save">
+                </form>
+              </div>
+              <div class="col-1">
+              </div>
+            </div>
+          </div>
+        <div class="modal-content">
+            <div class="lebel" *ngFor="let lebels of lebel">
+              <div class="row">
+                <div class="col-1" >
+                    <i class="fa fa-trash" (click)="deletelebel(lebels.lebel_id)"></i>
+                </div>
+                <div class="col-8">
+                    <input type="text" value="{{ lebels.lebel }}">
+                </div>
+                <div class="col-1">
+                    <i class="fa fa-pencil"></i>
+                </div>
+              </div>
+                
+            </div>
+        </div>
+          <div class="modal-footer">
+            <input type="submit" data-dismiss="modal" value="Done">
+          </div>
+        </div>
+      </div>
+    </div>
 

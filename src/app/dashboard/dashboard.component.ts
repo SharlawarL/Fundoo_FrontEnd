@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   private show = true;
   public user_data: any;
   public data: any;
+  public lebel: any;
   private add_reminder = true
   private reminder : any
   loading: boolean;
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
     //loading data on load
     this.get_Notes()
     this.get_user()
+    this.get_labels()
     this.rout.navigate(['notes'],{relativeTo: this.route});
     this.Note.currentView.subscribe(view => this.view = view)
   }
@@ -62,9 +64,13 @@ export class DashboardComponent implements OnInit {
     this.show = true
 
     // passing data towords to servece for inserting into database
-    this.Notes.createNotesPost(notes_data).subscribe()
-     this.classActive = "notes"
-     this.rout.navigate(['notes'],{relativeTo: this.route});
+    this.Notes.createNotesPost(notes_data).subscribe(
+      data=>
+      {
+        this.get_Notes()
+        this.rout.navigate(['notes'],{relativeTo: this.route});
+      }
+    )
   }
 
 
@@ -140,5 +146,37 @@ export class DashboardComponent implements OnInit {
   setRemider()
   {
     this.showSetReminmder = false;
+  }
+
+  // adding labels
+  addlebel(event :any)
+  {
+    event.preventDefault()
+    const target = event.target
+    const lebel = target.querySelector('#lebel').value
+    let lebel_data = "lebel="+lebel+"&&token="+this.token
+    this.Notes.add_lebel(lebel_data).subscribe(data=>{ 
+      this.get_Notes()
+      this.get_labels()  
+      this.rout.navigate(['/dashboard/notes'])
+    })
+  }
+  // Get the Notes which are store into database
+  get_labels(){
+        //getting data from service
+        this.Notes.Get_labels(this.token).subscribe(lebel_data=>{
+        this.lebel = lebel_data
+      })
+    }
+
+  // delete labels
+  deletelebel(lebel_id :any)
+  {
+    let lebel_data = "lebel="+lebel_id+"&&token="+this.token
+    this.Notes.delete_lebel(lebel_data).subscribe(data=>{ 
+      this.get_Notes()
+      this.get_labels()  
+      this.rout.navigate(['/dashboard/notes'])
+    })
   }
 }

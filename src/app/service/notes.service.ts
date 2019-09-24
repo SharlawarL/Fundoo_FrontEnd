@@ -63,7 +63,22 @@ export class NotesService {
   {
     console.log(notes_data)
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.baseUrl+this.siteUrl+'add_trash',notes_data,{headers: header})
+    return this.http.post(this.baseUrl+this.siteUrl+'Add_trash',notes_data,{headers: header})
+  }
+
+  //restore to trash
+  restoretrash(notes_data : any)
+  {
+    console.log(notes_data)
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Restore_trash',notes_data,{headers: header})
+  }
+  //delete to trash
+  deletetrash(notes_data : any)
+  {
+    console.log(notes_data)
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Delete_trash',notes_data,{headers: header})
   }
 
   //add to trash
@@ -71,7 +86,7 @@ export class NotesService {
   {
     console.log(notes_data)
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.baseUrl+this.siteUrl+'add_archive/',notes_data,{headers: header})
+    return this.http.post(this.baseUrl+this.siteUrl+'Add_archive/',notes_data,{headers: header})
   }
 
   //add to trash
@@ -79,7 +94,7 @@ export class NotesService {
   {
     console.log(notes_data)
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.baseUrl+this.siteUrl+'get_archive/',notes_data,{headers: header})
+    return this.http.post(this.baseUrl+this.siteUrl+'Get_archive/',notes_data,{headers: header})
   }
 
   //update notes background color
@@ -87,5 +102,35 @@ export class NotesService {
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Update_color/', notes_data,{headers: header})
+  }
+
+  add_lebel(lebel_data: any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Add_lebel/', lebel_data,{headers: header})
+  }
+
+  Get_labels(User_token : any)
+  {
+    return this.http.get(this.baseUrl+this.siteUrl+'Get_lebels/'+User_token,{ params:{User_token}})
+  }
+  addlebelnotes(lebel_data: any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Add_lebelnotes/', lebel_data,{headers: header})
+  }
+  Get_labelsnote(User_token : any)
+  {
+    return this.http.get(this.baseUrl+this.siteUrl+'Get_lebelsnote/'+User_token,{ params:{User_token}})
+  }
+  removelebel(lebel_data: any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Removelebel/', lebel_data,{headers: header})
+  }
+  delete_lebel(lebel_data: any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Deletelebel/', lebel_data,{headers: header})
   }
 }

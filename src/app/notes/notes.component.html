@@ -1,141 +1,203 @@
-<!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="notes_container"  colspan="3"
-        cdkDropList
-            #todoList="cdkDropList"
-            cdkDropListOrientation="horizontal"
-            [cdkDropListData]="data"
-            (cdkDropListDropped)="drop($event)">
-            
-            
-            <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
-             *ngFor ="let note_value of data | notes"  [style.background-color]="note_value.color"
-             fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
-              
-                <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
-                  <input type="hidden" id="note_id" >
-                  <h5> <b>{{note_value.title}} </b></h5>
-                  <p>{{note_value.Notes}}</p>
-                  <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
-                </div>
-                <div style="display:flex;padding:10px;overflow: hidden">
-                    <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
-                        {{ lebels.lebel }}
-                        <div class="removelabel" (click)="removelabel(lebels.id)">
-                            <b> &times; </b>
-                        </div>
-                    </div>
-                </div>
-                <div class="options">
-                  <!-- For reminder -->
-                  <div class="option_list dropdown">
-                    <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
-                      id="reminder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                        <div class="dropdown-menu option_containt" aria-labelledby="reminder">
-                        <b>Reminder</b>
-                        <div class="row">
-                          <form (submit)="update_reminder($event)">
-                            <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
-                            <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
-                            <input type="submit" value="add">
-                          </form>
-                        </div>
-                        </div>
-                    </div>
-                  <!-- For colaborator -->
-                  <div class="option_list">
-                    <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i>
-                  </div>
-                  <!-- For color -->
-                  <div class="option_list dropdown">
-                  <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"
-                    id="color_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                      <div class="dropdown-menu color_set" aria-labelledby="color_set">
-                          <div *ngFor ="let c of color_set">
-                            <div class="color_box" [style.background-color]="c.color" 
-                            (click)="change_color(c.color,note_value.note_id)"></div>
-                          </div>
-                      </div>
-                  </div>  
-                  <!-- For Archive -->
-                  <div class="option_list">
-                    <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
-                  </div>
-                  <!-- More option in right side -->
-                  <div class="option_list dropdown">
-                  <i class="btn btn-secondary dropdown-toggle" class="fa fa-ellipsis-v"
-                    id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                      <div class="dropdown-menu" aria-labelledby="moreoption">
-                        <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
-                        <a class="dropdown-item dropdown" id="submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Add Lebel
-                          <ul class="dropdown-menu" aria-labelledby="submenu">
-                            <div *ngFor="let lebel_value of lebel"> 
-                              {{ temp }}
-                              <div *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
-                                <div *ngIf="lebels.lebel == lebel_value.lebel">
-                                  <input type="checkbox" (click)="removelabel(lebels.id)" checked>{{ lebel_value.lebel }}
-                                </div>
-                                <!-- <div *ngIf="lebels.lebel != lebel_value.lebel">
-                                  <input type="checkbox" (click)="clicklabel(lebel_value.lebel,note_value.note_id)">{{ lebel_value.lebel }}
-                                </div> -->
-                              </div>
-                              <input type="checkbox" (click)="clicklabel(lebel_value.lebel,note_value.note_id)">{{ lebel_value.lebel }}
-                            </div>
-                          </ul>
-                        </a>
-                        <a class="dropdown-item" >Something else here</a>
-                      </div>
-                    </div>
-                </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 notes">
+      <!-- ************* For creating notes ************************** -->
+        <div (click)="showTakeNotes()" *ngIf="show">
+          <div class="take_notes">
+            take Note's
+          </div>
+        </div>
+        <div *ngIf="!show">
+          <div class="take_notes">
+            <form (submit)="AddNotes($event)">
+              <div class="form-group">
+                <input type="text" id="title" class="form-control" placeholder="Enter title">
               </div>
-             </div>
-        
-
-               <!-- The Modal -->
-<div class="modal" id="myModal1" *ngIf="!model_box">
-    
-    <div class="modal-dialog">
-      <div class="modal-content">
-          <form (submit)="UpdateNotes($event)">
-              <div class="modal-header">
-                  <h4 class="modal-title">
-                      <input type="text" id="title" value="{{model_title }}">
-                  </h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <div class="form-group">
+                <input type="text" id="notes" class="form-control" placeholder="Enter Note's">
               </div>
-              <div class="modal-body">
-                <input type="hidden" id="Notes_id" value="{{model_id }}">
-                <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
-                <input type="text" id="reminder" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
-                >
+              <div class="form-group" *ngIf="!showInputReminmder"> {{ reminder }}
+                <input type="date" id="reminder" class="reminder" value="{{ reminder }}">
               </div>
-              <div class="modal-footer">
-                  <!-- For reminder -->
-                  <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
-                  <!-- For colaborator -->
-                  <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
-                  <!-- For color -->
-                  <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
-                  <!-- For image -->
-                  <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
-                  <!-- For Archive -->
-                  <i class="fa fa-trash-o" (click)="trash()" data-toggle="tooltip" title="Trash"></i> &nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-ellipsis-v"></i>
-                  <!-- <input type="submit" class="btn" value="Close">  -->
-                  <input type="submit" value="close" id='closebutton' >
-                  <!-- <button type="button" id='closebutton'>Close</button> -->
-                </div>
-          </form>
-          
+              <div class="form-group" *ngIf="showInputReminmder">
+                <input type="hidden" id="reminder" class="reminder" value="">
+              </div>
+              <div class="form-group">
+                      <!-- For reminder -->
+                      <i class="fa fa-bell-o" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
+                        <!-- For colaborator -->
+                        <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
+                        <!-- For color -->
+                        <i class="fa fa-dashboard "></i> &nbsp;&nbsp;&nbsp;
+                        <!-- For image -->
+                        <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
+                        <!-- For Archive -->
+                        <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
+                      <input type="submit" class="form-control" value="Close" class="btn box">
+              </div>
+            </form>
+          </div>
         </div>
         <div class="setRemider" *ngIf="!showSetReminmder">
           <h4>Reminder</h4>
           <div class="row">
             <form (submit)="Add_reminder($event)">
-              &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
-              <input type="submit" value="add">
+              <input type="date" id="rdate" placeholder="select date" >
+              <input type="submit" value="save">
             </form>
           </div>
         </div>
       </div>
     </div>
+    
+<!-- ******************* Retriving Creating Notes ****************** -->
+  <div class="notes_container"  colspan="3" cdkDropList #todoList="cdkDropList" 
+    cdkDropListOrientation="horizontal" [cdkDropListData]="data" (cdkDropListDropped)="drop($event)">
+              
+    <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}" *ngFor ="let note_value of data | notes"  [style.background-color]="note_value.color"
+      fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
+      <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
+        <input type="hidden" id="note_id" >
+        <h5> <b>{{note_value.title}} </b></h5>
+        <p>{{note_value.Notes}}</p>
+      </div>
+      <div style="display:flex;flex-wrap: wrap;padding:10px;overflow: hidden">
+        <div class="lebel_tag" *ngIf="note_value.reminder">  
+          <i class="fa fa-clock-o"></i> {{note_value.reminder}} 
+        </div>
+        <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
+          {{ lebels.lebel }}
+          <div class="removelabel" (click)="remove_label(lebels.id)">
+            <b> &times; </b>
+          </div>
+        </div>
+      </div>
+      <div class="option_box">.
+        <div class="options">
+          <!-- For reminder -->
+          <div class="option_list dropdown">
+            <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder" id="reminder" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu option_containt" aria-labelledby="reminder">
+              <b>Reminder</b>
+              <div class="row">
+                <form (submit)="update_reminder($event)">
+                  <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
+                  <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                  <input type="submit" value="Save">
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- For colaborator -->
+          <div class="option_list">
+            <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i>
+          </div>
+          <!-- For color -->
+          <div class="option_list dropdown">
+            <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"  id="color_set" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu color_set" aria-labelledby="color_set">
+              <div *ngFor ="let c of color_set">
+                <div class="color_box" [style.background-color]="c.color" 
+                  (click)="change_color(c.color,note_value.note_id)">
+                </div>
+              </div>
+            </div>
+          </div>  
+          <!-- For Archive -->
+          <div class="option_list">
+            <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+          </div>
+          <!-- More option in right side -->
+            <div class="option_list dropdown" data-toggle="tooltip" title="more">
+              <i class="btn btn-secondary dropdown-toggle" class="fa fa-ellipsis-v"
+              id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+              <div class="dropdown-menu" aria-labelledby="moreoption">
+                <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
+                <a class="dropdown-item dropdown" id="submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Add Lebel
+                  <ul class="dropdown-menu" aria-labelledby="submenu">
+                    <div *ngFor="let lebel_value of lebel" style="padding:10px 10px;"> 
+                      <div [ngIf]="lebel_value.lebel_id == lebel_data.lebel_id">
+                        <input type="checkbox" checked="true" (click)="attach_label(lebel_value.lebel_id,note_value.note_id)">{{ lebel_value.lebel }}
+                      </div>  
+                    </div>
+                  </ul>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal" id="myModal1" [ngStyle]="" *ngIf="!model_box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <form (submit)="UpdateNotes($event)">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <input type="text" id="title" value="{{model_title }}">
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <input type="hidden" id="Notes_id" value="{{model_id }}">
+                  <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
+                  <input type="text" id="reminder" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
+                  >
+                </div>
+                <div class="modal-footer">
+                    <!-- For reminder -->
+                    <div class="option_list dropdown">
+                        <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
+                          id="reminder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu option_containt" aria-labelledby="reminder">
+                            <b>Reminder</b>
+                            <div class="row">
+                              <form (submit)="update_reminder($event)">
+                                <input type="hidden" id="note_id" placeholder="select date" value="{{ model_id }}" >
+                                <input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+                                <input type="submit" value="add">
+                              </form>
+                            </div>
+                            </div>
+                        </div>
+                    <!-- For colaborator -->
+                    <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
+                    <!-- For color -->
+                    <div class="option_list dropdown">
+                        <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"
+                          id="color_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu color_set" aria-labelledby="color_set">
+                                <div *ngFor ="let c of color_set">
+                                  <div class="color_box" [style.background-color]="c.color" 
+                                  (click)="change_color(c.color,note_value.note_id)"></div>
+                                </div>
+                            </div>
+                        </div> 
+                    <!-- For Archive -->
+                    <div class="option_list">
+                        <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+                      </div>
+                    <!-- For Archive -->
+                    <!-- <input type="submit" class="btn" value="Close">  -->
+                    <input type="submit" value="close" id='closebutton' >
+                    <!-- <button type="button" id='closebutton'>Close</button> -->
+                  </div>
+            </form>
+            
+          </div>
+          <div class="setRemider" *ngIf="!showSetReminmder">
+            <h4>Reminder</h4>
+            <div class="row">
+              <form (submit)="Add_reminder($event)">
+                &nbsp;&nbsp;<input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+                <input type="submit" value="add">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

@@ -15,7 +15,7 @@ textarea{
     width: 500px;
     border-radius: 10px;
     margin: 0px auto;
-    position: absolute;
+    position: relative;
     margin-left: 120px;
 }
 input{
@@ -74,9 +74,19 @@ a:hover{
     flex-wrap: wrap;
     box-flex: up;
 }
+.option_box{
+    height: 50px;
+    position: relative;
+    display: block;
+}
 .options{
     display: none;
     padding: 5px 5px;
+}
+.notes_cards:hover .options{
+    color: red;
+    display: block;
+    font-size: 15px;
 }
 .option_list{
     text-align: center;
@@ -85,7 +95,7 @@ a:hover{
     float: left;
 }
 .option_containt{
-    padding: 10px 10px;
+    padding: 10px 20px;
 }
 .color_set{
     padding: 5px 5px;
@@ -97,11 +107,6 @@ a:hover{
     float: left;
     margin: 3px;
     
-}
-.notes_cards:hover .options {
-    color: red;
-    display: block;
-    font-size: 15px;
 }
 .note_box{
     margin: 0px auto;
@@ -141,7 +146,8 @@ a:hover{
 }
 .lebel_tag{
     padding: 5px 15px; 
-    margin-right: 10px;
+    margin-right: 8px;
+    margin-top: 10px;
     border-radius: 10px;
     background-color: silver;
 }
@@ -149,7 +155,7 @@ a:hover{
     display: none;
     position: absolute;
     text-align: left;
-    margin-top: -10px;
+    margin-top: -15px;
     background-color: silver;
     width: 30px;
     font-size: 10px;

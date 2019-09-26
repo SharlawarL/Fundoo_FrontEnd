@@ -136,6 +136,53 @@ a:hover{
     padding: 10px 10px;
     margin-left: 60px;
 }
+.lebel_delete{
+    color: black;
+}
+.lebel_edit{
+    color: black;
+    float: right;
+}
+.lebel_trash{
+    display: none;
+}
+.lebel_tag{
+    display: block;
+}
+.lebel_delete:hover .lebel_tag
+{
+    display: none;
+}
+.lebel_delete:hover .lebel_trash
+{
+    display: block;
+}
+.lebel_input{
+    color: black;
+    width: 800px;
+}
+.lebel_box{
+    width: 300px;
+}
+.lebel_box_show{
+    width: 300px;
+    display: block;
+}
+.lebel_box_edit{
+    width: 300px;
+    display: none;
+}
+.lebel_box:hover .lebel_box_edit
+{
+    display: block;
+}
+.lebel_box:hover .lebel_box_show
+{
+    display: none;
+}
+.lebel_submit{
+    float: right;
+}
 /* for mobile view */
 @media screen and (max-width: 1000px) {
    .sidebar{

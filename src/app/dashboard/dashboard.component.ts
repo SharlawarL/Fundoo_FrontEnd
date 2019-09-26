@@ -2,8 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../service/notes.service';
 import { AuthService } from '../service/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { Subject }    from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,21 +21,26 @@ export class DashboardComponent implements OnInit {
   public showInputReminmder = true;
   public notes_view = true;
   public classActive = "notes";
-
   public view_set = "Grid"
-
-  public name="lalit"
   view:String;
 
-  constructor(
-    private Notes: NotesService,
-    private Auth: AuthService,
-    private route: ActivatedRoute,
-    private Note : NotesService,
-    private rout: Router) { 
-    }
+  constructor
+  (
+        private Notes: NotesService,
+        private Auth: AuthService,
+        private route: ActivatedRoute,
+        private Note : NotesService,
+        private rout: Router
+  ){}
 
-  ngOnInit():void {
+  ngOnInit():void 
+  {
+    //for invalid or want to direct access this page
+    if(!this.token)
+    {
+      console.log("lalitlll ")
+      this.rout.navigate(['/login'])
+    }
     //loading data on load
     this.get_Notes()
     this.get_user()
@@ -47,12 +50,14 @@ export class DashboardComponent implements OnInit {
   }
 
   //hidding take note
-  showTakeNotes(){
+  showTakeNotes()
+  {
     this.show = false;
   }
 
-   // Adding New Notes
-   AddNotes(event){
+  // Adding New Notes
+  AddNotes(event : any)
+  {
     // data taking from user input
     event.preventDefault()
     const target = event.target
@@ -67,34 +72,29 @@ export class DashboardComponent implements OnInit {
     this.Notes.createNotesPost(notes_data).subscribe(
       data=>
       {
-        this.get_Notes()
-        this.rout.navigate(['notes'],{relativeTo: this.route});
+        this.ngOnInit()
+        this.showNotes()
       }
     )
   }
 
 
   // Get the Notes which are store into database
-  get_Notes(){
-
+  get_Notes()
+  {
     //getting data from service
     this.Notes.Get_Notes(this.token).subscribe(Note_data=>{
       this.data = Note_data
     })
   }
 
+  // get the user details
   get_user()
   {
     //getting data from service
     this.Auth.Get_User(this.token).subscribe(user_data=>{
       this.user_data = user_data
     })
-  }
-
-  //show notes page
-  showNotes(){
-    this.classActive = "notes"
-    this.rout.navigate(['notes'],{relativeTo: this.route});
   }
 
   //for show reminder page
@@ -112,6 +112,12 @@ export class DashboardComponent implements OnInit {
     const target = event.target
     const reminder_set = target.querySelector('#rdate').value
     this.reminder = reminder_set
+  }
+
+  //show notes page
+  showNotes(){
+    this.classActive = "notes"
+    this.rout.navigate(['notes'],{relativeTo: this.route});
   }
 
   //for show archive page
@@ -151,15 +157,13 @@ export class DashboardComponent implements OnInit {
   // adding labels
   addlebel(event :any)
   {
-    event.preventDefault()
-    const target = event.target
-    const lebel = target.querySelector('#lebel').value
-    let lebel_data = "lebel="+lebel+"&&token="+this.token
-    this.Notes.add_lebel(lebel_data).subscribe(data=>{ 
-      this.get_Notes()
-      this.get_labels()  
-      this.rout.navigate(['/dashboard/notes'])
-    })
+      event.preventDefault()
+      const target = event.target
+      const lebel = target.querySelector('#lebel').value
+      let lebel_data = "lebel="+lebel+"&&token="+this.token
+      this.Notes.add_lebel(lebel_data).subscribe(data=>{ 
+        this.ngOnInit()
+      })
   }
   // Get the Notes which are store into database
   get_labels(){
@@ -174,9 +178,19 @@ export class DashboardComponent implements OnInit {
   {
     let lebel_data = "lebel="+lebel_id+"&&token="+this.token
     this.Notes.delete_lebel(lebel_data).subscribe(data=>{ 
-      this.get_Notes()
-      this.get_labels()  
-      this.rout.navigate(['/dashboard/notes'])
+      this.ngOnInit()
+    })
+  }
+  update_lebel(event : any)
+  {
+    event.preventDefault();
+    const target = event.target
+    const lebel_id = target.querySelector('#lebel_id').value
+    const lebel = target.querySelector('#lebel').value
+    let lebel_data = "lebel_id="+lebel_id+"&&lebel="+lebel+"&&token="+this.token
+    this.Notes.Update_lebel(lebel_data).subscribe(data=>
+    { 
+      this.ngOnInit()
     })
   }
 }

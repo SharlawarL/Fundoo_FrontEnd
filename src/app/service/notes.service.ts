@@ -126,11 +126,16 @@ export class NotesService {
   removelebel(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.baseUrl+this.siteUrl+'Removelebel/', lebel_data,{headers: header})
+    return this.http.post(this.baseUrl+this.siteUrl+'Remove_lebel/', lebel_data,{headers: header})
   }
   delete_lebel(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.baseUrl+this.siteUrl+'Deletelebel/', lebel_data,{headers: header})
+    return this.http.post(this.baseUrl+this.siteUrl+'Delete_lebel/', lebel_data,{headers: header})
+  }
+  Update_lebel(lebel_data : any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Update_lebel/', lebel_data,{headers: header})
   }
 }

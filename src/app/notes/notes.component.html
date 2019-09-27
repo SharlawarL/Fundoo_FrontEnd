@@ -58,7 +58,7 @@
       fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
       <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
         <input type="hidden" id="note_id" >
-        <h5> <b>{{note_value.title}} </b></h5>
+        <h5> <b>{{note_value.title}}  </b></h5>
         <p>{{note_value.Notes}}</p>
       </div>
       <div style="display:flex;flex-wrap: wrap;padding:10px;overflow: hidden">
@@ -79,7 +79,7 @@
             <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder" id="reminder" 
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu option_containt" aria-labelledby="reminder">
-              <b>Reminder</b>
+              <b>Reminder </b>
               <div class="row">
                 <form (submit)="update_reminder($event)">
                   <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
@@ -118,10 +118,8 @@
                 <a class="dropdown-item dropdown" id="submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Add Lebel
                   <ul class="dropdown-menu" aria-labelledby="submenu">
-                    <div *ngFor="let lebel_value of lebel" style="padding:10px 10px;"> 
-                      <div [ngIf]="lebel_value.lebel_id == lebel_data.lebel_id">
-                        <input type="checkbox" checked="true" (click)="attach_label(lebel_value.lebel_id,note_value.note_id)">{{ lebel_value.lebel }}
-                      </div>  
+                    <div *ngFor="let lebel_value of lebel" style="padding:10px 10px;color: black">
+                      <input type="checkbox" (click)="attach_label(lebel_value.lebel_id,note_value.note_id)"> {{ lebel_value.lebel }}
                     </div>
                   </ul>
                 </a>
@@ -132,23 +130,23 @@
       </div>
     </div>
     <!-- The Modal -->
-    <div class="modal" id="myModal1" [ngStyle]="" *ngIf="!model_box">
+    <div class="modal fade" id="myModal1">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" [ngStyle]="{'background-color': model_color}">
             <form (submit)="UpdateNotes($event)">
-                <div class="modal-header">
+                <div class="modal-header" style="box-shadow:0px 0px 15px black">
                     <h4 class="modal-title">
-                        <input type="text" id="title" value="{{model_title }}">
+                        <input type="text" id="title" value="{{model_title }}" [ngStyle]="{'background-color': model_color,'border': model_color}">
                     </h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                   <input type="hidden" id="Notes_id" value="{{model_id }}">
-                  <textarea id="Notes" class="text-body">{{ model_Note }}</textarea>
-                  <input type="text" id="reminder" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
+                  <textarea id="Notes" class="text-body"[ngStyle]="{'background-color': model_color,'border': model_color}">{{ model_Note }}</textarea>
+                  <input type="text" id="reminder" [ngStyle]="{'background-color': model_color,'border': model_color}" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
                   >
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="box-shadow:0px 0px 15px black">
                     <!-- For reminder -->
                     <div class="option_list dropdown">
                         <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
@@ -183,7 +181,7 @@
                       </div>
                     <!-- For Archive -->
                     <!-- <input type="submit" class="btn" value="Close">  -->
-                    <input type="submit" value="close" id='closebutton' >
+                    <input type="submit" value="close" id='closebutton' [ngStyle]="{'background-color': model_color,'border': model_color}">
                     <!-- <button type="button" id='closebutton'>Close</button> -->
                   </div>
             </form>

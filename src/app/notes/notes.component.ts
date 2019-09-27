@@ -15,6 +15,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 export class NotesComponent implements OnInit{
 
   @ViewChild('closebutton') closebutton;
+  lebel_list = []
   private show = true;
   public data: any;
   public lebel: any;
@@ -38,7 +39,6 @@ export class NotesComponent implements OnInit{
   public list:any;
   public color_set: any;
   view:String;
-  private reminder : "lalait";
 
   constructor(
         private Notes: NotesService,
@@ -190,8 +190,8 @@ export class NotesComponent implements OnInit{
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
-      this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
+      //let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
+      //this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
     } else {  
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
@@ -227,7 +227,6 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_labels(this.token).subscribe(lebel_data=>{
     this.lebel = lebel_data
-    console.log(this.lebel)
   })
   }
 

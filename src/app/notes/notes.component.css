@@ -17,6 +17,7 @@ textarea{
     margin: 0px auto;
     position: relative;
     margin-left: 120px;
+    transition: width 2s;
 }
 input{
     border:solid 2px white;
@@ -68,6 +69,8 @@ a:hover{
     font-size: 10px;
     position: relative;
     box-sizing:border-box;
+    transition: width 2s;
+    transition: font-size 2s;
 }
 .notes_container{
     display: flex;

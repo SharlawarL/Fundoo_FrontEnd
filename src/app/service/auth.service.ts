@@ -81,4 +81,10 @@ export class AuthService {
   {
     
   }
+
+  //for social login 
+  signIn()
+  {
+    
+  }
 }

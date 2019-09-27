@@ -32,6 +32,25 @@ import { ReminderPipe } from './pipe/reminder.pipe';
 import { TrashPipe } from './pipe/trash.pipe';
 import { ArchivePipe } from './pipe/archive.pipe';
 import { LebelPipe } from './pipe/lebel.pipe';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("click-yavatmal-1533665433625")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("938843183144702")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,8 +81,16 @@ import { LebelPipe } from './pipe/lebel.pipe';
     MatInputModule,
     RouterModule,
     AppRoutingModule,
+    SocialLoginModule
   ],
-  providers: [AuthService,AuthGuard,NotesService],
+  providers: [
+    AuthService,AuthGuard,NotesService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

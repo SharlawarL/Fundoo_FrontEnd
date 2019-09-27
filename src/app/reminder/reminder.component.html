@@ -115,16 +115,7 @@
                       <div >
                         <input type="checkbox" (click)="attach_label(lebel_value.lebel_id,note_value.note_id)">{{ lebel_value.lebel }}
                       </div>
-                      <!-- <div *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
-                        <div >
-                          <input type="checkbox" (click)="removelabel(lebels.id)" checked="true">  {{ lebel_value.lebel }}
-                        </div>
-                          <div *ngIf="lebels.lebel != lebel_value.lebel">
-                        <input type="checkbox" (click)="clicklabel(lebel_value.lebel_id,lebel_value.lebel,note_value.note_id)">{{ lebel_value.lebel }}
-                        </div>
-                      </div> -->
-                      <!-- <input type="checkbox" (click)="clicklabel(lebel_value.lebel_id,lebel_value.lebel,note_value.note_id)">  {{ lebel_value.lebel }} -->
-                    </div>
+                   </div>
                   </ul>
                 </a>
                 <!-- <a class="dropdown-item" >Something else here</a> -->
@@ -135,7 +126,7 @@
       </div>
     </div>
     <!-- The Modal -->
-    <div class="modal" id="myModal1" [ngStyle]="" *ngIf="!model_box">
+    <div class="modal" id="myModal1">
       <div class="modal-dialog">
         <div class="modal-content">
             <form (submit)="UpdateNotes($event)">

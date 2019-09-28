@@ -10,6 +10,7 @@
     background-size: cover;
     height: 650px;
     font-size: 15px;
+    transition: background-size 10s;
 }
 .jumbotron{
     background-color: transparent;
@@ -26,4 +27,35 @@ a{
 }
 .social{
     text-align: center;
+    transition: font-size 2s;
+}
+.fb{
+    color: black;
+    cursor: pointer;
+    font-size:30px;
+    transition: font-size 2s;
+}
+.google{
+    color: black;
+    cursor: pointer;
+    font-size:30px;
+    transition: font-size 2s;
+}
+.twitter{
+    color: black;
+    cursor: pointer;
+    font-size:30px;
+    transition: font-size 2s;
+}
+.social:hover .fb{
+    color: #1a8cff;
+    font-size: 35px;
+}
+.social:hover .google{
+    color: #ff3300;
+    font-size: 35px;
+}
+.social:hover .twitter{
+    color: #1a8cff;
+    font-size: 35px;
 }

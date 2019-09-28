@@ -6,6 +6,15 @@ import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { LoginService } from '../service/login.service'
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+import { GoogleAuthService,GoogleApiService} from "ng-gapi";
+import GoogleAuth = gapi.auth2.GoogleAuth;
+
+
 
 
 
@@ -30,8 +39,13 @@ export class LoginComponent implements OnInit {
   }
 
   constructor (
-    private Auth:AuthService, private router : Router, private login: LoginService,
-    private route: ActivatedRoute) { 
+    private Auth:AuthService, 
+    private router : Router, 
+    private login: LoginService,
+    private route: ActivatedRoute,
+    public afAuth: AngularFireAuth,
+    private googleAuth: GoogleAuthService
+    ) { 
       route.queryParams.subscribe(
         param =>{
           this.success = param['success']   
@@ -44,11 +58,11 @@ export class LoginComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       console.log(this.user)
-      this.login.Social_login(this.user).subscribe(
-          data=>{
+      // this.login.Social_login(this.user).subscribe(
+      //     data=>{
             
-          }
-      )
+      //     }
+      // )
     });
     
   }
@@ -91,11 +105,44 @@ export class LoginComponent implements OnInit {
 
   // login for Google
   signInWithGoogle(): void {
-    this.Auth.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log("Google clicked")
+    this.Auth.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) =>
+    {
+      this.user = userData,
+        console.log(this.user)
+    }
+    );
+    // console.log('onLoadCallback');
+    //   gapi.load('auth2', function() {
+    //     gapi.auth2.init({
+    //         client_id: '624358407601-0h4ldc7mlb8b8ijcjj4bm0g57j4qhr73.apps.googleusercontent.com',
+    //         //This two lines are important not to get profile info from your users
+    //         fetch_basic_profile: false,
+    //         scope: 'email'
+    //     });        
+    //   }); 
   }
  
   // login for Facebook
   signInWithFB(): void {
-    this.Auth.signIn(FacebookLoginProvider.PROVIDER_ID);
+    console.log("facebook clicked")
+    this.Auth.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) =>
+        this.user = userData
+    );
   }
+
+  // // google login
+  // doGoogleLogin(){
+  //   return new Promise<any>((resolve, reject) => {
+  //     let provider = new firebase.auth.GoogleAuthProvider();
+  //     provider.addScope('profile');
+  //     provider.addScope('email');
+  //     this.afAuth.auth
+  //     .signInWithPopup(provider)
+  //     .then(res => {
+  //       resolve(res);
+  //     })
+  //   })
+  // }
+  
 }

@@ -10,11 +10,36 @@
   <link rel="icon" type="image/x-icon" href="https://www.google.com/images/icons/product/keep-512.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script><!-- ********* Top Navbar ***************************-->
-
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="624358407601-0h4ldc7mlb8b8ijcjj4bm0g57j4qhr73.apps.googleusercontent.com">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
   <app-root>
     
   </app-root>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDcnMVmePF2cgpMdcKVwNVXQmQG8KdZlpY",
+    authDomain: "fandoo.firebaseapp.com",
+    databaseURL: "https://fandoo.firebaseio.com",
+    projectId: "fandoo",
+    storageBucket: "",
+    messagingSenderId: "192803779142",
+    appId: "1:192803779142:web:655f02f0fcae99489c5047",
+    measurementId: "G-XLPNTQFXLR"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 </body>
 </html>

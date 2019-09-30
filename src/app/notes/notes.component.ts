@@ -125,6 +125,7 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
+      console.log(note_data)
     })
   }
 

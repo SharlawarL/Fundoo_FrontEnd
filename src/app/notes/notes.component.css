@@ -69,8 +69,14 @@ a:hover{
     font-size: 10px;
     position: relative;
     box-sizing:border-box;
-    transition: width 2s;
-    transition: font-size 2s;
+    /* transform: rotateY(0deg); */
+    transition: font-size 2s; 
+    cursor: pointer;
+}
+.notes_cards:hover{
+    font-size: 12px;
+    /* width: 200px;
+    transform: rotateY(350deg); */
 }
 .notes_container{
     display: flex;

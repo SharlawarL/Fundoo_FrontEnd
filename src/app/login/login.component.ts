@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { FacebookLoginProvider } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { LoginService } from '../service/login.service'
 import { AngularFireModule } from '@angular/fire';
@@ -11,13 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { GoogleAuthService,GoogleApiService} from "ng-gapi";
-import GoogleAuth = gapi.auth2.GoogleAuth;
-
-
-
-
-
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +26,8 @@ export class LoginComponent implements OnInit {
   public success : boolean;
   public message = "";
   private user: SocialUser;
-  private loggedIn: boolean;
+  public userdata: any;
+  public social : string;
 
   public form = {
     resetToken : null
@@ -43,27 +38,11 @@ export class LoginComponent implements OnInit {
     private router : Router, 
     private login: LoginService,
     private route: ActivatedRoute,
-    public afAuth: AngularFireAuth,
-    private googleAuth: GoogleAuthService
-    ) { 
-      route.queryParams.subscribe(
-        param =>{
-          this.success = param['success']   
-        }
-      )
+    public afAuth: AngularFireAuth
+    ) {
     }
   ngOnInit() {
 
-    this.Auth.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log(this.user)
-      // this.login.Social_login(this.user).subscribe(
-      //     data=>{
-            
-      //     }
-      // )
-    });
     
   }
 
@@ -102,47 +81,55 @@ export class LoginComponent implements OnInit {
       //console.log(data,"Data from to the server")
     })
   }
-
-  // login for Google
-  signInWithGoogle(): void {
-    console.log("Google clicked")
-    this.Auth.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) =>
-    {
-      this.user = userData,
-        console.log(this.user)
-    }
-    );
-    // console.log('onLoadCallback');
-    //   gapi.load('auth2', function() {
-    //     gapi.auth2.init({
-    //         client_id: '624358407601-0h4ldc7mlb8b8ijcjj4bm0g57j4qhr73.apps.googleusercontent.com',
-    //         //This two lines are important not to get profile info from your users
-    //         fetch_basic_profile: false,
-    //         scope: 'email'
-    //     });        
-    //   }); 
-  }
  
   // login for Facebook
   signInWithFB(): void {
-    console.log("facebook clicked")
     this.Auth.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) =>
-        this.user = userData
+        {
+          this.social = "Facebook"
+          this.user = userData
+          this.social_login(this.social,this.user)
+        }
     );
   }
 
-  // // google login
-  // doGoogleLogin(){
-  //   return new Promise<any>((resolve, reject) => {
-  //     let provider = new firebase.auth.GoogleAuthProvider();
-  //     provider.addScope('profile');
-  //     provider.addScope('email');
-  //     this.afAuth.auth
-  //     .signInWithPopup(provider)
-  //     .then(res => {
-  //       resolve(res);
-  //     })
-  //   })
-  // }
+  //login from Google
+  googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        this.social = "Google"
+        this.userdata = credential.additionalUserInfo.profile
+        this.social_login(this.social,this.userdata)
+      })
+  }
+
+  //login from facebook
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider()
+  }
+
+  //twitter login
+  twitterLogin()
+  {
+    const provider = new  auth.TwitterAuthProvider()
+    this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        this.social = "Twitter"
+        this.userdata = credential.additionalUserInfo.profile
+        this.social_login(this.social,this.userdata)
+      })
+  }
+  
+  // social login to data base
+  social_login(company: string, userData: any)
+  {
+    return this.login.Social_login(company,userData).subscribe(
+      data=>
+      {
+        console.log("Successfully")
+      }
+    )
+  }
   
 }

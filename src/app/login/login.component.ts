@@ -50,35 +50,31 @@ export class LoginComponent implements OnInit {
   loginUser(event){
     event.preventDefault()
     const target = event.target
-    const email = target.querySelector('#email').value
-    const password = target.querySelector('#password').value
-
-    this.login.User_login(email,password).subscribe(data=>{
-      const myObjStr = JSON.parse(data);
-      if(myObjStr["success"])
+    let user_data = "email="+target.querySelector('#email').value+"&&password="+target.querySelector('#password').value
+    this.login.User_login(user_data).subscribe((res: Response) => {
+      if(res["success"])
       {
-        localStorage.setItem('User',myObjStr["Token"])
+        localStorage.setItem('User',res["Token"])
         localStorage.setItem('Notes_View','Grid')
         this.router.navigate(['/dashboard/notes'])
         this.login.setLog(true)
       }else{
-        console.log(myObjStr["message"])
+        console.log(res["message"])
         
         // If error value will be return
-        if(myObjStr["email"]){
-          this.Email = myObjStr["email"];
+        if(res["email"]){
+          this.Email = res["email"];
           //this.box_color = "red"
         }else{
           this.Email = "";
         }
-        if(myObjStr["password"]){
-          this.Password = myObjStr["password"];
+        if(res["password"]){
+          this.Password = res["password"];
         }else{
           this.Password = "";
         }
         this.login.setLog(false)
       }
-      //console.log(data,"Data from to the server")
     })
   }
  
@@ -86,9 +82,9 @@ export class LoginComponent implements OnInit {
   signInWithFB(): void {
     this.Auth.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) =>
         {
-          this.social = "Facebook"
           this.user = userData
-          this.social_login(this.social,this.user)
+          let s_data = "social=Facebook&&email="+userData.email+"&&photo="+userData.photoUrl+"&&firstname="+userData.firstName+"&&lastname="+userData.lastName
+          this.social_login(s_data)
         }
     );
   }
@@ -100,7 +96,8 @@ export class LoginComponent implements OnInit {
       .then((credential) => {
         this.social = "Google"
         this.userdata = credential.additionalUserInfo.profile
-        this.social_login(this.social,this.userdata)
+        let s_data = "social=Google&&email="+this.userdata.email+"&&photo="+this.userdata.picture+"&&firstname="+this.userdata.given_name+"&&lastname="+this.userdata.family_name
+        this.social_login(s_data)
       })
   }
 
@@ -115,21 +112,22 @@ export class LoginComponent implements OnInit {
     const provider = new  auth.TwitterAuthProvider()
     this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.social = "Twitter"
         this.userdata = credential.additionalUserInfo.profile
-        this.social_login(this.social,this.userdata)
+        var udata = this.userdata.name.split(" ")
+        let s_data = "social=Twitter&&email="+this.userdata.screen_name+"&&photo="+this.userdata.profile_image_url+"&&firstname="+udata[0]+"&&lastname="+udata[1]
+        this.social_login(s_data)
       })
   }
   
   // social login to data base
-  social_login(company: string, userData: any)
+  social_login(userData)
   {
-    return this.login.Social_login(company,userData).subscribe(
-      data=>
-      {
-        console.log("Successfully")
-      }
-    )
+    this.login.Social_login(userData).subscribe((res: Response) => {
+        localStorage.setItem('User',res["Token"])
+        localStorage.setItem('Notes_View','Grid')
+        this.router.navigate(['/dashboard/notes'])
+        this.login.setLog(true)
+    })
   }
   
 }

@@ -27,13 +27,6 @@ export class AuthService {
     return this.Log_In
   }
 
-  //The method for login user and parameters are email and password
-  User_login(email,password){
-
-    // http post request to codeigniter for login
-    return this.http.post(this.baseUrl+this.siteUrl+'Login',{email,password},{responseType: 'text'});
-  }
-
   //the  method for the register user
   User_register(firstname,lastname,email,password,passwordcc){
     // http post request to codeigniter for register user
@@ -82,9 +75,9 @@ export class AuthService {
     
   }
 
-  //for social login 
-  signIn()
+  change_photo(photo_data : any)
   {
-    
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.baseUrl+this.siteUrl+'Change_photo/',photo_data,{headers: header})
   }
 }

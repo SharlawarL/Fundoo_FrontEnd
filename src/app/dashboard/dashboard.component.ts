@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   public notes_view = true;
   public classActive = "notes";
   public view_set = "Grid"
+  public imageSrc :  any;
   view:String;
 
   constructor
@@ -193,4 +194,31 @@ export class DashboardComponent implements OnInit {
       this.ngOnInit()
     })
   }
+
+  readURL(event){
+    console.log(event)
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event) => { 
+        this.imageSrc = reader.result;
+      }
+    }
 }
+
+  changephoto(event : any)
+  {
+    event.preventDefault();
+    const target = event.target
+    let photo_data = "photo="+target.querySelector('#photo').value+"&&token="+this.token
+    console.log(photo_data)
+    this.Auth.change_photo(photo_data).subscribe(
+      (res: Response) => {
+        console.log(res)
+      }
+    )
+  }
+}
+

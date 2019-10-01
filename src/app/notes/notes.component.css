@@ -69,14 +69,18 @@ a:hover{
     font-size: 10px;
     position: relative;
     box-sizing:border-box;
-    /* transform: rotateY(0deg); */
-    transition: font-size 2s; 
     cursor: pointer;
+    border:0px solid black;
+    /* transform: rotateY(0deg); */
+    transition: font-size 2s,border 2s ease-in; 
+    
 }
 .notes_cards:hover{
-    font-size: 12px;
-    /* width: 200px;
-    transform: rotateY(350deg); */
+    position: relative;
+    animation: boxradius 2s 1;
+    border:2px solid black;
+    
+    /* transform: rotateY(3deg) skewX(-5deg); */
 }
 .notes_container{
     display: flex;
@@ -201,5 +205,37 @@ a:hover{
    }
    .view{
         width: 90%;
+    }
+}
+@keyframes boxradius{
+    0%{
+        border-top:0px solid black;
+        border-right:0px solid black;
+        border-bottom:0px solid black;
+        border-left:0px solid black;
+    }
+    25%{
+        border-top:1px solid black;
+        border-right:0px solid black;
+        border-bottom:0px solid black;
+        border-left:0px solid black;
+    }
+    50%{
+        border-top:2px solid black;
+        border-right:1px solid black;
+        border-bottom:0px solid black;
+        border-left:0px solid black;
+    }
+    75%{
+        border-top:2px solid black;
+        border-right:2px solid black;
+        border-bottom:1px solid black;
+        border-left:0px solid black;
+    }
+    100%{
+        border-top:2px solid black;
+        border-right:2px solid black;
+        border-bottom:2px solid black;
+        border-left:1px solid black;
     }
 }

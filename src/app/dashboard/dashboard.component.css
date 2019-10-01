@@ -86,6 +86,20 @@ a:hover{
 }
 .img-circle-profile{
     border-radius: 40px;
+    overflow: hidden;
+    height: 80px;
+    width: 80px;
+}
+.change_photo{
+    background-color: rgb(126, 125, 125, 0.7);
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+    overflow: hidden;
+    color: white;
+    height: 50px;
+    text-shadow: 0px 0px 5px black;
 }
 .dropdown{
     float: right;
@@ -183,6 +197,7 @@ a:hover{
 .lebel_submit{
     float: right;
 }
+
 /* for mobile view */
 @media screen and (max-width: 1000px) {
    .sidebar{

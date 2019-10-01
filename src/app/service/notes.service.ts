@@ -32,12 +32,14 @@ export class NotesService {
   // retriving Notes Data
   Get_Notes(User_token : any)
   {
-    return this.http.get(this.baseUrl+this.siteUrl+'Get_notes/'+User_token,{ params:{User_token}})
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.get(this.baseUrl+this.siteUrl+'Get_notes/'+User_token,{ responseType: 'json'})
   }
 
   //update notes
   Update_Notes(notes_data: any)
   {
+    
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Update_notes/', notes_data,{headers: header})
   }

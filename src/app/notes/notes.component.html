@@ -171,7 +171,7 @@
                             <div class="dropdown-menu color_set" aria-labelledby="color_set">
                                 <div *ngFor ="let c of color_set">
                                   <div class="color_box" [style.background-color]="c.color" 
-                                  (click)="change_color(c.color,note_value.note_id)"></div>
+                                  (click)="change_color(c.color,model_id)"></div>
                                 </div>
                             </div>
                         </div> 

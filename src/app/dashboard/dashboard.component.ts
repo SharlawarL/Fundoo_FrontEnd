@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../service/notes.service';
 import { AuthService } from '../service/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
+import { MessagingService } from "../service/messaging.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
   public view_set = "Grid"
   public imageSrc :  any;
   view:String;
+  message;
 
   constructor
   (
@@ -31,7 +33,8 @@ export class DashboardComponent implements OnInit {
         private Auth: AuthService,
         private route: ActivatedRoute,
         private Note : NotesService,
-        private rout: Router
+        private rout: Router,
+        private messagingService: MessagingService
   ){}
 
   ngOnInit():void 
@@ -46,6 +49,10 @@ export class DashboardComponent implements OnInit {
     this.get_Notes()
     this.get_user()
     this.get_labels()
+    const userId = 'user001';
+    this.messagingService.requestPermission(userId)
+    this.messagingService.receiveMessage()
+    this.message = this.messagingService.currentMessage
     this.rout.navigate(['notes'],{relativeTo: this.route});
     this.Note.currentView.subscribe(view => this.view = view)
   }
@@ -212,8 +219,8 @@ export class DashboardComponent implements OnInit {
   {
     event.preventDefault();
     const target = event.target
-    let photo_data = "photo="+target.querySelector('#photo').value+"&&token="+this.token
-    console.log(photo_data)
+    let photo_data = "photo="+this.imageSrc+"&&token="+this.token
+    console.log(this.imageSrc)
     this.Auth.change_photo(photo_data).subscribe(
       (res: Response) => {
         console.log(res)

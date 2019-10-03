@@ -12,11 +12,35 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { auth } from 'firebase/app';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+declare const changeSide: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('changeDivSize', [
+      state('initial', style({
+      })),
+      state('final', style({
+        transform: 'rotateY(90deg)',
+        display: 'none'
+      })),
+      state('rinitial', style({
+        transform: 'rotateY(90deg)',
+        display: 'none'
+      })),
+      state('rfinal', style({
+        transform: 'rotateY(0deg)',
+        display: 'block'
+      })),
+      transition('initial=>final', animate('1500ms')),
+      transition('final=>initial', animate('1000ms')),
+      transition('rinitial=>rfinal', animate('1500ms')),
+      transition('rfinal=>rinitial', animate('1000ms'))
+    ]),
+  ]
 })
 export class LoginComponent implements OnInit {
 
@@ -28,6 +52,8 @@ export class LoginComponent implements OnInit {
   private user: SocialUser;
   public userdata: any;
   public social : string;
+  currentState = 'initial';
+  registerState = 'rinitial';
 
   public form = {
     resetToken : null
@@ -128,6 +154,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/dashboard/notes'])
         this.login.setLog(true)
     })
+  }
+
+  changeState() {
+    this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
+    this.registerState = this.registerState === 'rinitial' ? 'rfinal' : 'rinitial';
   }
   
 }

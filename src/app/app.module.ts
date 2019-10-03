@@ -37,6 +37,12 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  Ng6SocialButtonModule,SocialServiceConfig  } from "ng6-social-button";
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AsyncPipe } from '../../node_modules/@angular/common';
+import { MessagingService } from './service/messaging.service';
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -66,7 +72,16 @@ let config = new AuthServiceConfig([
     provider: new FacebookLoginProvider("938843183144702")
   }
 ]);
- 
+// Configs
+export function getAuthServiceConfigs() {
+  let config = new SocialServiceConfig()
+      .addFacebook("938843183144702")
+      .addGoogle("Your-Google-Client-Id")
+      .addLinkedIn("Your-LinkedIn-Client-Id");
+  return config;
+}
+
+
 export function provideConfig() {
   return config;
 }
@@ -104,18 +119,26 @@ export function provideConfig() {
     AppRoutingModule,
     SocialLoginModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
+    BrowserAnimationsModule,
+    Ng6SocialButtonModule
   ],
   providers: [
-    AuthService,AuthGuard,NotesService,
+    AuthService,AuthGuard,NotesService,MessagingService, AsyncPipe,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
+    },
+    {
+      provide: SocialServiceConfig,
+      useFactory: getAuthServiceConfigs
     }
     
   ],

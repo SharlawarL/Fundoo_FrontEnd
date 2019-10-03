@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {  SocialService } from "ng6-social-button";
 
 
 
@@ -39,11 +40,16 @@ export class NotesComponent implements OnInit{
   public list:any;
   public color_set: any;
   view:String;
+  shareObj = {
+    href: "http://www.facebook.com/sharer.php?u=www.google.com&text=lalitsharlawar",
+    hashtag:"#FACEBOOK-SHARE-HASGTAG"
+  };
 
   constructor(
         private Notes: NotesService,
         private route: ActivatedRoute,
-        private rout: Router) { 
+        private rout: Router,
+        private socialAuthService: SocialService) { 
       }
 
   ngOnInit():void {
@@ -259,4 +265,11 @@ export class NotesComponent implements OnInit{
       }
     )
   }
+
+  getSocialUser(socialUser){
+    console.log(socialUser);
+  }
+  public facebookSharing(shareObj: any){
+    this.socialAuthService.facebookSharing(shareObj);
+}
 }

@@ -2,8 +2,8 @@
 <div class="container">
   <br><br><br>
   <div class="row">
-    <div class="col-md-6s">
-      <div class="card">
+    <div class="col-md-6s" [@changeDivSize]=currentState>
+      <div class="card" >
         <label>  <h3>Login Form </h3></label>
         <hr>
         {{ message }}
@@ -35,6 +35,47 @@
           </div>
         </form>
       </div>
+    </div>
+    <div class="col-md-6s" [@changeDivSize]=registerState>
+      <div class="card" >
+        <label>  <h3>Registration Form </h3></label>
+        <hr>
+        {{ message }}
+        <form (submit)="loginUser($event)" autocomplete="off">
+          
+          <div class="form-group">
+              {{ Email }} 
+            <input type="text" class="form-control" id="email" placeholder="Enter E-mail"
+            [ngStyle]="{'border-color':box_color === 'silver' ? 'silver' : 'red' }">
+          </div>
+          <div class="form-group" >
+              {{ Password }}
+            <input type="password" class="form-control" id="password" placeholder="Enter Password">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-primary box">
+          </div>
+          <div class="form-group social">
+            Or<br>
+            <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+            <a (click)="googleLogin()" class="google" data-toggle="tooltip" title="Google +"> <i  class="fab fa-google-plus-g" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+            <a (click)="twitterLogin()" class="twitter" data-toggle="tooltip" title="Twitter"> <i  class="fab fa-twitter" ></i></a> <br>
+          </div>
+          <div class="form-group">
+            <hr>
+              <a routerLink="/" >Home Page</a> &nbsp;&nbsp;| &nbsp;&nbsp; 
+              <a routerLink="/register" >Create User</a>&nbsp;&nbsp; | &nbsp;&nbsp; 
+              <a routerLink="/forgot" >Forgot password</a> 
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-3">
+      <h3>Change the div size</h3>
+      <button (click)="changeState()">Change Size</button>
+      <br />
+      <div [@changeDivSize]=currentState></div>
+      <br />
     </div>
   </div>
 </div>

@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   public imageSrc :  any;
   view:String;
   message;
+  selecteded;
+  
 
   constructor
   (
@@ -49,8 +51,7 @@ export class DashboardComponent implements OnInit {
     this.get_Notes()
     this.get_user()
     this.get_labels()
-    const userId = 'user001';
-    this.messagingService.requestPermission(userId)
+    this.messagingService.requestPermission(this.token)
     this.messagingService.receiveMessage()
     this.message = this.messagingService.currentMessage
     this.rout.navigate(['notes'],{relativeTo: this.route});
@@ -206,6 +207,7 @@ export class DashboardComponent implements OnInit {
     console.log(event)
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
+      this.selecteded = event.target.files[0]
 
       reader.readAsDataURL(event.target.files[0]);
 
@@ -220,7 +222,6 @@ export class DashboardComponent implements OnInit {
     event.preventDefault();
     const target = event.target
     let photo_data = "photo="+this.imageSrc+"&&token="+this.token
-    console.log(this.imageSrc)
     this.Auth.change_photo(photo_data).subscribe(
       (res: Response) => {
         console.log(res)

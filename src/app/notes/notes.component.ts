@@ -40,6 +40,8 @@ export class NotesComponent implements OnInit{
   public list:any;
   public color_set: any;
   view:String;
+  public data_notes: any;
+  public height: string;
   shareObj = {
     href: "http://www.facebook.com/sharer.php?u=www.google.com&text=lalitsharlawar",
     hashtag:"#FACEBOOK-SHARE-HASGTAG"
@@ -59,6 +61,7 @@ export class NotesComponent implements OnInit{
         this.get_labelsnote()
         this.get_color()
         this.Notes.currentView.subscribe(view => this.view = view)
+        
   }
 
   // Adding New Notes
@@ -125,12 +128,31 @@ export class NotesComponent implements OnInit{
       })
   }
 
+  
   // Get the Notes which are store into database
   get_Notes(){
     const user_token = this.token
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
+      this.height = (this.data.length/3)*200+150+"px";
+      console.log(this.data.length)
+      console.log("lalit")
+      // let count=0;
+      //   for(let notes_v of this.data)
+      //   {
+      //     if(notes_v.is_archive == '0')
+      //     {
+      //       this.data_notes.push({
+      //         'note_id':notes_v.note_id,
+      //         'title':notes_v.title,
+      //         'Notes':notes_v.Notes,
+      //         'reminder':notes_v.reminder,
+      //         'color':notes_v.color,
+      //       })
+      //     }
+      //     count++
+      //   }
     })
   }
 
@@ -193,17 +215,22 @@ export class NotesComponent implements OnInit{
 
 
   //for drag nd drop of notes
+  // drop(event: CdkDragDrop<string[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //     console.log(event.container)
+  //     // let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
+  //     // this.Notes.Update_notesindex(event.item).subscribe(data=>{ this.get_Notes()  })
+  //   } else {  
+  //     transferArrayItem(event.previousContainer.data,
+  //                       event.container.data,
+  //                       event.previousIndex,
+  //                       event.currentIndex);
+  //   }
+  // }
   drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      //let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
-      //this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
-    } else {  
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
+    moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+    console.log(event.container)
   }
 
   //for trash the Notes

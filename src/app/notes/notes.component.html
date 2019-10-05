@@ -51,15 +51,20 @@
     </div>
     
 <!-- ******************* Retriving Creating Notes ****************** -->
-  <div class="notes_container"  colspan="3" cdkDropList #todoList="cdkDropList" 
-    cdkDropListOrientation="horizontal" [cdkDropListData]="data" (cdkDropListDropped)="drop($event)">
-              
-    <div class="notes_cards"  [ngStyle]="{'width':view === 'Grid' ? '30%' : '70%' }" *ngFor ="let note_value of data | notes"  [style.background-color]="note_value.color"
-      fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
+  <div class="notes_container"  colspan="3" cdkDropList
+    (cdkDropListDropped)="drop($event)" [ngClass]="{'view':view === 'Grid','view_list':view === 'List'}" [style.height]="height">
+    <div *ngFor ="let note_value of data"  
+    class="notes_cards" [style.background-color]="note_value.color" cdkDragBoundary=".notes_container"  cdkDrag>
+    <div  class="card-body custom-placeholder" *cdkDragPlaceholder></div>
+    <div >
       <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
-        <input type="hidden" id="note_id" >
-        <h5> <b>{{note_value.title}}  </b></h5>
-        <p>{{note_value.Notes}}</p>
+        <input type="hidden" id="note_id">
+        <div class="notes_title">
+          <h5> <b>{{note_value.title}}  </b></h5>
+        </div>
+        <div style="width: 100%; word-wrap:wrap;height: 100%;text-align: justify">
+        <p >{{note_value.Notes}}</p>
+      </div>
       </div>
       <div style="display:flex;flex-wrap: wrap;padding:10px;overflow: hidden">
         <div class="lebel_tag" *ngIf="note_value.reminder">  
@@ -147,12 +152,13 @@
         </div>
       </div>
     </div>
+  </div>
     <!-- The Modal -->
     <div class="modal fade" id="myModal1">
       <div class="modal-dialog">
         <div class="modal-content" [ngStyle]="{'background-color': model_color}">
             <form (submit)="UpdateNotes($event)">
-                <div class="modal-header" style="box-shadow:0px 0px 15px black">
+                <div class="modal-header">
                     <h4 class="modal-title">
                         <input type="text" id="title" value="{{model_title }}" [ngStyle]="{'background-color': model_color,'border': model_color}">
                     </h4>
@@ -164,7 +170,7 @@
                   <input type="text" id="reminder" [ngStyle]="{'background-color': model_color,'border': model_color}" class="text-body" (click)="setRemider()" value="{{ model_reminder }}" 
                   >
                 </div>
-                <div class="modal-footer" style="box-shadow:0px 0px 15px black">
+                <div class="modal-footer" style="box-shadow:0px 0px 15px black;background-color: white;">
                     <!-- For reminder -->
                     <div class="option_list dropdown">
                         <i class="far fa-bell" data-toggle="tooltip" title="reminder"
@@ -186,17 +192,17 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                         <div class="dropdown-menu color_set" aria-labelledby="social">
                             <div class="color_box" style="color: black">
-                                <a href="http://twitter.com/share?url=http://example.com&text={{note_value.title}}-{{note_value.Notes}}" target="_blank">
+                                <a href="http://twitter.com/share?url=http://example.com&text={{model_title}}-{{model_Note}}" target="_blank">
                                   <i class='fab fa-twitter-square' style="font-size: 30px;"></i>
                                 </a>
                             </div>
                             <div class="color_box" style="color: black">
-                              <a href="http://www.facebook.com/sharer.php?u=www.example.com&quote={{note_value.title}}-{{note_value.Notes}}" target="_blank">
+                              <a href="http://www.facebook.com/sharer.php?u=www.example.com&quote={{model_title}}-{{model_Note}}" target="_blank">
                                 <i class='fab fa-facebook' style="font-size: 30px;"></i>
                               </a>
                             </div>
                             <div class="color_box" style="color: black">
-                                <a href="https://plus.google.com/share?url=www.example.com&quote={{note_value.title}}-{{note_value.Notes}}" target="_blank">
+                                <a href="https://plus.google.com/share?url=www.example.com&quote={{model_title}}-{{model_Note}}" target="_blank">
                                   <i class='fab fa-google' style="font-size: 30px;"></i>
                                 </a>
                             </div>
@@ -219,7 +225,7 @@
                       </div>
                     <!-- For Archive -->
                     <!-- <input type="submit" class="btn" value="Close">  -->
-                    <input type="submit" value="close" id='closebutton' [ngStyle]="{'background-color': model_color,'border': model_color}">
+                    <input type="submit" value="Save" id='closebutton' [ngStyle]="{'background-color': model_color,'border': model_color,'box-shadow':'0px 0px 10px black','border':'1px solid black'}">
                     <!-- <button type="button" id='closebutton'>Close</button> -->
                   </div>
             </form>
@@ -237,4 +243,3 @@
         </div>
       </div>
 </div>
-

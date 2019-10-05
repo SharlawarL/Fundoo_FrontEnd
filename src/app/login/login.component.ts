@@ -24,7 +24,7 @@ declare const changeSide: any;
       state('initial', style({
       })),
       state('final', style({
-        transform: 'rotateY(90deg)',
+        transform: 'rotateY(180deg)',
         display: 'none'
       })),
       state('rinitial', style({
@@ -108,7 +108,6 @@ export class LoginComponent implements OnInit {
   signInWithFB(): void {
     this.Auth.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) =>
         {
-          this.user = userData
           let s_data = "social=Facebook&&email="+userData.email+"&&photo="+userData.photoUrl+"&&firstname="+userData.firstName+"&&lastname="+userData.lastName
           this.social_login(s_data)
         }
@@ -120,7 +119,6 @@ export class LoginComponent implements OnInit {
     const provider = new firebase.auth.GoogleAuthProvider()
     this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.social = "Google"
         this.userdata = credential.additionalUserInfo.profile
         let s_data = "social=Google&&email="+this.userdata.email+"&&photo="+this.userdata.picture+"&&firstname="+this.userdata.given_name+"&&lastname="+this.userdata.family_name
         this.social_login(s_data)
@@ -159,6 +157,12 @@ export class LoginComponent implements OnInit {
   changeState() {
     this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
     this.registerState = this.registerState === 'rinitial' ? 'rfinal' : 'rinitial';
+  }
+  flipped = false;
+  imgSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtkL8GlKZ775j3f0VVgS1rU8L2LoX5UEM6fKv_eGLzeza27WYH"
+
+  flipIt() {
+    this.flipped = !this.flipped;
   }
   
 }

@@ -12,12 +12,12 @@ cdkDropListOrientation="horizontal"
       <input type="hidden" id="note_id" >
       <h5> <b>{{note_value.title}} </b></h5>
       <p>{{note_value.Notes}}</p>
-      <p><i class="fa fa-clock-o"></i> {{note_value.reminder}}</p>
+      <p><i class="far fa-clock-o"></i> {{note_value.reminder}}</p>
     </div>
     <div class="options">
       <!-- For reminder -->
       <div class="option_list dropdown">
-        <i class="fa fa-bell-o" data-toggle="tooltip" title="reminder"
+        <i class="far fa-bell" data-toggle="tooltip" title="reminder"
           id="reminder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu option_containt" aria-labelledby="reminder">
             <b>Reminder</b>
@@ -36,7 +36,7 @@ cdkDropListOrientation="horizontal"
       </div>
       <!-- For color -->
       <div class="option_list dropdown">
-      <i class="fa fa-dashboard" data-toggle="tooltip" title="Set color"
+      <i class="fas fa-palette" data-toggle="tooltip" title="Set color"
         id="color_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
           <div class="dropdown-menu color_set" aria-labelledby="color_set">
               <div *ngFor ="let c of color_set">
@@ -84,11 +84,11 @@ cdkDropListOrientation="horizontal"
   </div>
   <div class="modal-footer">
       <!-- For reminder -->
-      <i class="fa fa-bell-o" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
+      <i class="far fa-bell" (click)="setRemider()" data-toggle="tooltip" title="Set Reminder"></i> &nbsp;&nbsp;&nbsp;
       <!-- For colaborator -->
       <i class="fa fa-group" data-toggle="tooltip" title="colaborator"></i> &nbsp;&nbsp;&nbsp;
       <!-- For color -->
-      <i class="fa fa-dashboard " data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fas fa-palette" data-toggle="tooltip" title="Set color"></i> &nbsp;&nbsp;&nbsp;
       <!-- For image -->
       <i class="fa fa-image" data-toggle="tooltip" title="Archive"></i> &nbsp;&nbsp;&nbsp;
       <!-- For Archive -->

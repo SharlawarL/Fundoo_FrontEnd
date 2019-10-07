@@ -5,7 +5,7 @@ cdkDropListOrientation="horizontal"
 (cdkDropListDropped)="drop($event)" >
 
 <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
- *ngFor ="let note_value of data | trash"  [style.background-color]="note_value.color"
+ *ngFor ="let note_value of total_notes | trash"  [style.background-color]="note_value.color"
  fxLayout="row" fxLayoutAlign="start start" cdkDrag>
   
     <div class="card-body">

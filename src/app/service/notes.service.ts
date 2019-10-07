@@ -36,6 +36,13 @@ export class NotesService {
     return this.http.get(this.baseUrl+this.siteUrl+'Get_notes/'+User_token,{ responseType: 'json'})
   }
 
+  // retriving Notes Data
+  Get_total_notes(User_token : any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.get(this.baseUrl+this.siteUrl+'Get_total_notes/'+User_token,{ responseType: 'json'})
+  }
+
   //update notes
   Update_Notes(notes_data: any)
   {

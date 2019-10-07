@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TrashPipe implements PipeTransform {
 
-  transform(data: any, args?: any): any {
-    return data.filter((notes_value) => (notes_value.is_trash == '1' && notes_value.is_archive   != '1'));
+  transform(total_notes: any, args?: any): any {
+    return total_notes.filter((notes_value) => (notes_value.is_trash == '1' && notes_value.is_archive   != '1'));
   }
 
 }

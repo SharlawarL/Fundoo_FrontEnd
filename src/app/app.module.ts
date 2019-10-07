@@ -43,6 +43,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -123,6 +124,7 @@ export function provideConfig() {
     AngularFireMessagingModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    ToastModule.forRoot(),
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig

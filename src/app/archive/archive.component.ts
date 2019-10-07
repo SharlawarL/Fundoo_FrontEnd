@@ -94,7 +94,7 @@ change_color(color : any,id : any)
   get_Notes(){
     const user_token = this.token
     //getting data from service
-    this.Notes.Get_Notes(user_token).subscribe(note_data=>{
+    this.Notes.Get_total_notes(user_token).subscribe(note_data=>{
       this.data = note_data
       console.log(note_data)
     })

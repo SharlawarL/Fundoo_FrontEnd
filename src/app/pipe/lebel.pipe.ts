@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LebelPipe implements PipeTransform {
 
-  transform(data: any, note_id: any): any {
-    return data.filter((lebels) => (lebels.note_id == note_id));
+  transform(lebel_data: any, note_id: any): any {
+    return lebel_data.filter((lebels) => (lebels.note_id == note_id));
   }
 }

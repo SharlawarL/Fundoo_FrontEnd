@@ -51,13 +51,13 @@
     </div>
     
 <!-- ******************* Retriving Creating Notes ****************** -->
-  <div class="notes_container"  colspan="3" cdkDropList
+  <div class="notes_container"  colspan="3" cdkDropList cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)" [ngClass]="{'view':view === 'Grid','view_list':view === 'List'}" [style.height]="height">
-    <div *ngFor ="let note_value of data"  
-    class="notes_cards" [style.background-color]="note_value.color" cdkDragBoundary=".notes_container"  cdkDrag>
+    <div *ngFor ="let note_value of data"  class="notes_cards" [style.background-color]="note_value.color" 
+    cdkDragBoundary=".notes_container"  cdkDrag>
     <div  class="card-body custom-placeholder" *cdkDragPlaceholder></div>
     <div >
-      <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
+      <div class="card-body" style="width: 100%;text-align: justify;word-wrap: break-word;" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
         <input type="hidden" id="note_id">
         <div class="notes_title">
           <h5> <b>{{note_value.title}}  </b></h5>
@@ -242,4 +242,20 @@
           </div>
         </div>
       </div>
+</div>
+
+
+<!-- *************** Notification alert ***************-->
+
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Success!</strong> This alert box could indicate a successful or positive action.
+</div>
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Success!</strong> This alert box could indicate a successful or positive action.
+</div>
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Success!</strong> This alert box could indicate a successful or positive action.
 </div>

@@ -16,6 +16,7 @@ export class TrashComponent implements OnInit{
 
   @ViewChild('closebutton') closebutton;
   public data: any;
+  public total_notes: any;
   loading: boolean;
   public token = localStorage.getItem('User')
   public modelClass = "notes_cards"
@@ -78,9 +79,9 @@ get_color()
   get_Notes(){
     const user_token = this.token
     //getting data from service
-    this.Notes.Get_Notes(user_token).subscribe(note_data=>{
-      this.data = note_data
-      console.log(note_data)
+    this.Notes.Get_total_notes(user_token).subscribe(note_data=>{
+      this.total_notes = note_data
+      console.log(this.total_notes)
     })
   }
 

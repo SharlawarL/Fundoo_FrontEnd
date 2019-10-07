@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {  SocialService } from "ng6-social-button";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 
 
@@ -51,7 +52,10 @@ export class NotesComponent implements OnInit{
         private Notes: NotesService,
         private route: ActivatedRoute,
         private rout: Router,
-        private socialAuthService: SocialService) { 
+        private socialAuthService: SocialService,
+        public toastr: ToastsManager,
+        public vcr: ViewContainerRef) { 
+          this.toastr.setRootViewContainerRef(vcr);
       }
 
   ngOnInit():void {
@@ -135,7 +139,7 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
-      this.height = (this.data.length/3)*200+150+"px";
+      this.height = (this.data.length/3)*200+200+"px";
       console.log(this.data.length)
       console.log("lalit")
       // let count=0;
@@ -298,5 +302,26 @@ export class NotesComponent implements OnInit{
   }
   public facebookSharing(shareObj: any){
     this.socialAuthService.facebookSharing(shareObj);
-}
+  }
+  // notification
+
+  showSuccess() {
+    this.toastr.success('You are awesome!', 'Success!');
+  }
+
+  showError() {
+    this.toastr.error('This is not good!', 'Oops!');
+  }
+
+  showWarning() {
+    this.toastr.warning('You are being warned.', 'Alert!');
+  }
+
+  showInfo() {
+    this.toastr.info('Just some information for you.');
+  }
+  
+  showCustom() {
+    this.toastr.custom('<span style="color: red">Message in red.</span>', null, {enableHTML: true});
+  }
 }

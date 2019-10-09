@@ -43,7 +43,8 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -52,6 +53,7 @@ import {
   NG_GAPI_CONFIG,
   GoogleApiConfig
 } from "ng-gapi";
+import { SearchPipe } from './pipe/search.pipe';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "624358407601-0h4ldc7mlb8b8ijcjj4bm0g57j4qhr73.apps.googleusercontent.com",
@@ -106,9 +108,11 @@ export function provideConfig() {
     TrashPipe,
     ArchivePipe,
     LebelPipe,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     NoopAnimationsModule,
@@ -124,12 +128,12 @@ export function provideConfig() {
     AngularFireMessagingModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ToastModule.forRoot(),
+    ToastrModule.forRoot(),
+    NotifierModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
-    BrowserAnimationsModule,
     Ng6SocialButtonModule
   ],
   providers: [

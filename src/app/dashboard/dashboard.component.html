@@ -12,7 +12,7 @@
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <!-- search bar -->
-  <input class="form-control search" id="Search" type="text" placeholder="Search..">
+  <input class="form-control search" [(ngModel)]="searchText" id="Search" type="text" placeholder="Search.." (click)="showSearch()">
   <!-- Refresh -->
   <div class="dropdown" data-toggle="tooltip" title="refresh" (click)="refresh()">
       <i class="fa fa-refresh" style="font-size:24px"></i>
@@ -118,7 +118,34 @@
       </ul>
 </div>
 <!-- ******************* Retriving Creating Notes ****************** -->
+<div *ngIf="search" >
         <router-outlet ></router-outlet>
+</div>
+<!-- ******************* Search Notes ****************** -->
+
+<div *ngIf="!search" > 
+     <h3 style="text-align: center">Search Note's</h3>
+
+    <div class="container">
+        <!-- ******************* Retriving Creating Notes ****************** -->
+        <div class="d-flex flex-wrap"  colspan="3"
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)" >
+        
+        <div class="notes_cards" 
+         *ngFor ="let note_value of data | search:searchText "  [style.background-color]="note_value.color"
+         fxLayout="row" fxLayoutAlign="start start" cdkDrag>
+          
+            <div class="card-body">
+              <input type="hidden" id="note_id" >
+              <h5> <b>{{note_value.title}} </b></h5>
+              <p>{{note_value.Notes}}</p>
+              <p><i class="far fa-clock-o"></i> {{note_value.reminder}}</p>
+            </div>
+          </div> 
+         </div>
+        </div>
+</div>
 
 <!-- ***************************************************************-->
 

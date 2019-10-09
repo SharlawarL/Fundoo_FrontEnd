@@ -50,12 +50,12 @@
       </div>
     </div>
     
-<!-- ******************* Retriving Creating Notes ****************** -->
-  <div class="notes_container"  colspan="3" cdkDropList cdkDropListOrientation="horizontal"
+<!-- ******************* Retriving Creating Notes ******************  -->
+  <div class="notes_container"  colspan="3" cdkDropList cdkDropListOrientation="vertical"
     (cdkDropListDropped)="drop($event)" [ngClass]="{'view':view === 'Grid','view_list':view === 'List'}" [style.height]="height">
     <div *ngFor ="let note_value of data"  class="notes_cards" [style.background-color]="note_value.color" 
     cdkDragBoundary=".notes_container"  cdkDrag>
-    <div  class="card-body custom-placeholder" *cdkDragPlaceholder></div>
+    <!-- <div  class="card-body custom-placeholder" *cdkDragPlaceholder></div> -->
     <div >
       <div class="card-body" style="width: 100%;text-align: justify;word-wrap: break-word;" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
         <input type="hidden" id="note_id">
@@ -71,10 +71,7 @@
           <i class="fa fa-clock-o"></i> {{note_value.reminder}} 
         </div>
         <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
-          {{ lebels.lebel }}
-          <div class="removelabel" (click)="remove_label(lebels.id)">
-            <b> &times; </b>
-          </div>
+          {{ lebels.lebel }} <b (click)="remove_label(lebels.id)"> &times;</b>
         </div>
       </div>
       <div class="option_box">.
@@ -89,6 +86,12 @@
                 <form (submit)="update_reminder($event)">
                   <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
                   <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                  <select>
+                      <option>Morning  08:00 AM</option>
+                      <option>Afternoon 01:00 PM</option>
+                      <option>Evening 06:00 PM</option>
+                      <option>Night 08:00 PM</option>
+                    </select>
                   <input type="submit" value="Save">
                 </form>
               </div>
@@ -181,6 +184,12 @@
                               <form (submit)="update_reminder($event)">
                                 <input type="hidden" id="note_id" placeholder="select date" value="{{ model_id }}" >
                                 <input type="date" id="rdate" placeholder="select date" value="{{ model_reminder }}" >
+                                <select>
+                                  <option>Morning  08:00 AM</option>
+                                  <option>Afternoon 01:00 PM</option>
+                                  <option>Evening 06:00 PM</option>
+                                  <option>Night 08:00 PM</option>
+                                </select>
                                 <input type="submit" value="add">
                               </form>
                             </div>
@@ -242,20 +251,4 @@
           </div>
         </div>
       </div>
-</div>
-
-
-<!-- *************** Notification alert ***************-->
-
-<div class="alert alert-success">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Success!</strong> This alert box could indicate a successful or positive action.
-</div>
-<div class="alert alert-success">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Success!</strong> This alert box could indicate a successful or positive action.
-</div>
-<div class="alert alert-success">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Success!</strong> This alert box could indicate a successful or positive action.
 </div>

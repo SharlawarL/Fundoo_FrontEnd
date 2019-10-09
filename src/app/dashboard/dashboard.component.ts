@@ -3,6 +3,8 @@ import { NotesService } from '../service/notes.service';
 import { AuthService } from '../service/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MessagingService } from "../service/messaging.service";
+import { trigger, state, transition, animate, style } from '@angular/animations';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +29,8 @@ export class DashboardComponent implements OnInit {
   view:String;
   message;
   selecteded;
+  public search =  true;
+  searchText;
   
 
   constructor
@@ -62,6 +66,7 @@ export class DashboardComponent implements OnInit {
   showTakeNotes()
   {
     this.show = false;
+    this.search =  true;
   }
 
   // Adding New Notes
@@ -92,7 +97,7 @@ export class DashboardComponent implements OnInit {
   get_Notes()
   {
     //getting data from service
-    this.Notes.Get_Notes(this.token).subscribe(Note_data=>{
+    this.Notes.Get_total_notes(this.token).subscribe(Note_data=>{
       this.data = Note_data
     })
   }
@@ -110,6 +115,7 @@ export class DashboardComponent implements OnInit {
   showReminder(){
     this.classActive = "reminder"
     this.rout.navigate(['reminder'],{relativeTo: this.route});
+    this.search =  true;
   }
 
   //for adding reminder
@@ -127,18 +133,21 @@ export class DashboardComponent implements OnInit {
   showNotes(){
     this.classActive = "notes"
     this.rout.navigate(['notes'],{relativeTo: this.route});
+    this.search =  true;
   }
 
   //for show archive page
   showArchive(){
     this.classActive = "archive"
     this.rout.navigate(['archive'],{relativeTo: this.route});
+    this.search =  true;
   }
 
   //for show trash
   showTrash(){
     this.classActive = "trash"
     this.rout.navigate(['trash'],{relativeTo: this.route});
+    this.search =  true;
   }
   logout(){
     localStorage.removeItem('User')
@@ -227,6 +236,13 @@ export class DashboardComponent implements OnInit {
         console.log(res)
       }
     )
+  }
+  // showSuccess() {
+  //   this.toastr.success('Hello world!', 'Toastr fun!');
+  // }
+
+  showSearch(){
+    this.search = !this.search;
   }
 }
 

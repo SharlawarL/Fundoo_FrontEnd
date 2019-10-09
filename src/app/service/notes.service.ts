@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { text } from '@angular/core/src/render3';
 
 @Injectable({
   providedIn: 'root'
@@ -113,38 +114,56 @@ export class NotesService {
     return this.http.post(this.baseUrl+this.siteUrl+'Update_color/', notes_data,{headers: header})
   }
 
+  // adding the lebels
   add_lebel(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Add_lebel/', lebel_data,{headers: header})
   }
 
+  // getting lebels
   Get_labels(User_token : any)
   {
     return this.http.get(this.baseUrl+this.siteUrl+'Get_lebels/'+User_token,{ params:{User_token}})
   }
+
+  // lebel add to notes
   addlebelnotes(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Add_lebelnotes/', lebel_data,{headers: header})
   }
+
+  // lebels of notes
   Get_labelsnote(User_token : any)
   {
     return this.http.get(this.baseUrl+this.siteUrl+'Get_lebelsnote/'+User_token,{ params:{User_token}})
   }
+
+  // remove lebels
   removelebel(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Remove_lebel/', lebel_data,{headers: header})
   }
+
+  //delete lebels
   delete_lebel(lebel_data: any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Delete_lebel/', lebel_data,{headers: header})
   }
+  // update lebels
   Update_lebel(lebel_data : any)
   {
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.post(this.baseUrl+this.siteUrl+'Update_lebel/', lebel_data,{headers: header})
+  }
+
+  // notes drag and drop
+  Drag_drop(Notes_data : any)
+  {
+    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.put(this.baseUrl+this.siteUrl+'Drag_drop/', Notes_data,{ responseType: 'text'})
   }
 }

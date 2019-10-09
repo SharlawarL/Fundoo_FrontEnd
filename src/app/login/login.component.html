@@ -7,12 +7,23 @@
             <div class="flip-card-inner" id="flip-card-inner" [class.voted]="flipped">
               <div class="flip-card-front">
                   <div class="card">
-                    <label>  <h3>Login Form </h3></label>
+                    <label>  <h3>Sign In </h3></label>
                       <div class="form-group social">
-                          <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+                          <!-- <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
                           <a (click)="googleLogin()" class="google" data-toggle="tooltip" title="Google +"> <i  class="fab fa-google-plus-g" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
-                          <a (click)="twitterLogin()" class="twitter" data-toggle="tooltip" title="Twitter"> <i  class="fab fa-twitter" ></i></a> <br>
-                          Or Use your Account<br>
+                          <a (click)="twitterLogin()" class="twitter" data-toggle="tooltip" title="Twitter"> <i  class="fab fa-twitter" ></i></a> <br> -->
+                          <a href="#" class="fb socialbtn">
+                              &nbsp;<i class="fab fa-facebook-f"></i>&nbsp;
+                           </a>
+                          <a href="#" class="twitter socialbtn">
+                              &nbsp;<i class="fab fa-twitter"></i>&nbsp;
+                          </a>
+                          <a href="#" class="google socialbtn">
+                            <i class="fab fa-google-plus-g"></i>
+                          </a>
+                          <div><br>
+                            <b>Or Use your Account</b>
+                          </div>
                         </div>
                       {{ message }}
                       <form (submit)="loginUser($event)" autocomplete="off">
@@ -40,7 +51,7 @@
               </div>
               <div class="flip-card-back">
                   <div class="card" >
-                      <label>  <h3>Registration Form </h3></label>
+                      <label>  <h3>Sign Up</h3></label>
                       <hr>
                       {{ message }}
                       <form (submit)="loginUser($event)" autocomplete="off">
@@ -55,7 +66,7 @@
                           <input type="password" class="form-control" id="password" placeholder="Enter Password">
                         </div>
                         <div class="form-group">
-                          <input type="submit" value="Login" class="btn btn-primary box">
+                          <input type="submit" value="Login" style="width: 100%" class="btn btn-primary box">
                         </div>
                         <div class="form-group">
                           <hr>

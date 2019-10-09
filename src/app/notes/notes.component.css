@@ -84,6 +84,18 @@ a:hover{
 .notes_container{
     color: black;
 }
+.view{
+    display: flex;
+    flex-direction: column;
+    width: 300px;   
+    flex-wrap: wrap;
+}
+.view_list{
+    display: flex;
+    flex-direction: row;
+    width: 800px;   
+    flex-wrap: wrap;
+}
 .option_box{
     height: 50px;
     position: relative;
@@ -151,18 +163,7 @@ a:hover{
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
 }
-.view{
-    display: flex;
-    flex-direction: column;
-    width: 300px;   
-    flex-wrap: wrap;
-}
-.view_list{
-    display: flex;
-    flex-direction: row;
-    width: 800px;   
-    flex-wrap: wrap;
-}
+
 .lebel_tag{
     padding: 5px 15px; 
     margin-right: 8px;
@@ -172,17 +173,11 @@ a:hover{
 }
 .removelabel{
     display: none;
-    position: absolute;
-    text-align: left;
-    margin-top: -15px;
-    background-color: silver;
-    width: 30px;
-    font-size: 10px;
+    position: relative;
 }
 .lebel_tag:hover .removelabel{
     display: block;
-    position: absolute;
-    margin-top: -10px;
+    position: relative;
 }
 .notes_title{
     color: black;
@@ -232,8 +227,15 @@ a:hover{
    .notes_cards{
        width: 100%;
    }
-   .view{
-        width: 90%;
+    .view{
+        display: block;
+        width: 100%;   
+        flex-wrap: wrap;
+    }
+    .view_list{
+        display: block;
+        width: 90%;   
+        flex-wrap: wrap;
     }
 }
 @keyframes boxradius{

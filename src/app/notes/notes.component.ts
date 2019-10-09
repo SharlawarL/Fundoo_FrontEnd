@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit  } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import { NotesService } from '../service/notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {  SocialService } from "ng6-social-button";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
+import { NotifierService } from 'angular-notifier';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { map, count } from 'rxjs/operators';
 
 
 @Component({
@@ -47,15 +49,23 @@ export class NotesComponent implements OnInit{
     href: "http://www.facebook.com/sharer.php?u=www.google.com&text=lalitsharlawar",
     hashtag:"#FACEBOOK-SHARE-HASGTAG"
   };
+  private readonly notifier: NotifierService;
+  public a : String[];
+  public b : String[];
+  public c : String[];
+  public count_a= 1;
+  public count_b= 1;
+  public count_c= 1;
 
   constructor(
         private Notes: NotesService,
         private route: ActivatedRoute,
         private rout: Router,
         private socialAuthService: SocialService,
-        public toastr: ToastsManager,
-        public vcr: ViewContainerRef) { 
-          this.toastr.setRootViewContainerRef(vcr);
+        notifierService: NotifierService,
+        public toastr: ToastrManager
+        ) { 
+          this.notifier = notifierService;
       }
 
   ngOnInit():void {
@@ -65,7 +75,6 @@ export class NotesComponent implements OnInit{
         this.get_labelsnote()
         this.get_color()
         this.Notes.currentView.subscribe(view => this.view = view)
-        
   }
 
   // Adding New Notes
@@ -86,6 +95,7 @@ export class NotesComponent implements OnInit{
       data=>
       {
         this.ngOnInit()
+        this.toastr.successToastr('Notes successully created.', 'Success!');
       }
     )
   }
@@ -139,24 +149,17 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
-      this.height = (this.data.length/3)*200+200+"px";
-      console.log(this.data.length)
-      console.log("lalit")
-      // let count=0;
-      //   for(let notes_v of this.data)
-      //   {
-      //     if(notes_v.is_archive == '0')
-      //     {
-      //       this.data_notes.push({
-      //         'note_id':notes_v.note_id,
-      //         'title':notes_v.title,
-      //         'Notes':notes_v.Notes,
-      //         'reminder':notes_v.reminder,
-      //         'color':notes_v.color,
-      //       })
-      //     }
-      //     count++
-      //   }
+      this.height = (this.data.length/3)*200+100+"px";
+      
+      for(let i=0;i< this.data.length ;i++)
+      {
+        if(i == this.count_a)
+        {
+          this.a.push(value.index_no);
+          this.count_a = this.count_a +3;
+        }
+      }
+      console.log("lalairt--->>",this.a)
     })
   }
 
@@ -234,7 +237,16 @@ export class NotesComponent implements OnInit{
   // }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.data, event.previousIndex, event.currentIndex);
-    console.log(event.container)
+    this.data.map((data,index_no)=> 
+    {
+      data.index_no= index_no+1;
+
+    });
+    console.log(this.data)
+    this.Notes.Drag_drop(this.data).subscribe(data=>{
+      this.ngOnInit()
+    })
+    
   }
 
   //for trash the Notes
@@ -245,6 +257,7 @@ export class NotesComponent implements OnInit{
       data=>
       {
         this.ngOnInit()
+        this.toastr.warningToastr('This Note will be added to trash.', 'Alert!');
       }
     )
   }
@@ -256,6 +269,7 @@ export class NotesComponent implements OnInit{
     this.Notes.addarchive(data).subscribe(data=>
       {
         this.ngOnInit()
+        this.toastr.errorToastr('This Notes will be Archived.', 'Oops!');
       }) 
   }
 
@@ -303,25 +317,10 @@ export class NotesComponent implements OnInit{
   public facebookSharing(shareObj: any){
     this.socialAuthService.facebookSharing(shareObj);
   }
-  // notification
-
-  showSuccess() {
-    this.toastr.success('You are awesome!', 'Success!');
-  }
-
-  showError() {
-    this.toastr.error('This is not good!', 'Oops!');
-  }
-
-  showWarning() {
-    this.toastr.warning('You are being warned.', 'Alert!');
-  }
-
-  showInfo() {
-    this.toastr.info('Just some information for you.');
-  }
-  
-  showCustom() {
-    this.toastr.custom('<span style="color: red">Message in red.</span>', null, {enableHTML: true});
+  notify()
+  {
+    console.log("Notify")
+    this.notifier.notify( 'success', 'You are awesome! I mean it!' );
+    this.toastr.successToastr('This is success toast.', 'Success!');
   }
 }

@@ -22,6 +22,9 @@ export class NotesComponent implements OnInit{
   lebel_list = []
   private show = true;
   public data: any;
+  public a: any;
+  public b: any;
+  public c: any;
   public lebel: any;
   public lebel_data: any;
   public temp: any;
@@ -36,6 +39,9 @@ export class NotesComponent implements OnInit{
   public model_reminder : any;
   public showSetReminmder = true;
   public showInputReminmder = true;
+  public takeshowInputReminmder = true;
+  public takeremind : any;
+  public takecolor = "white";
   public x: number;
   success : any
   public note_view ="";
@@ -50,12 +56,9 @@ export class NotesComponent implements OnInit{
     hashtag:"#FACEBOOK-SHARE-HASGTAG"
   };
   private readonly notifier: NotifierService;
-  public a : String[];
-  public b : String[];
-  public c : String[];
   public count_a= 1;
-  public count_b= 1;
-  public count_c= 1;
+  public count_b= 2;
+  public count_c= 3;
 
   constructor(
         private Notes: NotesService,
@@ -83,11 +86,7 @@ export class NotesComponent implements OnInit{
     // data taking from user input
     event.preventDefault()
     const target = event.target
-    const title = target.querySelector('#title').value
-    const notes = target.querySelector('#notes').value
-    const reminder = target.querySelector('#reminder').value
-    const token = this.token
-    let notes_data = 'title='+title+'&Notes='+notes+'&user_id='+token+'&reminder='+reminder
+    let notes_data = 'title='+target.querySelector('#title').value+'&Notes='+target.querySelector('#notes').value+'&user_id='+this.token+'&reminder='+target.querySelector('#reminder').value+"&&color="+target.querySelector('#color').value
     this.show = true
 
     // passing data towords to servece for inserting into database
@@ -149,17 +148,36 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
-      this.height = (this.data.length/3)*200+100+"px";
-      
-      for(let i=0;i< this.data.length ;i++)
+      this.height = (this.data.length/3)*200+200+"px";
+      console.log(note_data)
+      var Notes_a: Array<string>  = []; 
+      var Notes_b: Array<string>  = []; 
+      var Notes_c: Array<string>  = []; 
+      for(let value of this.data)
       {
-        if(i == this.count_a)
+        if(value.index_no == (this.count_a-1))
         {
-          this.a.push(value.index_no);
+          Notes_a.push(value);
           this.count_a = this.count_a +3;
         }
+        if(value.index_no == (this.count_b-1))
+        {
+          Notes_b.push(value);
+          this.count_b = this.count_b +3;
+        }
+        if(value.index_no == (this.count_c-1))
+        {
+          Notes_c.push(value);
+          this.count_c = this.count_c +3;
+        }
       }
-      console.log("lalairt--->>",this.a)
+      this.a = Notes_a;
+      this.b = Notes_b;
+      this.c = Notes_c;
+      //console.log("A array :"+this.data[0]['title'])
+      console.log(Notes_a)
+      console.log(Notes_b)
+      console.log(Notes_c)
     })
   }
 
@@ -176,6 +194,18 @@ export class NotesComponent implements OnInit{
   setRemider()
   {
     this.showSetReminmder = false;
+  }
+  //show reminder set
+  takereminder(event)
+  {
+    event.preventDefault()
+    const target = event.target
+    this.takeremind = target.querySelector('#rdate').value
+    this.takeshowInputReminmder = false;
+  }
+  take_color(color)
+  {
+    this.take_color = color;
   }
 
   //hide reminder set
@@ -220,33 +250,24 @@ export class NotesComponent implements OnInit{
     })
   }
 
-
-  //for drag nd drop of notes
-  // drop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //     console.log(event.container)
-  //     // let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
-  //     // this.Notes.Update_notesindex(event.item).subscribe(data=>{ this.get_Notes()  })
-  //   } else {  
-  //     transferArrayItem(event.previousContainer.data,
-  //                       event.container.data,
-  //                       event.previousIndex,
-  //                       event.currentIndex);
-  //   }
-  // }
   drop(event: CdkDragDrop<string[]>) {
+    if(event.previousContainer === event.container){
     moveItemInArray(this.data, event.previousIndex, event.currentIndex);
     this.data.map((data,index_no)=> 
     {
       data.index_no= index_no+1;
 
     });
-    console.log(this.data)
     this.Notes.Drag_drop(this.data).subscribe(data=>{
       this.ngOnInit()
     })
-    
+  }
+  //else{
+  //   transferArrayItem(event.previousContainer.data,
+  //     event.container.data,
+  //     event.previousIndex,
+  //     event.currentIndex);
+  // } 
   }
 
   //for trash the Notes
@@ -257,7 +278,7 @@ export class NotesComponent implements OnInit{
       data=>
       {
         this.ngOnInit()
-        this.toastr.warningToastr('This Note will be added to trash.', 'Alert!');
+        this.toastr.errorToastr('This Note will be added to trash.', 'Trash..!');
       }
     )
   }
@@ -269,7 +290,7 @@ export class NotesComponent implements OnInit{
     this.Notes.addarchive(data).subscribe(data=>
       {
         this.ngOnInit()
-        this.toastr.errorToastr('This Notes will be Archived.', 'Oops!');
+        this.toastr.warningToastr('This Notes will be Archived.', 'Archive..!');
       }) 
   }
 
@@ -311,15 +332,15 @@ export class NotesComponent implements OnInit{
     )
   }
 
-  getSocialUser(socialUser){
-    console.log(socialUser);
-  }
+
+  // for sharing on facebook
   public facebookSharing(shareObj: any){
     this.socialAuthService.facebookSharing(shareObj);
   }
+
+  // for notification
   notify()
   {
-    console.log("Notify")
     this.notifier.notify( 'success', 'You are awesome! I mean it!' );
     this.toastr.successToastr('This is success toast.', 'Success!');
   }

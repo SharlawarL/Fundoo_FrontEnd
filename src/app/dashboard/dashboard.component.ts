@@ -5,6 +5,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { MessagingService } from "../service/messaging.service";
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
   selecteded;
   public search =  true;
   searchText;
-  
+  profileForm: FormGroup;
 
   constructor
   (
@@ -46,11 +47,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit():void 
   {
     //for invalid or want to direct access this page
-    if(!this.token)
+    if(this.token == null)
     {
-      console.log("lalitlll ")
-      this.rout.navigate(['/login'])
+      this.rout.navigate(['login'],{relativeTo: this.route});
     }
+    console.log("lalit "+this.token)
     //loading data on load
     this.get_Notes()
     this.get_user()
@@ -230,7 +231,7 @@ export class DashboardComponent implements OnInit {
   {
     event.preventDefault();
     const target = event.target
-    let photo_data = "photo="+this.imageSrc+"&&token="+this.token
+    let photo_data = "photo="+this.imageSrc
     this.Auth.change_photo(photo_data).subscribe(
       (res: Response) => {
         console.log(res)
@@ -242,7 +243,8 @@ export class DashboardComponent implements OnInit {
   // }
 
   showSearch(){
-    this.search = !this.search;
+    this.search = false
+    this.ngOnInit()
   }
 }
 

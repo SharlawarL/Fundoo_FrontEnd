@@ -8,42 +8,68 @@
           </div>
         </div>
         <div *ngIf="!show">
-          <div class="take_notes">
+          <div class="take_notes" [style.background-color]="take_color">
             <form (submit)="AddNotes($event)">
               <div class="form-group">
-                <input type="text" id="title" class="form-control" placeholder="Enter title">
+                <input type="text" id="title" [ngStyle]="{'background-color': take_color,'border': take_color}" class="form-control" placeholder="Enter title">
               </div>
               <div class="form-group">
-                <input type="text" id="notes" class="form-control" placeholder="Enter Note's">
+                <input type="text" id="notes" [ngStyle]="{'background-color': take_color,'border': take_color}" class="form-control" placeholder="Enter Note's">
+                <input type="hidden" id="color" value="{{ take_color }}">
               </div>
-              <div class="form-group" *ngIf="!showInputReminmder"> {{ reminder }}
-                <input type="date" id="reminder" class="reminder" value="{{ reminder }}">
+              <div class="form-group" *ngIf="!takeshowInputReminmder">
+                <input type="date" id="reminder" class="reminder" value="{{ takeremind }}">
               </div>
-              <div class="form-group" *ngIf="showInputReminmder">
+              <div class="form-group" *ngIf="takeshowInputReminmder">
                 <input type="hidden" id="reminder" class="reminder" value="">
               </div>
               <div class="form-group">
+                <div class="option_box">.
+                <div class="option">
                       <!-- For reminder -->
-                      <i class="far fa-bell" (click)="setRemider()"></i> &nbsp;&nbsp;&nbsp;
-                        <!-- For colaborator -->
-                        <i class="fa fa-group"></i> &nbsp;&nbsp;&nbsp;
-                        <!-- For color -->
-                        <i class="fas fa-palette "></i> &nbsp;&nbsp;&nbsp;
-                        <!-- For image -->
-                        <i class="fa fa-image"></i> &nbsp;&nbsp;&nbsp;
-                        <!-- For Archive -->
-                        <i class="fa fa-trash-o"></i> &nbsp;&nbsp;&nbsp;
-                      <input type="submit" class="form-control" value="Close" class="btn box">
+                      <div class="option_list dropdown">
+                        <i class="far fa-bell" data-toggle="tooltip" title="reminder" id="reminder" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu option_containt" aria-labelledby="reminder">
+                          <b>Reminder </b>
+                          <div class="row">
+                            <form (submit)="takereminder($event)">
+                              <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
+                              <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                              <select>
+                                  <option>Morning  08:00 AM</option>
+                                  <option>Afternoon 01:00 PM</option>
+                                  <option>Evening 06:00 PM</option>
+                                  <option>Night 08:00 PM</option>
+                                </select>
+                              <input type="submit" value="Save">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="option_list">
+                        <i class="fa fa-group" data-toggle="tooltip" title="Social Share" 
+                        ></i>
+                        </div>
+                       <!-- For color -->
+                      <div class="option_list dropdown">
+                          <i class="fas fa-palette" data-toggle="tooltip" title="Set color"  id="color_set" 
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu color_set" aria-labelledby="color_set">
+                          <div *ngFor ="let c of color_set">
+                            <div class="color_box" [style.background-color]="c.color" 
+                              (click)="take_color(c.color)">
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+                      <div class="option_list">
+                        <input type="submit" class="form-control" value="Close" class="btn box">
+                      </div>
+                    </div>
+                  </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="setRemider" *ngIf="!showSetReminmder">
-          <h4>Reminder</h4>
-          <div class="row">
-            <form (submit)="Add_reminder($event)">
-              <input type="date" id="rdate" placeholder="select date" >
-              <input type="submit" value="save">
             </form>
           </div>
         </div>
@@ -155,7 +181,36 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
+  <!-- <div class="row">
+    <div class="col">
+      <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let note of a" cdkDrag>{{note.title}}</div>
+    </div>
+    </div>
+    <div class="col">
+      <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let note of b" cdkDrag>{{note.title}}</div>
+    </div>
+    </div>
+    <div class="col">
+        Sharlawar
+    </div>
+  </div> -->
+
+
     <!-- The Modal -->
     <div class="modal fade" id="myModal1">
       <div class="modal-dialog">

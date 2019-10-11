@@ -77,7 +77,7 @@
     </div>
     
 <!-- ******************* Retriving Creating Notes ******************  -->
-  <div class="notes_container"  colspan="3" cdkDropList cdkDropListOrientation="vertical"
+  <div class="notes_container"  colspan="3" cdkDropList cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)" [ngClass]="{'view':view === 'Grid','view_list':view === 'List'}" [style.height]="height">
     <div *ngFor ="let note_value of data"  class="notes_cards" [style.background-color]="note_value.color" 
     cdkDragBoundary=".notes_container"  cdkDrag>

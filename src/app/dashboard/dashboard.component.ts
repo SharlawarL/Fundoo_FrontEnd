@@ -4,8 +4,9 @@ import { AuthService } from '../service/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MessagingService } from "../service/messaging.service";
 import { trigger, state, transition, animate, style } from '@angular/animations';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
   public search =  true;
   searchText;
   profileForm: FormGroup;
+  private readonly notifier: NotifierService;
 
   constructor
   (
@@ -41,7 +43,9 @@ export class DashboardComponent implements OnInit {
         private route: ActivatedRoute,
         private Note : NotesService,
         private rout: Router,
-        private messagingService: MessagingService
+        private messagingService: MessagingService,
+        notifierService: NotifierService,
+        public toastr: ToastrManager
   ){}
 
   ngOnInit():void 
@@ -51,7 +55,6 @@ export class DashboardComponent implements OnInit {
     {
       this.rout.navigate(['login'],{relativeTo: this.route});
     }
-    console.log("lalit "+this.token)
     //loading data on load
     this.get_Notes()
     this.get_user()
@@ -231,17 +234,14 @@ export class DashboardComponent implements OnInit {
   {
     event.preventDefault();
     const target = event.target
-    let photo_data = "photo="+this.imageSrc
+    var photo_data = {photo:this.imageSrc,token: this.token}
     this.Auth.change_photo(photo_data).subscribe(
       (res: Response) => {
-        console.log(res)
+        this.ngOnInit()
+        this.toastr.successToastr('Photo successully updated.', 'Success!');
       }
     )
   }
-  // showSuccess() {
-  //   this.toastr.success('Hello world!', 'Toastr fun!');
-  // }
-
   showSearch(){
     this.search = false
     this.ngOnInit()

@@ -149,7 +149,6 @@ export class NotesComponent implements OnInit{
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
       this.height = (this.data.length/3)*200+200+"px";
-      console.log(note_data)
       var Notes_a: Array<string>  = []; 
       var Notes_b: Array<string>  = []; 
       var Notes_c: Array<string>  = []; 
@@ -174,10 +173,6 @@ export class NotesComponent implements OnInit{
       this.a = Notes_a;
       this.b = Notes_b;
       this.c = Notes_c;
-      //console.log("A array :"+this.data[0]['title'])
-      console.log(Notes_a)
-      console.log(Notes_b)
-      console.log(Notes_c)
     })
   }
 

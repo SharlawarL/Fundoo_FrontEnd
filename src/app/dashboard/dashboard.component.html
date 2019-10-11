@@ -43,14 +43,8 @@
   <!-- drop down menu for user -->
   <div class="dropdown dropdown-right" data-toggle="tooltip" title="Profile" *ngFor ="let u of user_data;">
     <a class="dropdown-toggle" data-toggle="dropdown">
-      <div *ngIf="!u.photo">
-        <img src="../../assets/images/profile.png" 
-        class="img-circle" width="40px" height="40px"> <span class="caret"></span>
-      </div>
-      <div *ngIf="u.photo">
-        <img src="{{ u.photo }}" class="img-circle" width="40px" height="40px"> 
-        <span class="caret"></span>
-      </div>
+        <img src="../../assets/images/profile.png" class="img-circle" *ngIf="!u.photo">
+        <img src="{{ u.photo }}" class="img-circle" *ngIf="u.photo">    
     </a>
     <ul class="dropdown-menu profile">
       <div class="row">
@@ -129,13 +123,11 @@
 
     <div class="container">
         <!-- ******************* Retriving Creating Notes ****************** -->
-        <div class="d-flex flex-wrap"  colspan="3"
-        cdkDropListOrientation="horizontal"
-        (cdkDropListDropped)="drop($event)" >
+        <div class="d-flex flex-wrap"  colspan="3">
         
         <div class="notes_cards" 
          *ngFor ="let note_value of data | search:searchText "  [style.background-color]="note_value.color"
-         fxLayout="row" fxLayoutAlign="start start" cdkDrag>
+         fxLayout="row" fxLayoutAlign="start start">
           
             <div class="card-body">
               <input type="hidden" id="note_id" >
@@ -218,7 +210,7 @@
             </div>
             <div class="modal-header">
                 <img [src]="imageSrc || '../../assets/images/profile.png'"
-                class="img-circle" width="100px" height="100px">
+                 width="100px" height="100px">
               <input type="file" id="photo" (change)="readURL($event);">
             </div>
             <div class="modal-footer">

@@ -9,6 +9,7 @@ import {  SocialService } from "ng6-social-button";
 import { NotifierService } from 'angular-notifier';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { map, count } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class NotesComponent implements OnInit{
   public temp: any;
   loading: boolean;
   public token = localStorage.getItem('User')
+  public firebase_token = localStorage.getItem('firebase_token')
   public modelClass = "notes_cards"
   public model_id : any;
   public model_title : any;
@@ -51,6 +53,8 @@ export class NotesComponent implements OnInit{
   view:String;
   public data_notes: any;
   public height: string;
+  myDate = new Date();
+  CurrentDate: any
   shareObj = {
     href: "http://www.facebook.com/sharer.php?u=www.google.com&text=lalitsharlawar",
     hashtag:"#FACEBOOK-SHARE-HASGTAG"
@@ -66,6 +70,7 @@ export class NotesComponent implements OnInit{
         private rout: Router,
         private socialAuthService: SocialService,
         notifierService: NotifierService,
+        private datePipe: DatePipe,
         public toastr: ToastrManager
         ) { 
           this.notifier = notifierService;
@@ -78,6 +83,9 @@ export class NotesComponent implements OnInit{
         this.get_labelsnote()
         this.get_color()
         this.Notes.currentView.subscribe(view => this.view = view)
+        //console.log(this.myDate)
+        this.CurrentDate = this.datePipe.transform(this.myDate,"MMM d, y, h:mm a")
+        console.log(this.CurrentDate)
   }
 
   // Adding New Notes
@@ -138,6 +146,14 @@ export class NotesComponent implements OnInit{
       let Notes_data = 'note_id='+id+'&&color='+color+'&&token='+this.token
       this.Notes.Update_color(Notes_data).subscribe(data=>{ 
         this.ngOnInit()
+      })
+  }
+  change_color_model(color : any,id : any)
+  {
+      let Notes_data = 'note_id='+id+'&&color='+color+'&&token='+this.token
+      this.Notes.Update_color(Notes_data).subscribe(data=>{ 
+        this.ngOnInit()
+        this.model_color = color
       })
   }
 
@@ -223,10 +239,12 @@ export class NotesComponent implements OnInit{
     event.preventDefault()
     const target = event.target
     const rdate = target.querySelector('#rdate').value
+    this.CurrentDate = this.datePipe.transform(rdate,"M/d/yyyy, H:mm")
     const id = target.querySelector('#note_id').value
-    let Notes_data = 'note_id='+id+'&&rdate='+rdate+'&&token='+this.token
+    let Notes_data = 'note_id='+id+'&&rdate='+this.CurrentDate+'&&token='+this.token+"&&firebase_token="+this.firebase_token
     this.Notes.Update_reminderdate(Notes_data).subscribe(data=>{ 
       this.ngOnInit()
+      this.toastr.successToastr('Reminder is updated.', 'Success!');
     })
   }
 
@@ -242,6 +260,7 @@ export class NotesComponent implements OnInit{
     let Notes_data = 'note_id='+id+'&&title='+title+'&&Notes='+Notes+'&&reminder='+reminder
     this.Notes.Update_Notes(Notes_data).subscribe(data=>{
       this.ngOnInit()
+      this.toastr.successToastr('Notes is updated.', 'Success!');
     })
   }
 

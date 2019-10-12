@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   public view_set = "Grid"
   public imageSrc :  any;
   view:String;
-  message;
+  public message: any;
   selecteded;
   public search =  true;
   searchText;
@@ -62,8 +62,8 @@ export class DashboardComponent implements OnInit {
     this.messagingService.requestPermission(this.token)
     this.messagingService.receiveMessage()
     this.message = this.messagingService.currentMessage
-    this.rout.navigate(['notes'],{relativeTo: this.route});
     this.Note.currentView.subscribe(view => this.view = view)
+    console.log("message -->"+this.message)
   }
 
   //hidding take note

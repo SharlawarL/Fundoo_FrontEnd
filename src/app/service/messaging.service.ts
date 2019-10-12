@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class MessagingService {
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
+    public toastr: ToastrManager,
     private angularFireMessaging: AngularFireMessaging) {
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
@@ -48,8 +50,9 @@ export class MessagingService {
   requestPermission(userId) {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
-        console.log("token --->",token);
+        console.log("Token __>>"+ token)
         this.updateToken(userId, token);
+        localStorage.setItem('firebase_token',token)
       },
       (err) => {
         console.error('Unable to get permission to notify.', err);
@@ -61,9 +64,10 @@ export class MessagingService {
    * hook method when new notification received in foreground
    */
   receiveMessage() {
+    console.log("Lalit Notification")
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
-        console.log("new message received. ", payload);
+        this.toastr.warningToastr(payload['notification']['body'], payload['notification']['title']);
         this.currentMessage.next(payload);
       })
   }

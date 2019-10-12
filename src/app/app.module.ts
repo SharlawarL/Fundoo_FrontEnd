@@ -45,6 +45,8 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
 import { MessagingService } from './service/messaging.service';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {DatePipe} from '@angular/common';
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -134,10 +136,12 @@ export function provideConfig() {
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
-    Ng6SocialButtonModule
+    Ng6SocialButtonModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
   ],
   providers: [
-    AuthService,AuthGuard,NotesService,MessagingService, AsyncPipe,
+    AuthService,AuthGuard,NotesService,MessagingService, AsyncPipe,DatePipe,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

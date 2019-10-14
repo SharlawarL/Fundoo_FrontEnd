@@ -164,6 +164,7 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
+      console.log(this.data)
       this.height = (this.data.length/3)*200+200+"px";
       var Notes_a: Array<string>  = []; 
       var Notes_b: Array<string>  = []; 

@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  baseUrl = environment.baseUrl;
+  private baseUrl : String = environment.baseUrl
   public siteUrl = 'User/';
 
   private header = new HttpHeaders({'Content-Type': 'application/json'});

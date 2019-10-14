@@ -21,7 +21,7 @@ interface User {
 })
 export class LoginService {
 
-  baseUrl = environment.baseUrl;
+  private baseUrl : String = environment.baseUrl
   public siteUrl = 'User/';
 
   private header = new HttpHeaders({'Content-Type': 'application/json'});

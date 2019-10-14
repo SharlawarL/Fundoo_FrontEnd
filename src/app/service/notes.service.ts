@@ -9,7 +9,7 @@ import { text } from '@angular/core/src/render3';
 })
 export class NotesService {
 
-  baseUrl = environment.baseUrl;
+  private baseUrl : String = environment.baseUrl
   public siteUrl = 'Notes/';
 
   private viewSource = new BehaviorSubject('Grid');

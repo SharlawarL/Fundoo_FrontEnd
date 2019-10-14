@@ -83,11 +83,14 @@
     cdkDragBoundary=".notes_container"  cdkDrag>
     <!-- <div  class="card-body custom-placeholder" *cdkDragPlaceholder></div> -->
     <div >
+        <div class="check">
+          <i class="fa fa-check-square" style="background-color:white;"></i>
+        </div>
       <div class="card-body" style="width: 100%;text-align: justify;word-wrap: break-word;" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
         <input type="hidden" id="note_id">
-        <div class="notes_title">
+        <!-- <div class="notes_title"> -->
           <h5> <b>{{note_value.title}}  </b></h5>
-        </div>
+        <!-- </div> -->
         <div style="width: 100%; word-wrap:wrap;height: 100%;text-align: justify">
         <p >{{note_value.Notes}}</p>
       </div>

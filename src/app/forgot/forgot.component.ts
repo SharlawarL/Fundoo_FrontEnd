@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot.component.css']
 })
 export class ForgotComponent implements OnInit {
-  private check_firstname = "";
-  private check_email = "";
+  public check_firstname = "";
+  public check_email = "";
 
   constructor(private Auth:AuthService, private router : Router) { }
 

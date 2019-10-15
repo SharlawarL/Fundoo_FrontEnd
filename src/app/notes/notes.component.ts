@@ -21,7 +21,7 @@ export class NotesComponent implements OnInit{
 
   @ViewChild('closebutton') closebutton;
   lebel_list = []
-  private show = true;
+  public show = true;
   public data: any;
   public a: any;
   public b: any;
@@ -164,32 +164,9 @@ export class NotesComponent implements OnInit{
     //getting data from service
     this.Notes.Get_Notes(user_token).subscribe(note_data=>{
       this.data = note_data
-      console.log(this.data)
+      console.log("Notes data ===>"+this.data)
       this.height = (this.data.length/3)*200+200+"px";
-      var Notes_a: Array<string>  = []; 
-      var Notes_b: Array<string>  = []; 
-      var Notes_c: Array<string>  = []; 
-      for(let value of this.data)
-      {
-        if(value.index_no == (this.count_a-1))
-        {
-          Notes_a.push(value);
-          this.count_a = this.count_a +3;
-        }
-        if(value.index_no == (this.count_b-1))
-        {
-          Notes_b.push(value);
-          this.count_b = this.count_b +3;
-        }
-        if(value.index_no == (this.count_c-1))
-        {
-          Notes_c.push(value);
-          this.count_c = this.count_c +3;
-        }
-      }
-      this.a = Notes_a;
-      this.b = Notes_b;
-      this.c = Notes_c;
+      
     })
   }
 

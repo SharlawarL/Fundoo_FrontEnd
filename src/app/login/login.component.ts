@@ -44,12 +44,12 @@ declare const changeSide: any;
 })
 export class LoginComponent implements OnInit {
 
-  private Email ="";
-  private Password ="";
-  private box_color = "silver";
+  public Email ="";
+  public Password ="";
+  public box_color = "silver";
   public success : boolean;
   public message = "";
-  private user: SocialUser;
+  public user: SocialUser;
   public userdata: any;
   public social : string;
   currentState = 'initial';

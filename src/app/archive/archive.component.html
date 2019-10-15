@@ -5,14 +5,14 @@ cdkDropListOrientation="horizontal"
 (cdkDropListDropped)="drop($event)" >
 
 <div class="notes_cards" 
- *ngFor ="let note_value of data | archive"  [style.background-color]="note_value.color"
+ *ngFor ="let noteValue of data | archive"  [style.background-color]="noteValue.color"
  fxLayout="row" fxLayoutAlign="start start" cdkDrag>
   
-    <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)">
+    <div class="card-body" data-toggle="modal" data-target="#myModal1" (click)="modelBox(noteValue)">
       <input type="hidden" id="note_id" >
-      <h5> <b>{{note_value.title}} </b></h5>
-      <p>{{note_value.Notes}}</p>
-      <p><i class="far fa-clock-o"></i> {{note_value.reminder}}</p>
+      <h5> <b>{{noteValue.title}} </b></h5>
+      <p>{{noteValue.Notes}}</p>
+      <p><i class="far fa-clock-o"></i> {{noteValue.reminder}}</p>
     </div>
     <div class="options">
       <!-- For reminder -->
@@ -23,8 +23,8 @@ cdkDropListOrientation="horizontal"
             <b>Reminder</b>
             <div class="row">
               <form (submit)="update_reminder($event)">
-                <input type="hidden" id="note_id" placeholder="select date" value="{{ note_value.note_id }}" >
-                <input type="date" id="rdate" placeholder="select date" value="{{ note_value.reminder }}" >
+                <input type="hidden" id="note_id" placeholder="select date" value="{{ noteValue.note_id }}" >
+                <input type="date" id="rdate" placeholder="select date" value="{{ noteValue.reminder }}" >
                 <input type="submit" value="add">
               </form>
             </div>
@@ -41,20 +41,20 @@ cdkDropListOrientation="horizontal"
           <div class="dropdown-menu color_set" aria-labelledby="color_set">
               <div *ngFor ="let c of color_set">
                 <div class="color_box" [style.background-color]="c.color" 
-                (click)="change_color(c.color,note_value.note_id)"></div>
+                (click)="change_color(c.color,noteValue.note_id)"></div>
               </div>
           </div>
       </div>  
       <!-- For Archive -->
       <div class="option_list">
-        <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+        <i class="fa fa-caret-square-o-up" (click)="archive(noteValue)" data-toggle="tooltip" title="Archive"></i>
       </div>
       <!-- More option in right side -->
-      <div class="option_list dropdown">
+      <div class="option_list dropdown">noteValue
       <i class="btn btn-secondary dropdown-toggle" class="fa fa-ellipsis-v"
         id="moreoption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
           <div class="dropdown-menu" aria-labelledby="moreoption">
-            <a class="dropdown-item" (click)="trash(note_value)">Delete Note</a>
+            <a class="dropdown-item" (click)="trash(noteValue)">Delete Note</a>
             <a class="dropdown-item" >Add Lebel</a>
             <a class="dropdown-item" >Something else here</a>
           </div>

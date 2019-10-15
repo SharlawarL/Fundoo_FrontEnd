@@ -102,8 +102,8 @@
             <i class="fa fa-clock-o"></i> {{ note_value.reminder | date :'MMM d, y, h:mm a'}}
         </div> -->
         </div>
-        <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id">
-          {{ lebels.lebel }} <b (click)="remove_label(lebels.id)"> &times;</b>
+        <div class="lebel_tag" *ngFor="let lebels of lebel_data | lebel: note_value.note_id" (click)="remove_label(lebels.id)">
+          {{ lebels.lebel }} <b > &times;</b>
         </div>
       </div>
       <div class="option_box">.
@@ -270,11 +270,11 @@
                         </div> 
                     <!-- For Archive -->
                     <div class="option_list">
-                        <i class="fa fa-caret-square-o-up" (click)="archive(note_value)" data-toggle="tooltip" title="Archive"></i>
+                        <i class="fa fa-caret-square-o-up" data-toggle="tooltip" title="Archive"></i>
                       </div>
                     <!-- For Archive -->
                     <!-- <input type="submit" class="btn" value="Close">  -->
-                    <input type="submit" value="Save" id='closebutton' [ngStyle]="{'background-color': model_color,'border': model_color,'box-shadow':'0px 0px 10px black','border':'1px solid black'}" style="color:black">
+                    <input type="submit" value="Save" id='closebutton' [ngStyle]="{'background-color': model_color,'box-shadow':'0px 0px 10px black','border':'1px solid black'}" style="color:black">
                     <!-- <button type="button" id='closebutton'>Close</button> -->
                   </div>
             </form>

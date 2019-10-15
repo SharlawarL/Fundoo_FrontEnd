@@ -15,7 +15,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 export class ReminderComponent implements OnInit{
 
   @ViewChild('closebutton') closebutton;
-  private show = true;
+  public show = true;
   public data: any;
   public lebel: any;
   public lebel_data: any;

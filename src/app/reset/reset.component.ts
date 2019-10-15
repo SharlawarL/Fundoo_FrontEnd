@@ -13,8 +13,8 @@ export class ResetComponent implements OnInit {
   public error = [];
   public User_check = String
 
-  private check_Password = "";
-  private check_Passwordcc = "";
+  public check_Password = "";
+  public check_Passwordcc = "";
 
   public form = {
     resetToken : null

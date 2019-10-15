@@ -10,11 +10,11 @@ import { FormControl } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  private check_firstname = "";
-  private check_lastname = "";
-  private check_Email = "";
-  private check_Password = "";
-  private check_Passwordcc = "";
+  public check_firstname = "";
+  public check_lastname = "";
+  public check_Email = "";
+  public check_Password = "";
+  public check_Passwordcc = "";
 
 
   constructor(private Auth:AuthService, private router : Router) { }

@@ -4,6 +4,7 @@ import { NotesComponent } from './notes.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {HttpClientModule} from '@angular/common/http';
+import { NotesPipe } from '../pipe/notes.pipe';
 
 describe('NotesComponent', () => {
   let component: NotesComponent;
@@ -30,4 +31,11 @@ describe('NotesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ NotesPipe, NotesComponent ]
+    })
+    .compileComponents();
+  }));
 });

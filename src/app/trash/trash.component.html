@@ -1,12 +1,10 @@
 <div class="container">
 <!-- ******************* Retriving Creating Notes ****************** -->
-<div class="d-flex flex-wrap"  colspan="3"
-cdkDropListOrientation="horizontal"
-(cdkDropListDropped)="drop($event)" >
+<div class="d-flex flex-wrap"  colspan="3">
 
 <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}"
  *ngFor ="let note_value of total_notes | trash"  [style.background-color]="note_value.color"
- fxLayout="row" fxLayoutAlign="start start" cdkDrag>
+ fxLayout="row" fxLayoutAlign="start start">
   
     <div class="card-body">
       <input type="hidden" id="note_id" >

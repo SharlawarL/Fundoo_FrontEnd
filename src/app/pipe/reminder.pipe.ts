@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ReminderPipe implements PipeTransform {
 
   transform(data: any, args?: any): any {
+    if (!data) return null;
     return data.filter((notes_value) => (notes_value.reminder != '' &&
     notes_value.is_trash != '1' && notes_value.is_archive   != '1'));
   }

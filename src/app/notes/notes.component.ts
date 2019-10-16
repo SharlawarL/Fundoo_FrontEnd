@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {  SocialService } from "ng6-social-button";
 import { NotifierService } from 'angular-notifier';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { map, count } from 'rxjs/operators';
@@ -68,7 +67,6 @@ export class NotesComponent implements OnInit{
         private Notes: NotesService,
         private route: ActivatedRoute,
         private rout: Router,
-        private socialAuthService: SocialService,
         notifierService: NotifierService,
         private datePipe: DatePipe,
         public toastr: ToastrManager
@@ -325,10 +323,6 @@ export class NotesComponent implements OnInit{
   }
 
 
-  // for sharing on facebook
-  public facebookSharing(shareObj: any){
-    this.socialAuthService.facebookSharing(shareObj);
-  }
 
   // for notification
   notify()

@@ -50,11 +50,10 @@
         </div>
       </div>
   <!-- ******************* Retriving Creating Notes ****************** -->
-  <div class="notes_container"  colspan="3" cdkDropList #todoList="cdkDropList" 
-    cdkDropListOrientation="horizontal" [cdkDropListData]="data" (cdkDropListDropped)="drop($event)">
+  <div class="notes_container"  colspan="3">
               
     <div class="notes_cards"  [ngClass]="{'view':view === 'Grid'}" *ngFor ="let note_value of data | reminder"  [style.background-color]="note_value.color"
-      fxLayout="row" fxLayoutAlign="start start"  cdkDrag>
+      fxLayout="row" fxLayoutAlign="start start">
       <div class="card-body" style="overflow:hidden;"  data-toggle="modal" data-target="#myModal1" (click)="modelBox(note_value)"  >
         <input type="hidden" id="note_id" >
         <h5> <b>{{note_value.title}} </b></h5>

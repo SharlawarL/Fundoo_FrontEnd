@@ -183,21 +183,6 @@ export class ReminderComponent implements OnInit{
     })
   }
 
-
-  //for drag nd drop of notes
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      let drag_data = "previous="+event.previousIndex+"&&next="+event.currentIndex+"&&token="+this.token
-      this.Notes.Update_notesindex(drag_data).subscribe(data=>{ this.get_Notes()  })
-    } else {  
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
-  }
-
   //for trash the Notes
   trash(note_data : any)
   {

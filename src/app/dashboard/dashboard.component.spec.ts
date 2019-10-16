@@ -5,6 +5,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SearchPipe} from '../pipe/search.pipe';
+import { MessagingService }from '../service/messaging.service';
+import { AngularFireDatabase,AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { NotifierModule } from 'angular-notifier';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -12,13 +21,21 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
+      declarations: [ SearchPipe,DashboardComponent ],
       imports: [    
         RouterTestingModule,
         HttpClientTestingModule,
         HttpClientModule,
-        FormsModule 
+        FormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+        ToastrModule.forRoot(),
+        AngularFireMessagingModule,
+        NotifierModule
+        
       ],
+      providers: [MessagingService,AngularFireDatabase]
     })
     .compileComponents();
   }));

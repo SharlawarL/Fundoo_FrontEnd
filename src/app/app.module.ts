@@ -35,7 +35,7 @@ import { LebelPipe } from './pipe/lebel.pipe';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule,AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  Ng6SocialButtonModule,SocialServiceConfig  } from "ng6-social-button";
@@ -47,6 +47,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {DatePipe} from '@angular/common';
+import {CommonModule} from "@angular/common";
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -104,15 +105,10 @@ export function provideConfig() {
     NotesComponent,
     ArchiveComponent,
     ForgotComponent,
-    ResetComponent,
-    NotesPipe,
-    ReminderPipe,
-    TrashPipe,
-    ArchivePipe,
-    LebelPipe,
-    SearchPipe,
+    ResetComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -140,8 +136,9 @@ export function provideConfig() {
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
   ],
+  exports:[ArchivePipe, NotesPipe,ReminderPipe,TrashPipe,LebelPipe,SearchPipe,],
   providers: [
-    AuthService,AuthGuard,NotesService,MessagingService, AsyncPipe,DatePipe,
+    AuthService,AuthGuard,NotesService,MessagingService, AsyncPipe,DatePipe,AngularFirestore,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

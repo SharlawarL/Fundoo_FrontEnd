@@ -1,12 +1,16 @@
-var PORT = process.env.PORT || 4200;
-var express = require('express');
-var app = express();
+//Install express server
+const express = require('express');
+const path = require('path');
 
-var http = require('http');
-var server = http.Server(app);
+const app = express();
 
-app.use(express.static('client'));
+// Serve only the static files form the dist directory
+app.use(express.static(__dirname + '/dist/ANGULAR'));
 
-server.listen(PORT, function() {
-  console.log('Chat server running');
+app.get('/*', function(req,res) {
+    
+res.sendFile(path.join(__dirname+'/dist/ANGULAR/index.html'));
 });
+
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);

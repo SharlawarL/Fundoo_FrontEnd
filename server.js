@@ -1,12 +1,12 @@
-const express = require('express').path= require('path');
+var PORT = process.env.PORT || 4200;
+var express = require('express');
+var app = express();
 
-const app=express();
+var http = require('http');
+var server = http.Server(app);
 
-app.use(express.static('../dist/angular'));
+app.use(express.static('client'));
 
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'/dist/angular/index.html'));
+server.listen(PORT, function() {
+  console.log('Chat server running');
 });
-app.listen(process.env.PORT || 8080, ()=>{
-    console.log('Server Started')
-})

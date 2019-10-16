@@ -105,7 +105,8 @@ export function provideConfig() {
     NotesComponent,
     ArchiveComponent,
     ForgotComponent,
-    ResetComponent
+    ResetComponent,
+    ArchivePipe,NotesPipe,ReminderPipe,TrashPipe,LebelPipe,SearchPipe
   ],
   imports: [
     CommonModule,

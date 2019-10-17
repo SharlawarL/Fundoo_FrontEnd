@@ -5,6 +5,4 @@ describe('ArchivePipe', () => {
     const pipe = new ArchivePipe();
     expect(pipe).toBeTruthy();
   });
-  
 });
-

@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'archive',
-  pure: false
+  name: 'archive'
 })
 export class ArchivePipe implements PipeTransform {
 

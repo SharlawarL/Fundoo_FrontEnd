@@ -3,7 +3,6 @@ import { NotesService } from '../service/notes.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {CommonModule} from "@angular/common";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 

@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   baseUrl :'http://localhost/Fundoo_BackEnd/',
   firebase: {
     apiKey: "AIzaSyDcnMVmePF2cgpMdcKVwNVXQmQG8KdZlpY",

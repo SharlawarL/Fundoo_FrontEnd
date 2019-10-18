@@ -1,18 +1,68 @@
-<div class="body">
+<div class="body" >
+
+                    <div class="card">
+                        <h4 style="font-family:arial"> <b style="color:#008ae6">Fu</b><b style="color:#ff471a">nd</b><b style="color:#ffcc00">o</b><b style="color:#00cc00">o</b></h4>
+                      <label>  <h3 style="font-family:arial">Sign In </h3></label>
+                        <div class="form-group social">
+                            <!-- <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <a (click)="googleLogin()" class="google" data-toggle="tooltip" title="Google +"> <i  class="fab fa-google-plus-g" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <a (click)="twitterLogin()" class="twitter" data-toggle="tooltip" title="Twitter"> <i  class="fab fa-twitter" ></i></a> <br> -->
+                            <a href="#" class="fb socialbtn">
+                                &nbsp;<i class="fab fa-facebook-f"></i>&nbsp;
+                             </a>
+                            <a href="#" class="twitter socialbtn">
+                                &nbsp;<i class="fab fa-twitter"></i>&nbsp;
+                            </a>
+                            <a href="#" class="google socialbtn">
+                              <i class="fab fa-google-plus-g"></i>
+                            </a>
+                            <div><br>
+                              <b style="font-family:arial">Or Use your Account</b>
+                            </div>
+                          </div>
+                        {{ message }}
+                        <form (submit)="loginUser($event)" autocomplete="off">
+                          
+                          <div class="form-group">
+                              {{ Email }} 
+                            <input type="text" class="form-control" id="email" placeholder="Enter E-mail"
+                            [ngStyle]="{'border-color':box_color === 'silver' ? 'silver' : 'red' }">
+                          </div>
+                          <div class="form-group" >
+                              {{ Password }}
+                            <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" value="Login" class="btn btn-primary box">
+                          </div>
+                          <div class="form-group">
+                            <hr>
+                              <a routerLink="/"  style="font-family:arial">Home Page</a> &nbsp;&nbsp;| &nbsp;&nbsp; 
+                              <a routerLink="/register" style="font-family:arial">Create User</a>&nbsp;&nbsp; | &nbsp;&nbsp; 
+                              <a routerLink="/forgot" style="font-family:arial">Forgot password</a> 
+                          </div>
+                        </form>
+                      </div>
+                </div>
+
+
+
+
+<!-- <div class="body">
 <div class="container">
   <br><br><br>
   <div class="row">
-    <div class="col-md-6s">
+    <div class="col-md-12">
         <div class="flip-card">
             <div class="flip-card-inner" id="flip-card-inner" [class.voted]="flipped">
               <div class="flip-card-front">
                   <div class="card">
                     <label>  <h3>Sign In </h3></label>
                       <div class="form-group social">
-                          <!-- <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
+                           <a (click)="signInWithFB()" class="fb" data-toggle="tooltip" title="Facebook"><i  class="fab fa-facebook-f" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
                           <a (click)="googleLogin()" class="google" data-toggle="tooltip" title="Google +"> <i  class="fab fa-google-plus-g" ></i></a>   &nbsp;&nbsp;-&nbsp;&nbsp;
                           <a (click)="twitterLogin()" class="twitter" data-toggle="tooltip" title="Twitter"> <i  class="fab fa-twitter" ></i></a> <br> -->
-                          <a href="#" class="fb socialbtn">
+                          <!-- <a href="#" class="fb socialbtn">
                               &nbsp;<i class="fab fa-facebook-f"></i>&nbsp;
                            </a>
                           <a href="#" class="twitter socialbtn">
@@ -48,8 +98,8 @@
                         </div>
                       </form>
                     </div>
-              </div>
-              <div class="flip-card-back">
+              </div> -->
+              <!-- <div class="flip-card-back">
                   <div class="card" >
                       <label>  <h3>Sign Up</h3></label>
                       <hr>
@@ -78,9 +128,9 @@
                     </div>
                   </div>
               </div>
-            </div>
+            </div> 
           </div>    
     <div class="col-3">
     </div>
 </div>
-</div>
+</div> -->

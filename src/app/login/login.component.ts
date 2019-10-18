@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
     const target = event.target
     let user_data = "email="+target.querySelector('#email').value+"&&password="+target.querySelector('#password').value
     this.login.User_login(user_data).subscribe((res: Response) => {
+      console.log(res)
       if(res["success"])
       {
         localStorage.setItem('User',res["Token"])

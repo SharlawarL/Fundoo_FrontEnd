@@ -48,6 +48,7 @@ import { NotifierModule } from 'angular-notifier';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {DatePipe} from '@angular/common';
 import {CommonModule} from "@angular/common";
+import { ParticlesModule } from 'angular-particle';
 import {
   GoogleApiModule, 
   GoogleApiService, 
@@ -129,6 +130,7 @@ export function provideConfig() {
     AngularFireAuthModule,
     ToastrModule.forRoot(),
     NotifierModule,
+    ParticlesModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig

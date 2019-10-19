@@ -28,7 +28,9 @@ a{
 }
 .content
 {
-    top: 80%;
+    position: absolute;
+    width: 1200px;
+    bottom: 10%;
     margin-top: 250px;
 }
   body {
@@ -145,6 +147,13 @@ a{
     border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
     box-shadow: none;
   }
+  .content
+{
+    position: relative;
+    width: 100%;
+    bottom: 10%;
+    margin-top: 250px;
+}
 
 }
 

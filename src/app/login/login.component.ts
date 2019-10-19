@@ -44,9 +44,10 @@ declare const changeSide: any;
 })
 export class LoginComponent implements OnInit {
 
-  public Email ="";
-  public Password ="";
-  public box_color = "silver";
+  public Email = null;
+  public Password = null;
+  public Email_box_color = "silver";
+  public pass_box_color = "silver";
   public success : boolean;
   public message = "";
   public user: SocialUser;
@@ -91,14 +92,17 @@ export class LoginComponent implements OnInit {
         // If error value will be return
         if(res["email"]){
           this.Email = res["email"];
-          //this.box_color = "red"
+          this.Email_box_color = "red"
         }else{
           this.Email = "";
+          this.Email_box_color = "silver"
         }
         if(res["password"]){
           this.Password = res["password"];
+          this.pass_box_color = "red"
         }else{
           this.Password = "";
+          this.pass_box_color = "silver"
         }
         this.login.setLog(false)
       }

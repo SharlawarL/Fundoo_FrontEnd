@@ -10,13 +10,16 @@ import { FormControl } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  public check_firstname = "";
-  public check_lastname = "";
-  public check_Email = "";
-  public check_Password = "";
-  public check_Passwordcc = "";
-
-
+  public check_firstname = null;
+  public check_lastname = null;
+  public check_Email = null;
+  public check_Password = null;
+  public check_Passwordcc = null;
+  public firstname_box = "silver";
+  public lastname_box = "silver";
+  public email_box = "silver";
+  public pass_box = "silver";
+  public cpass_box = "silver";
   constructor(private Auth:AuthService, private router : Router) { }
 
   ngOnInit(): void {
@@ -47,36 +50,43 @@ export class RegisterComponent implements OnInit {
         // for first name
         if(myObjStr["firstname"]){
           this.check_firstname = myObjStr["firstname"];
-          //this.box_color = "red"
+          this.firstname_box = "red";
         }else{
           this.check_firstname = "";
+          this.firstname_box = "silver";
         }
         //for last name
         if(myObjStr["lastname"]){
           this.check_lastname = myObjStr["lastname"];
-          //this.box_color = "red"
+          this.lastname_box = "red";
         }else{
           this.check_lastname = "";
+          this.lastname_box = "silver";
         }
         //for email
         if(myObjStr["email"]){
           this.check_Email = myObjStr["email"];
-          //this.box_color = "red"
+          this.email_box = "red";
         }else{
           this.check_Email = "";
+          this.email_box = "silver";
         }
         //for password
         if(myObjStr["password"]){
           this.check_Password = myObjStr["password"];
+          this.pass_box = "red";
         }else{
           this.check_Password = "";
+          this.pass_box = "silver";
         }
 
         //for conform password
         if(myObjStr["passwordcc"]){
           this.check_Passwordcc = myObjStr["passwordcc"];
+          this.cpass_box = "red";
         }else{
           this.check_Passwordcc = "";
+          this.cpass_box = "silver";
         }
       }
       //console.log(data,"Data from to the server")

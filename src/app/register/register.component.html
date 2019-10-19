@@ -1,4 +1,59 @@
 <div class="body">
+  <div class="container">
+          <div class="card">
+            <div  class="box-left">
+              <h4 style="font-family:arial"> <b style="color:#008ae6">Fu</b><b style="color:#ff471a">nd</b><b style="color:#ffcc00">o</b><b style="color:#00cc00">o</b></h4>
+              <label>  <h3 style="font-family:arial">Create your Fundoo Account</h3></label>
+                    <form (submit)="registerUser($event)" autocomplete="off">
+                    
+                      <div class="form-name">
+                        <div class="name">
+                          <p [ngStyle]="{'color':firstname_box}">{{ check_firstname }} </p>
+                          <input type="text" id="firstname" placeholder="Enter FirstName" class="form-control"  [ngStyle]="{'border-color':firstname_box,'color':firstname_box}">
+                        </div>
+                        <div class="name">
+                            <p [ngStyle]="{'color':lastname_box}">{{ check_lastname }} </p>
+                          <input type="text" id="lastname" placeholder="Enter LastName" class="form-control" [ngStyle]="{'border-color':lastname_box}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <p [ngStyle]="{'color':email_box}">{{ check_Email }} </p>
+                        <input type="text" id="email" placeholder="Enter E-mail" class="form-control" [ngStyle]="{'border-color':email_box}">
+                        <p>You can use letters, numbers and Periods</p>
+                      </div>
+                      <div class="form-name">
+                        <div class="name">
+                            <p [ngStyle]="{'color':pass_box}">{{ check_Password }} </p>
+                        <input type="password" id="password" placeholder="Enter Password" class="form-control" [ngStyle]="{'border-color':pass_box}">
+                        </div>
+                        <div class="name">
+                            <p [ngStyle]="{'color':cpass_box}">{{ check_Passwordcc }}  </p>
+                            <input type="password" id="passwordcc" placeholder="Conform Password" class="form-control" [ngStyle]="{'border-color':cpass_box}">
+                        </div>
+                      </div>
+                      <div class="form-name">
+                        <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" value="Register" class="btn btn-primary box">
+                      </div> 
+                      <div class="form-group">
+                      <hr>
+                        <a routerLink="/" >Home Page</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+                        <a routerLink="/login" >login</a>
+                      </div>           
+                    </form>
+            </div>
+            <div class="box-right">
+              <img src="../../assets/images/google.svg" style="width: 100%;">
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+
+<!-- <div class="body">
 <div class="container">
     <br><br><br>
     <div class="row">
@@ -7,7 +62,7 @@
           <h5>Registrition Form</h5>
           <hr>
           <form (submit)="registerUser($event)" autocomplete="off">
-          <!-- For getting inputs from user -->
+          <!-- For getting inputs from user 
             <div class="form-group">
                 {{ check_firstname }} 
               <input type="text" id="firstname" placeholder="Enter FirstName" class="form-control" required>
@@ -41,4 +96,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

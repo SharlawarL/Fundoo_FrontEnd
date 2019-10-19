@@ -1,14 +1,17 @@
 .card{
+
     padding:20px 20px;
-    margin:20px 20px;
+    margin:20px auto;
     padding-top: 50px;
     padding-bottom: 50px;
-    box-shadow: 0px 0px 20px black;
+    box-shadow: 0px 0px 1px black;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
 }
 .body{
-    background-image: url('src/assets/images/back1.jpg');
+    /* background-image: url('src/assets/images/back1.jpg'); */
     background-size: cover;
-    height: 650px;
     color: gray;
     font-size: 15px;
 }
@@ -26,18 +29,51 @@ a{
     width: 100%;
 
 }
+.form-name{
+  width: 100%;  
+  display: flex;    
+}
+.name{
+  padding: 10px 5px; 
+  width: 50%;
+}
+.box-right{
+  width:50%;
+  padding: 50px 20px;
+  display: block;
+}
+.box-left{
+  width:60%;
+}
 @media screen and (max-width: 900px) {
-    .body{
-      height: 1000px;
-    }
+    
     .row{
       width: 100%;
     }
     .card{
-      padding:5px 5px;
-      margin:5px 5px;
+      box-shadow: 0px 0px 0px white;
+      padding:10px 15px;
+      margin:-5px -5px;
       padding-top: 50px;
       width: 100%;
-      margin-left: -10px;
+      display: block;
+    }
+    .box-right{
+      width:50%;
+      padding: 50px 20px;
+      display: none;
+    }
+    .box-left{
+      width:100%;
+    }
+    .form-name{
+      width: 100%;  
+      display: block;    
+    }
+    .name{
+      padding: 10px 5px; 
+      width: 100%;
     }
       }
+
+      

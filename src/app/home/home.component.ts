@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ParticlesModule } from 'angular-particle';
  
 @Component({
   selector: 'app-home',
@@ -6,13 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  params : object;
   myStyle: object = {};
   myParams: object = {};
   width: number = 100;
   height: number = 100;
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit() {
 this.myParams = {

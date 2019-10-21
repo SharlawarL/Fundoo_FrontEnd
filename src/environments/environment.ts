@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl :'http://localhost/Fundoo_BackEnd/',
+  baseUrl :'http://ijrise.com/Fundoo_BackEnd/',
   firebase: {
     apiKey: "AIzaSyDcnMVmePF2cgpMdcKVwNVXQmQG8KdZlpY",
     authDomain: "fandoo.firebaseapp.com",
